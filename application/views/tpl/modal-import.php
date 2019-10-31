@@ -3,7 +3,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h3 class="modal-title">Importar Dados</h3>
+				<h3 class="modal-title">Importação de Dados</h3>
 			</div>
 			<div class="modal-body">
 				<form method="post" action="<?= $importar ?>" enctype="multipart/form-data" class="form-horizontal form-bordered">
@@ -25,14 +25,12 @@
 											</span>
 										</div>
 										<span class="input-group-addon btn default btn-file">
-											<span class="fileinput-new">
-											Selecione o Arquivo </span>
-											<span class="fileinput-exists">
-											Alterar </span>
+											<span class="fileinput-new"> Selecione o Arquivo </span>
+											<span class="fileinput-exists"> Outro arquivo </span>
 											<input type="file" name="csvfile">
 										</span>
 										<a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">
-										Remove </a>
+										Remover </a>
 									</div>
 								</div>
 							</div>
