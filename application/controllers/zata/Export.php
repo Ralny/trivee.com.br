@@ -1,4 +1,5 @@
 <?php
+
 /** 
  * ZATA
  * 
@@ -62,7 +63,9 @@
  * @since     Versão 1.0.0 
  */
 
-defined('BASEPATH') OR exit('Não é permitido acesso direto ao script');
+header("Content-Type: text/html; charset=utf-8",true);
+
+defined('BASEPATH') or exit('Não é permitido acesso direto ao script');
 
 /**
  * Class Export 
@@ -75,135 +78,156 @@ defined('BASEPATH') OR exit('Não é permitido acesso direto ao script');
 class Export extends MY_Controller
 {
 
-  /** https://github.com/bcit-ci/CodeIgniter/wiki/Export-to-Excel-2013
+	/** https://github.com/bcit-ci/CodeIgniter/wiki/Export-to-Excel-2013
   https://www.w3school.info/2016/02/08/convert-html-to-pdf-in-codeigniter-using-mpdf/
-    * Método construtor
-    *
-    * @access  public
-    * @return  void
-    */
-  function __construct() 
-  {
-  	parent::__construct();
+	 * Método construtor
+	 *
+	 * @access  public
+	 * @return  void
+	 */
+	function __construct()
+	{
+		parent::__construct();
 
-      /**
-     * Identificador da empresa de origem do registro
-     * Company identifier of record source
-     */
-      $this->company = $this->session->userdata('token_company');
-
-
-   /**
-    * Carregando model
-    *
-    */
-   $this->load->model('zata/export_model');
- }
-
-  /**
-   * Faz a exportacao do CSV de Produtos
-   *
-   * @access  public
-   * @return  void
-   */
-  function get_csv_produtos() 
-  {
-      
-   $this->export_model->produtos_csv();     
+		/**
+		 * Identificador da empresa de origem do registro
+		 * Company identifier of record source
+		 */
+		$this->company = $this->session->userdata('token_company');
 
 
-  }//End Function
+		/**
+		 * Carregando model
+		 *
+		 */
+		$this->load->model('zata/export_model');
+	}
 
-  /**
-   * Faz a importação PDF de Produtos
-   *
-   * @access  public
-   * @return  void
-   */
-  function get_pdf_produtos() 
-  {
-      
-      //load mPDF library
-    $this->load->library('m_pdf');
-    //load mPDF library
- 
- 
-    //now pass the data//
-     $this->data['title_portlet']     = "MY PDF TITLE 1.";
-     $this->data['unidades_empresas'] = array();
+	/**
+	 * Faz a exportacao do CSV de Produtos
+	 *
+	 * @access  public
+	 * @return  void
+	 */
+	function get_csv_produtos()
+	{
 
-     //now pass the data //
- 
-    
-    $html= $this->load->view('produtos/relatorios/requisicao_x_produtos',$this->data, true); //load the pdf_output.php by passing our data and get all data in $html varriable.
+		$this->export_model->produtos_csv();
+	} //End Function
+
+	/**
+	 * Faz a importação PDF de Produtos
+	 *
+	 * @access  public
+	 * @return  void
+	 */
+	function get_pdf_produtos()
+	{
+
+		//load mPDF library
+		$this->load->library('m_pdf');
+		//load mPDF library
+
+
+		//now pass the data//
+		$this->data['title_portlet']     = "MY PDF TITLE 1.";
+		$this->data['unidades_empresas'] = array();
+
+		//now pass the data //
+
+
+		$html = $this->load->view('produtos/relatorios/requisicao_x_produtos', $this->data, true); //load the pdf_output.php by passing our data and get all data in $html varriable.
+
+		//this the the PDF filename that user will get to download
+		$pdfFilePath = "mypdfName-" . time() . "-download.pdf";
+
+
+		//actually, you can pass mPDF parameter on this load() function
+		$pdf = $this->m_pdf->load();
+		//generate the PDF!
+		$pdf->WriteHTML($html, 2);
+		//offer it to user via browser download! (The PDF won't be saved on your server HDD)
+		$pdf->Output($pdfFilePath, "D");
+	} //End Function
+
+	/**
+	 * Faz a importação PDF de Produtos
+	 *
+	 * @access  public
+	 * @return  void
+	 * https://www.studytutorial.in/how-to-export-data-from-database-to-excel-sheet-xls-using-codeigniter-php-tutorial
+	 */
+	function get_excel_produtos()
+	{
+
+		$this->load->model('zata/export_model');
+		$this->load->helper(array('form', 'url'));
+		$this->load->helper('download');
+		$this->load->library('PHPReport');
+
+		// get data from databse
+		$data = $this->export_model->produtos_excel();
+
+		// var_dump($data);exit;
+
+		$template = 'export_list_produtos.xlsx';
+		//set absolute path to directory with template files
+		$templateDir = './files/export/';
+
+		//set config for report
+		$config = array(
+			'template' => $template,
+			'templateDir' => $templateDir
+		);
+
+
+		//load template
+		$R = new PHPReport($config);
+
+		$R->load(
+			array(
+				'id' => 'pro_produtos',
+				'repeat' => TRUE,
+				'data' => $data
+			)
+		);
+
+		// define output directoy 
+		$output_file_dir = "./files/temp/";
+
+
+		$output_file_excel = $output_file_dir  . "Myexcel.xlsx";
+		//download excel sheet with data in /tmp folder
+		$result = $R->render('excel', $output_file_excel);
+
+		force_download($output_file_excel, NULL);
+	} //End Function
+
+	/**
+	 * Faz a exportacao de utilização de salas em CSV
+	 *
+	 * @access  public
+	 * @return  void
+	 */
+	function get_csv_eventos_utilizacao_de_salas()
+	{
+		$file_name = 'ZATA_EVENTOS_utilizacao_de_sala_'.date("Y-m-d h:i:s").'.csv';
    
-    //this the the PDF filename that user will get to download
-    $pdfFilePath ="mypdfName-".time()."-download.pdf";
- 
-    
-    //actually, you can pass mPDF parameter on this load() function
-    $pdf = $this->m_pdf->load();
-    //generate the PDF!
-    $pdf->WriteHTML($html,2);
-    //offer it to user via browser download! (The PDF won't be saved on your server HDD)
-    $pdf->Output($pdfFilePath, "D");
+		header('Content-Type: text/csv');
+		header('Content-Disposition: attachment; filename="'.$file_name.'"');
 
+		$query = $this->export_model->eventos_utilizacao_de_salas_csv();
 
-
-  }//End Function
-
-  /**
-   * Faz a importação PDF de Produtos
-   *
-   * @access  public
-   * @return  void
-   * https://www.studytutorial.in/how-to-export-data-from-database-to-excel-sheet-xls-using-codeigniter-php-tutorial
-   */
-  function get_excel_produtos() 
-  {
-      
-    $this->load->model('zata/export_model'); 
-    $this->load->helper(array('form', 'url'));
-    $this->load->helper('download');
-    $this->load->library('PHPReport');
-
-     // get data from databse
-      $data = $this->export_model->produtos_excel();
-
-     // var_dump($data);exit;
- 
-      $template = 'export_list_produtos.xlsx';
-      //set absolute path to directory with template files
-      $templateDir = './files/export/';
- 
-      //set config for report
-      $config = array(
-        'template' => $template,
-        'templateDir' => $templateDir
-      );
- 
- 
-      //load template
-      $R = new PHPReport($config);
- 
-      $R->load(array(
-              'id' => 'pro_produtos',
-              'repeat' => TRUE,
-              'data' => $data  
-          )
-      );
-       
-      // define output directoy 
-      $output_file_dir = "./files/temp/";
-      
- 
-      $output_file_excel = $output_file_dir  . "Myexcel.xlsx";
-      //download excel sheet with data in /tmp folder
-      $result = $R->render('excel', $output_file_excel);
-
-      force_download($output_file_excel, NULL);
-
-  }//End Function
+		$delimiter = ",";
+		$newline = "\r\n";
+   
+		$data = $this->dbutil->csv_from_result($query, $delimiter, $newline);
+   
+		$data = mb_convert_encoding($data , "UTF-8", "UTF-8, ISO-8859-1, ISO-8859-15");
+   
+	   force_download($file_name, $data);
+	   
+	}//End Function
 
 
 }//End Class

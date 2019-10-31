@@ -121,7 +121,7 @@ class Csvimport {
                 // monta o array definindo as chaves a partir das colunas definidas no CSV
                 foreach($column_headers as $key => $value)
                 {
-                    $result[$new_row][$value] = utf8_encode(trim($data[$key]));
+                    $result[$new_row][$value] = trim($data[$key]);
                 }
             }
 

@@ -62,7 +62,7 @@
  * @since     Versão 1.0.0 
  */
 
-defined('BASEPATH') OR exit('Não é permitido acesso direto ao script');
+defined('BASEPATH') or exit('Não é permitido acesso direto ao script');
 
 //https://ajuda.rdstation.com.br/hc/pt-br/articles/205623999-Como-eu-crio-um-arquivo-CSV-
 
@@ -77,97 +77,180 @@ defined('BASEPATH') OR exit('Não é permitido acesso direto ao script');
 class Import extends MY_Controller
 {
 
-  /**
-    * Método construtor
-    *
-    * @access  public
-    * @return  void
-    */
-  function __construct() 
-  {
-    parent::__construct();
+	/**
+	 * Método construtor
+	 *
+	 * @access  public
+	 * @return  void
+	 */
+	function __construct()
+	{
+		parent::__construct();
 
-   /**
-    * Carregando model
-    *
-    */
-   $this->load->model('zata/import_model');
+		/**
+		 * Carregando model
+		 *
+		 */
+		$this->load->model('zata/import_model');
 
-    /**
-    * Library responsavel pelo controle da importacao
-    *
-    */
-    $this->load->library('csvimport');
-  }
+		/**
+		 * Library responsavel pelo controle da importacao
+		 *
+		 */
+		$this->load->library('csvimport');
+	}
 
-  /**
-   * Faz a importação do CSV de Produtos
-   *
-   * @access  public
-   * @return  void
-   */
-  function importar_csv_produtos() 
-  {
+	/**
+	 * Faz a importação do CSV de Produtos
+	 *
+	 * @access  public
+	 * @return  void
+	 */
+	function importar_csv_produtos()
+	{
 
-    // Define as configurações para o upload do CSV
-    $config['upload_path'] = './files/import/';
-    $config['allowed_types'] = 'csv';
-    $config['max_size'] = '2000';
+		// Define as configurações para o upload do CSV
+		$config['upload_path'] = './files/import/';
+		$config['allowed_types'] = 'csv';
+		$config['max_size'] = '2000';
 
-    // Carregando library de upload
-    $this->load->library('upload', $config);
+		// Carregando library de upload
+		$this->load->library('upload', $config);
 
-    // Se o upload falhar, exibe mensagem de erro na view
-    if (!$this->upload->do_upload('csvfile')) 
-    {
-       /**
-        * Criando sessao com mensagem  
-        */
-      $this->session->set_flashdata('msg','falha-importar');
+		// Se o upload falhar, exibe mensagem de erro na view
+		if (!$this->upload->do_upload('csvfile'))
+		{
+			/**
+			 * Criando sessao com mensagem  
+			 */
+			$this->session->set_flashdata('msg', 'falha-importar');
 
-      redirect(base_url('produtos/listar'));
-    }
-    else
-    {
+			redirect(base_url('produtos/listar'));
+		}
+		else
+		{
 
-      $file_data = $this->upload->data();
+			$file_data = $this->upload->data();
 
-      $file_path =  './files/import/'.$file_data['file_name'];
+			$file_path =  './files/import/' . $file_data['file_name'];
 
-      // Chama o método 'get_array', da library csvimport, passando o path do
-      // arquivo CSV. Esse método retornará um array.
-      $csv_array = $this->csvimport->get_array($file_path);
+			// Chama o método 'get_array', da library csvimport, passando o path do
+			// arquivo CSV. Esse método retornará um array.
+			$csv_array = $this->csvimport->get_array($file_path);
 
-      if ($csv_array) {
+			if ($csv_array)
+			{
 
-        // Faz a interação no array para poder gravar os dados na tabela 'contatos'
-       foreach ($csv_array as $row)
-       {
+				// Faz a interação no array para poder gravar os dados na tabela 'contatos'
+				foreach ($csv_array as $row)
+				{
 
-        $data['nome']   = $row['nome'];
-        $data['codigo'] = $row['codigo'];
+					$data['nome']   = $row['nome'];
+					$data['codigo'] = $row['codigo'];
 
-        // Insere os dados na tabela 'contatos'
-        $this->import_model->insert_csv($this->input->post('tabela'),$data);
+					// Insere os dados na tabela 'contatos'
+					$this->import_model->insert_csv($this->input->post('tabela'), $data);
+				}
 
-      }
+				$this->session->set_flashdata('msg', 'importar-sucesso');
 
-      $this->session->set_flashdata('msg', 'importar-sucesso');
+				redirect(base_url('produtos/listar'));
+			}
+			else
+			{
 
-      redirect(base_url('produtos/listar'));
-    }
-    else
-    {
+				$data['error'] = "Ocorreu um erro, desculpe!";
 
-      $data['error'] = "Ocorreu um erro, desculpe!";
+				redirect(base_url('produtos/listar'));
+			}
+		}
+	}
 
-      redirect(base_url('produtos/listar'));
-    }
+	/**
+	 * Faz a importação do CSV de Produtos
+	 *
+	 * @access  public
+	 * @return  void
+	 */
+	function importar_csv_utilizacao_sala()
+	{
 
-  }
-}
+		// Define as configurações para o upload do CSV
+		$config['upload_path'] = './files/import/';
+		$config['allowed_types'] = 'csv';
+		$config['max_size'] = '2000';
+
+		// Carregando library de upload
+		$this->load->library('upload', $config);
+
+		// Se o upload falhar, exibe mensagem de erro na view
+		if (!$this->upload->do_upload('csvfile'))
+		{
+			/**
+			 * Criando sessao com mensagem  
+			 */
+			$this->session->set_flashdata('msg', 'falha-importar');
+
+			redirect(base_url('eventos/config/utilizacao-de-sala/listar'));
+		}
+		else
+		{
+
+			$file_data = $this->upload->data();
+
+			$file_path =  './files/import/' . $file_data['file_name'];
+
+			// Chama o método 'get_array', da library csvimport, passando o path do
+			// arquivo CSV. Esse método retornará um array.
+			$csv_array = $this->csvimport->get_array($file_path);
+
+			if ($csv_array)
+			{
+				// Faz a interação no array para poder gravar os dados na tabela 'contatos'
+				foreach ($csv_array as $row)
+				{
+					$data['desc_utilizacao_sala']   = $row['desc_utilizacao_sala'];
+					$data['desc_definicao'] 		= $row['desc_definicao'];	
+
+					// Insere os dados na tabela 'contatos'
+					$this->import_model->insert_csv($this->input->post('tabela'), $data);
+				}
+
+				$this->session->set_flashdata('msg', 'importar-sucesso');
+
+				redirect(base_url('eventos/config/utilizacao-de-sala/listar'));
+			}
+			else
+			{
+
+				$data['error'] = "Ocorreu um erro, desculpe!";
+
+				redirect(base_url('eventos/config/utilizacao-de-sala/listar'));
+			}
+		}
+	}
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//End class	
 }
