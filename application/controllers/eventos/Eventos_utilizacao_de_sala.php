@@ -153,7 +153,7 @@ class Eventos_utilizacao_de_sala extends MY_Controller
         /**
          * Verifica se o usuario tem permissao de acesso 
          * Checks whether the user has access permission
-         */ 
+         */
         if($this->access['is_list'] == 0)
         { 
              show_error("Você não tem permissão de acesso para executar essa tarefa. Entre em contato com o administrador do sistema!","301","Sem permissão de acesso :[");
