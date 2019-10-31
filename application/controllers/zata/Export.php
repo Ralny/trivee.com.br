@@ -102,17 +102,10 @@ class Export extends MY_Controller
 		$this->load->model('zata/export_model');
 	}
 
-	/**
-	 * Faz a exportacao do CSV de Produtos
-	 *
-	 * @access  public
-	 * @return  void
-	 */
-	function get_csv_produtos()
-	{
+	function index(){
+		echo 'aqui';
+	}
 
-		$this->export_model->produtos_csv();
-	} //End Function
 
 	/**
 	 * Faz a importação PDF de Produtos
@@ -160,9 +153,9 @@ class Export extends MY_Controller
 	{
 
 		$this->load->model('zata/export_model');
-		$this->load->helper(array('form', 'url'));
-		$this->load->helper('download');
-		$this->load->library('PHPReport');
+		//$this->load->helper(array('form', 'url'));
+		//$this->load->helper('download');
+		//$this->load->library('PHPReport');
 
 		// get data from databse
 		$data = $this->export_model->produtos_excel();
@@ -203,7 +196,8 @@ class Export extends MY_Controller
 	} //End Function
 
 	/**
-	 * Faz a exportacao de utilização de salas em CSV
+	 * get_csv_eventos_utilizacao_de_salas
+	 * Faz a exportacao de utilização de salas em .CSV
 	 *
 	 * @access  public
 	 * @return  void
@@ -238,7 +232,58 @@ class Export extends MY_Controller
 	   
 	}//End Function
 
-	
+
+
+	/**
+	 * exportExcelData
+	 * Função auxiliar para exportação em xls
+	 * 
+	 * @access  public
+	 * @return  void
+	 */
+	public function exportExcelData($records)	{
+	 	$heading = false;
+		    if (!empty($records))
+			 	foreach ($records as $row) {
+					if (!$heading) {
+					   // Exibe os nomes dos campos/colunas na primeira linha
+					   echo implode("\t", array_keys($row)) . "\n";
+					   $heading = true;
+				    }
+				    echo implode("\t", ($row)) . "\n";
+			    }
+	}
+
+	/**
+	 * get_xls_eventos_utilizacao_de_salas
+	 * Faz a exportacao de utilização de salas em .XLS
+	 *
+	 * @access  public
+	 * @return  void
+	 */
+	public function get_xls_eventos_utilizacao_de_salas(){
+
+		$data = $this->export_model->eventos_utilizacao_de_salas_xls();
+
+	 	$dataToExports = [];
+		 
+		foreach ($data as $row) {
+	        $arrangeData['Utilizacao de Sala'] = mb_convert_encoding($row['desc_utilizacao_sala'],'utf-16','utf-8');
+			$arrangeData['Definicao'] 		   = mb_convert_encoding($row['desc_definicao'],'utf-16','utf-8');
+	  		$dataToExports[]	 			   = $arrangeData;
+		 }
+		 		 
+		// set header
+	 	$filename = "tpl_exp_Eventos_utilizacao_salas.xls";
+		header("Content-Type: application/vnd.ms-excel;charset = UTF-8");
+		header("Content-Disposition: attachment; filename=\"$filename\"");
+		header("Pragma: no-cache");
+		header("Expires: 0");
+		 
+		$this->exportExcelData($dataToExports);
+	}
+
+
 
 
 }//End Class
