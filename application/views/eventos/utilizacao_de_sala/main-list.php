@@ -22,7 +22,7 @@ include ('application/views/tpl/config_container.php');
 							<ul class="dropdown-menu pull-right">
 								<li> <a data-toggle="modal" href="#basic"><i class="fa fa-upload"></i>Importar</a> </li>
 								<li class="divider"></li>
-								<li> <a href="<?= base_url()?>zata/export/get_excel_utilizacao_de_salas"><i class="fa fa-file-excel-o"></i>Exportar para Excel</a></li>
+								<li> <a href="<?= base_url()?>zata/export/get_xls_eventos_utilizacao_de_salas"><i class="fa fa-file-excel-o"></i>Exportar para Excel</a></li>
 								<li> <a href="<?= base_url()?>zata/export/get_csv_eventos_utilizacao_de_salas"><i class="fa fa-file-excel-o"></i>Exportar para CSV</a></li>
 								<li> <a href="<?= base_url()?>zata/export/get_pdv_utilizacao_de_salas"><i class="fa fa-file-pdf-o"></i>Salvar em PDF</a></li>
 							</ul>
