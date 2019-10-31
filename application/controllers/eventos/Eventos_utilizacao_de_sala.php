@@ -183,11 +183,19 @@ class Eventos_utilizacao_de_sala extends MY_Controller
          */
         $page_data['url']           = $this->url;
 
+        /** INICIO DA IMPORTAÇÃO DE DADOS ------------------------------------------------------------------------------------------------------------ */
         /**
-         * Configuracao do Grid
-         * Grid Configuration
+         * URL para metodo de importacao de dados 
+         * 
          */
-        $page_data['tableGrid']     = $this->info['config']['grid'];
+        $page_data['importar'] = base_url().'zata/Import/importar_csv_utilizacao_sala'; 
+        
+        /**
+         * Aux para definir em qual tabela vai inserir os dados importados 
+         * 
+         */
+        $page_data['tabela'] = $this->info['config']['tabela_db'];
+        /** FIM DA iMPORTAÇÃO DE DADOS -------------------------------------------------------------------------------------------------------------- */
 
         /**
          * Resgatando a lista de registros 
@@ -195,10 +203,21 @@ class Eventos_utilizacao_de_sala extends MY_Controller
          */
         $page_data['lista']         = $this->Eventos_utilizacao_de_sala_model->listar_utilizacao_de_sala();
 
-        /**
-         * View 
-         */
-        $page_data['page']          = 'eventos/utilizacao_de_sala/main-list';
+        if (empty($page_data['lista']))
+        {
+            /**
+            * View Empty
+            */
+            $page_data['page'] = 'eventos/utilizacao_de_sala/index';
+
+        }
+        else
+        {    
+            /**
+            * View 
+            */
+            $page_data['page'] = 'eventos/utilizacao_de_sala/main-list';
+        }
 
         /**
          * Carregando tudo na view
@@ -245,7 +264,7 @@ class Eventos_utilizacao_de_sala extends MY_Controller
          * Titulo do Portlet
          * Portlet Title
          */
-        $page_data['title_portlet'] = 'Cadastrar utilizacao de sala';
+        $page_data['title_portlet'] = 'Cadastrar utilização de sala';
         
         /**
          * Variavel auxiliar para rotas do controller. Usada somente no formulario em modo de edicao

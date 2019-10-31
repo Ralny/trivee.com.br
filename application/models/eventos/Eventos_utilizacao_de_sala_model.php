@@ -103,10 +103,12 @@ class Eventos_utilizacao_de_sala_model extends MY_Model {
         
     } 
 
-        /**
-     * Lista status solicitacao Servicos
+    /**
+     * Lista utilização de sala
      *
-     * Retorna lista de status de solicitacao  de servico
+     * Retorna uma listagem de utilização de sala
+     * 
+     * [!important - Listar somente registros com o mesmo token_comnpany que o usuario esta logado]
      */
     public function listar_utilizacao_de_sala(){
 
@@ -125,7 +127,8 @@ class Eventos_utilizacao_de_sala_model extends MY_Model {
                 ";
 
         $query = $this->db->query($sql);
-
+        
+        // Retorna
         return $query->result();
         
     } 

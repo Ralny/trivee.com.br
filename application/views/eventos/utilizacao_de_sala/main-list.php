@@ -16,6 +16,17 @@ include ('application/views/tpl/config_container.php');
 				<div class="actions btn-set">
 					<div class="form-actions top">
 						<a class="btn btn-success" href="<?= base_url() . $url ?>/cadastrar "><i class="fa fa-check"></i> Novo</a>
+						<div class="btn-group">
+							<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="icon-settings"></i>
+							</button>
+							<ul class="dropdown-menu pull-right">
+								<li> <a data-toggle="modal" href="#basic"><i class="fa fa-upload"></i>Importar</a> </li>
+								<li class="divider"></li>
+								<li> <a href="<?= base_url()?>zata/export/get_excel_utilizacao_de_salas"><i class="fa fa-file-excel-o"></i>Exportar para Excel</a></li>
+								<li> <a href="<?= base_url()?>zata/export/get_csv_eventos_utilizacao_de_salas"><i class="fa fa-file-excel-o"></i>Exportar para CSV</a></li>
+								<li> <a href="<?= base_url()?>zata/export/get_pdv_utilizacao_de_salas"><i class="fa fa-file-pdf-o"></i>Salvar em PDF</a></li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -68,4 +79,6 @@ include ('application/views/tpl/config_container.php');
 </div>
 
 <!-- END PAGE CONTENT INNER -->
+
+<?php  $this->load->view('tpl/modal-import') ?>
 

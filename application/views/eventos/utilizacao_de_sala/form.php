@@ -28,7 +28,7 @@ include ('application/views/tpl/config_container.php');
 						</div>
 						<?php 
 
-						/**
+						    /**
 							 * Verificar o status do registro e se botão ATIVO ira ficar marcado
 							 * quando o formulario estiver em modo de edição
 							 * Check the status of the record and if the ACTIVE button will be marked
