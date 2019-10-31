@@ -80,90 +80,86 @@ class Export_model extends MY_Model {
     * @return  void
     */
    function __construct() {
-    parent::__construct();
 
-    $this->load->helper('file');
-    $this->load->helper('download');
-    $this->load->dbutil();
+          parent::__construct();
 
-}
+          $this->load->helper('file');
+          $this->load->helper('download');
+          $this->load->dbutil();
 
-public function produtos_csv()
-{
+     }
 
-     $this->load->dbutil();
-     $this->load->helper('file');
-     $this->load->helper('download');
-     $delimiter = ",";
-     $newline = "\r\n";
+     public function produtos_excel()
+     {
+
+
+          $this->db->select('*');
+          $query = $this->db->get('pro_produtos');
+          return $query->result_array();
      
-     $query = "
-          SELECT
-            nome, codigo
-          FROM
-            pro_produtos 
-          WHERE token_company = '$this->company' 
-          ";
-     
-     $result = $this->db->query($query);
-     
-     $data = $this->dbutil->csv_from_result($result, $delimiter, $newline);
-
-     $file_name = 'ZATA_REPORTS_produtos_'.date("Y-m-d h:i:s").'.csv';
-
-     force_download($file_name, $data);
-   
-}
-
-public function produtos_excel()
-{
-
-
-
-     $this->db->select('*');
-     $query = $this->db->get('pro_produtos');
-     return $query->result_array();
-  
-    /*
-     
-     $query = "
-          SELECT
-            nome, codigo
-          FROM
-            pro_produtos 
-          WHERE token_company = '$this->company' 
-          ";
-     
-     $query = $this->db->query($query);
-     
-     return $query->result_array(); */
-   
-}
-
-
-/**
- * Eventos_utilizacao_de_salas_csv
- * @description Faz a exportacao de utilização de salas em CSV
- *
- * @access  public
- * @return  void
- */
-public function eventos_utilizacao_de_salas_csv()
-{
-     
-     $sql = "
-          	SELECT
-				desc_utilizacao_sala, desc_definicao
-          	FROM
-				eve_utilizacao_sala 
-			WHERE 
-			    token_company = '$this->company' 
-          ";
+     /*
           
-     $query = $this->db->query($sql);	
+          $query = "
+               SELECT
+               nome, codigo
+               FROM
+               pro_produtos 
+               WHERE token_company = '$this->company' 
+               ";
+          
+          $query = $this->db->query($query);
+          
+          return $query->result_array(); */
      
-     return $query;
-}
+     }
+
+     /**
+      * Eventos_utilizacao_de_salas_csv
+      * @description Faz a exportacao de utilização de salas em CSV
+      *
+      * @access  public
+      * @return  void
+      */
+     public function eventos_utilizacao_de_salas_csv()
+     {
+          
+          $sql = "
+                    SELECT
+                         desc_utilizacao_sala, desc_definicao
+                    FROM
+                         eve_utilizacao_sala 
+                    WHERE 
+                    token_company = '$this->company' 
+               ";
+               
+          $query = $this->db->query($sql);	
+          
+          return $query;
+     }
+
+     /**
+      * Eventos_utilizacao_de_salas_csv
+      * @description Faz a exportacao de utilização de salas em CSV
+      *
+      * @access  public
+      * @return  void
+      */
+      public function eventos_utilizacao_de_salas_xls()
+      {
+           
+           $sql = "
+                     SELECT
+                         id_utilizacao_sala, desc_utilizacao_sala, desc_definicao
+                     FROM
+                          eve_utilizacao_sala 
+                     WHERE 
+                     token_company = '$this->company' 
+                ";
+                
+           $query = $this->db->query($sql);	
+           
+           return $query->result_array();
+      }
 
 
 

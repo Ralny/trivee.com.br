@@ -9,7 +9,7 @@ class Download extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->helper('download');
+        //$this->load->helper('download');
     }
 
 
