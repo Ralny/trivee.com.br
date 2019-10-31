@@ -81,6 +81,11 @@ class Export_model extends MY_Model {
     */
    function __construct() {
     parent::__construct();
+
+    $this->load->helper('file');
+    $this->load->helper('download');
+    $this->load->dbutil();
+
 }
 
 public function produtos_csv()
@@ -133,6 +138,31 @@ public function produtos_excel()
      
      return $query->result_array(); */
    
+}
+
+
+/**
+ * Eventos_utilizacao_de_salas_csv
+ * @description Faz a exportacao de utilização de salas em CSV
+ *
+ * @access  public
+ * @return  void
+ */
+public function eventos_utilizacao_de_salas_csv()
+{
+     
+     $sql = "
+          	SELECT
+				desc_utilizacao_sala, desc_definicao
+          	FROM
+				eve_utilizacao_sala 
+			WHERE 
+			    token_company = '$this->company' 
+          ";
+          
+     $query = $this->db->query($sql);	
+     
+     return $query;
 }
 
 
