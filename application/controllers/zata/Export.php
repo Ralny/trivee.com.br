@@ -79,7 +79,7 @@ class Export extends MY_Controller
 {
 
 	/** https://github.com/bcit-ci/CodeIgniter/wiki/Export-to-Excel-2013
-  https://www.w3school.info/2016/02/08/convert-html-to-pdf-in-codeigniter-using-mpdf/
+     *  https://www.w3school.info/2016/02/08/convert-html-to-pdf-in-codeigniter-using-mpdf/
 	 * Método construtor
 	 *
 	 * @access  public
@@ -94,7 +94,6 @@ class Export extends MY_Controller
 		 * Company identifier of record source
 		 */
 		$this->company = $this->session->userdata('token_company');
-
 
 		/**
 		 * Carregando model
@@ -211,23 +210,35 @@ class Export extends MY_Controller
 	 */
 	function get_csv_eventos_utilizacao_de_salas()
 	{
+		/**
+		 * Nome do Arquivo
+		 */
 		$file_name = 'ZATA_EVENTOS_utilizacao_de_sala_'.date("Y-m-d h:i:s").'.csv';
-   
+		
+		/**
+		 * Definiçaõ do header
+		 */
 		header('Content-Type: text/csv');
 		header('Content-Disposition: attachment; filename="'.$file_name.'"');
 
+		/**
+		 * Dados que vão ser exportados
+		 */
 		$query = $this->export_model->eventos_utilizacao_de_salas_csv();
 
+		/**
+		 * Configurações
+		 */
 		$delimiter = ",";
 		$newline = "\r\n";
-   
 		$data = $this->dbutil->csv_from_result($query, $delimiter, $newline);
-   
 		$data = mb_convert_encoding($data , "UTF-8", "UTF-8, ISO-8859-1, ISO-8859-15");
    
-	   force_download($file_name, $data);
+	    force_download($file_name, $data);
 	   
 	}//End Function
+
+	
 
 
 }//End Class
