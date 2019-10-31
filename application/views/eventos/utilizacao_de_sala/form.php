@@ -72,7 +72,7 @@ include ('application/views/tpl/config_container.php');
 						</div>
 						
 						<div class="form-group">
-							<label class="control-label col-md-2">Desc Definição </label>
+							<label class="control-label col-md-2">Definição </label>
 							<div class="col-md-8">
 							<textarea name="desc_definicao" class="form-control" rows="8"><?=  isset($show->desc_definicao) ? $show->desc_definicao : null ;?></textarea>
 							</div>
