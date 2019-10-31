@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class FileController extends CI_Controller
+class Download extends CI_Controller
 {
     /**
      * Construtor

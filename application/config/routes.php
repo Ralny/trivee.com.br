@@ -137,4 +137,4 @@ $route['eventos/reserva-de-evento/excluir/(:any)']		= 'eventos/Eventos_reserva_e
 
 $route['404_override'] 			= '';
 $route['translate_uri_dashes'] 	= FALSE;
-$route['download_tpl_importacao/(:any)']		= 'zata/FileController/download_tpl_importacao/$1';
+$route['download_tpl_importacao/(:any)']		= 'zata/Download/download_tpl_importacao/$1';
