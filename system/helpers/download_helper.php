@@ -133,7 +133,8 @@ if ( ! function_exists('force_download'))
 		}
 
 		// Generate the server headers
-		header('Content-Type: '.$mime);
+		header('Content-Encoding: UTF-8');
+		header('Content-Type: '.$mime.' charset=UTF-8');
 		header('Content-Disposition: attachment; filename="'.$filename.'"');
 		header('Expires: 0');
 		header('Content-Transfer-Encoding: binary');
