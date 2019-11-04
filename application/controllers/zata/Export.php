@@ -128,7 +128,7 @@ class Export extends MY_Controller
 		//now pass the data //
 
 
-		$html = $this->load->view('produtos/relatorios/requisicao_x_produtos', $this->data, true); //load the pdf_output.php by passing our data and get all data in $html varriable.
+		$html = $this->load->view('relatorios/produtos/requisicao/print_requisicao/2189B11809FDCED8777F0BACD5DF16DC', $this->data, true); //load the pdf_output.php by passing our data and get all data in $html varriable.
 
 		//this the the PDF filename that user will get to download
 		$pdfFilePath = "mypdfName-" . time() . "-download.pdf";
@@ -282,6 +282,23 @@ class Export extends MY_Controller
 		 
 		$this->exportExcelData($dataToExports);
 	}
+
+	/**
+	 * Faz a importação PDF de Produtos
+	 *
+	 * @access  public
+	 * @return  void
+	 */
+	function get_pdf_eventos_utilizacao_de_salas()
+	{
+
+		$html = $this->load->view('print/main_a4', [], true);
+
+		$filename = 'report_';
+		
+		$this->pdfgenerator->generate($html, $filename, true, 'A4', 'portrait');
+
+	 } //End Function
 
 
 

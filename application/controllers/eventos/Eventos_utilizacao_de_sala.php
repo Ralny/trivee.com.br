@@ -615,4 +615,23 @@ class Eventos_utilizacao_de_sala extends MY_Controller
         }
     }// Fim da Funcao - End of function
 
+    /**
+     * Listar - List
+     *
+     * Metodo responsavel por carregar a view de listagem e seus registros
+     * Method responsible for loading the listing view and its records 
+     *
+     * @author    Ralny Andrade | <ra@trivee.com.br> | https://github.com/ralny
+     */    
+    public function print_main_list()
+    {
+
+        /**
+                 * Carregando tudo na view
+                 * Loading everything on the view
+                 */
+                $this->load->view('print/main_a4');
+
+    }
+
 }//FIM DA CLASSE - END OF CLASS

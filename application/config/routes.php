@@ -116,6 +116,7 @@ $route['eventos/config/utilizacao-de-sala/cadastrar'] 	  		= 'eventos/Eventos_ut
 $route['eventos/config/utilizacao-de-sala/editar/(:any)'] 		= 'eventos/Eventos_utilizacao_de_sala/editar/$1';
 $route['eventos/config/utilizacao-de-sala/salvar']   	  		= 'eventos/Eventos_utilizacao_de_sala/salvar';
 $route['eventos/config/utilizacao-de-sala/excluir/(:any)']		= 'eventos/Eventos_utilizacao_de_sala/excluir/$1';
+$route['eventos/config/utilizacao-de-sala/print'] 	      	    = 'eventos/Eventos_utilizacao_de_sala/print_main_list';
 
 //Eventos - Salas
 $route['eventos/config/salas/listar'] 	      	    = 'eventos/Eventos_salas/listar';
@@ -129,7 +130,7 @@ $route['eventos/reserva-de-evento/listar'] 	      	    = 'eventos/Eventos_reserv
 $route['eventos/reserva-de-evento/cadastrar'] 	  		= 'eventos/Eventos_reserva_evento/cadastrar';
 $route['eventos/reserva-de-evento/editar/(:any)'] 		= 'eventos/Eventos_reserva_evento/editar/$1';
 $route['eventos/reserva-de-evento/salvar']   	  		= 'eventos/Eventos_reserva_evento/salvar';
-$route['eventos/reserva-de-evento/adicionar_reserva_de_sala']   	  		= 'eventos/Eventos_reserva_evento/adicionar_reserva_de_sala';
+$route['eventos/reserva-de-evento/adicionar_reserva_de_sala']  = 'eventos/Eventos_reserva_evento/adicionar_reserva_de_sala';
 $route['eventos/reserva-de-evento/excluir/(:any)']		= 'eventos/Eventos_reserva_evento/excluir/$1';
 
 
