@@ -77,9 +77,7 @@ defined('BASEPATH') or exit('Não é permitido acesso direto ao script');
  */
 class Export extends MY_Controller
 {
-
-	/** https://github.com/bcit-ci/CodeIgniter/wiki/Export-to-Excel-2013
-     *  https://www.w3school.info/2016/02/08/convert-html-to-pdf-in-codeigniter-using-mpdf/
+	/**
 	 * Método construtor
 	 *
 	 * @access  public
@@ -102,52 +100,10 @@ class Export extends MY_Controller
 		$this->load->model('zata/export_model');
 	}
 
-	function index(){
-		echo 'aqui';
-	}
-
-
-	/**
-	 * Faz a importação PDF de Produtos
-	 *
-	 * @access  public
-	 * @return  void
-	 */
-	function get_pdf_produtos()
-	{
-
-		//load mPDF library
-		$this->load->library('m_pdf');
-		//load mPDF library
-
-
-		//now pass the data//
-		$this->data['title_portlet']     = "MY PDF TITLE 1.";
-		$this->data['unidades_empresas'] = array();
-
-		//now pass the data //
-
-
-		$html = $this->load->view('relatorios/produtos/requisicao/print_requisicao/2189B11809FDCED8777F0BACD5DF16DC', $this->data, true); //load the pdf_output.php by passing our data and get all data in $html varriable.
-
-		//this the the PDF filename that user will get to download
-		$pdfFilePath = "mypdfName-" . time() . "-download.pdf";
-
-
-		//actually, you can pass mPDF parameter on this load() function
-		$pdf = $this->m_pdf->load();
-		//generate the PDF!
-		$pdf->WriteHTML($html, 2);
-		//offer it to user via browser download! (The PDF won't be saved on your server HDD)
-		$pdf->Output($pdfFilePath, "D");
-	} //End Function
-
 	/**
 	 * get_csv_eventos_utilizacao_de_salas
+	 * 
 	 * Faz a exportacao de utilização de salas em .CSV
-	 *
-	 * @access  public
-	 * @return  void
 	 */
 	function get_csv_eventos_utilizacao_de_salas()
 	{
@@ -183,13 +139,13 @@ class Export extends MY_Controller
 	 * exportExcelData
 	 * Função auxiliar para exportação em xls
 	 * 
-	 * @access  public
-	 * @return  void
 	 */
 	public function exportExcelData($records)
 	{
 	 	$heading = false;
-		    if (!empty($records))
+			if (!empty($records))
+			{
+			
 				foreach ($records as $row)
 				{
 					if (!$heading)
@@ -199,43 +155,54 @@ class Export extends MY_Controller
 					   $heading = true;
 				    }
 				    echo implode("\t", ($row)) . "\n";
-			    }
+				}
+			}	
 	}//End Function
 
 	/**
 	 * get_xls_eventos_utilizacao_de_salas
+	 * 
 	 * Faz a exportacao de utilização de salas em .XLS
-	 *
-	 * @access  public
-	 * @return  void
 	 */
 	public function get_xls_eventos_utilizacao_de_salas(){
 
+		/** 
+		 * Model dos dados que irão ser exportados
+		 */
 		$data = $this->export_model->eventos_utilizacao_de_salas_xls();
 
 	 	$dataToExports = [];
-		 
-		foreach ($data as $row) {
+
+		foreach ($data as $row)
+		{
 	        $arrangeData['Utilizacao de Sala'] = mb_convert_encoding($row['desc_utilizacao_sala'],'utf-16','utf-8');
 			$arrangeData['Definicao'] 		   = mb_convert_encoding($row['desc_definicao'],'utf-16','utf-8');
 	  		$dataToExports[]	 			   = $arrangeData;
-		 }
-		 		 
-		// set header
-	 	$filename = "tpl_exp_Eventos_utilizacao_salas.xls";
+		}
+		
+		/***
+		 * Definir o nome do arquivo
+		 */
+		$filename = "tpl_exp_Eventos_utilizacao_salas.xls";
+		
+		/**
+		 * Definiçaõ do header
+		 */
 		header("Content-Type: application/vnd.ms-excel;charset = UTF-8");
 		header("Content-Disposition: attachment; filename=\"$filename\"");
 		header("Pragma: no-cache");
 		header("Expires: 0");
 		 
+		/**
+		 * exportExcelData
+		 * Função auxiliar para exportação em xls
+		 * 
+		 */
 		$this->exportExcelData($dataToExports);
 	}
 
 	/**
-	 * Faz a importação PDF de Produtos
-	 *
-	 * @access  public
-	 * @return  void
+	 * Faz a exportação PDF da listagem de utilização de salas
 	 */
 	function get_pdf_eventos_utilizacao_de_salas()
 	{
