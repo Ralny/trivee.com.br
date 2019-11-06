@@ -175,7 +175,7 @@ class Eventos_utilizacao_de_sala extends MY_Controller
          * Titulo do Portlet
          * Portlet Title
          */
-        $page_data['title_portlet'] = 'Listar utilização de salas';
+        $page_data['title_portlet'] = 'Lista de utilização de salas';
 
         /**
          * Variavel auxiliar para rotas do controller
