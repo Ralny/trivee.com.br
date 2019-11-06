@@ -143,59 +143,6 @@ class Export extends MY_Controller
 	} //End Function
 
 	/**
-	 * Faz a importação PDF de Produtos
-	 *
-	 * @access  public
-	 * @return  void
-	 * https://www.studytutorial.in/how-to-export-data-from-database-to-excel-sheet-xls-using-codeigniter-php-tutorial
-	 */
-	function get_excel_produtos()
-	{
-
-		$this->load->model('zata/export_model');
-		//$this->load->helper(array('form', 'url'));
-		//$this->load->helper('download');
-		//$this->load->library('PHPReport');
-
-		// get data from databse
-		$data = $this->export_model->produtos_excel();
-
-		// var_dump($data);exit;
-
-		$template = 'export_list_produtos.xlsx';
-		//set absolute path to directory with template files
-		$templateDir = './files/export/';
-
-		//set config for report
-		$config = array(
-			'template' => $template,
-			'templateDir' => $templateDir
-		);
-
-
-		//load template
-		$R = new PHPReport($config);
-
-		$R->load(
-			array(
-				'id' => 'pro_produtos',
-				'repeat' => TRUE,
-				'data' => $data
-			)
-		);
-
-		// define output directoy 
-		$output_file_dir = "./files/temp/";
-
-
-		$output_file_excel = $output_file_dir  . "Myexcel.xlsx";
-		//download excel sheet with data in /tmp folder
-		$result = $R->render('excel', $output_file_excel);
-
-		force_download($output_file_excel, NULL);
-	} //End Function
-
-	/**
 	 * get_csv_eventos_utilizacao_de_salas
 	 * Faz a exportacao de utilização de salas em .CSV
 	 *
@@ -232,8 +179,6 @@ class Export extends MY_Controller
 	   
 	}//End Function
 
-
-
 	/**
 	 * exportExcelData
 	 * Função auxiliar para exportação em xls
@@ -241,18 +186,21 @@ class Export extends MY_Controller
 	 * @access  public
 	 * @return  void
 	 */
-	public function exportExcelData($records)	{
+	public function exportExcelData($records)
+	{
 	 	$heading = false;
 		    if (!empty($records))
-			 	foreach ($records as $row) {
-					if (!$heading) {
+				foreach ($records as $row)
+				{
+					if (!$heading)
+					{
 					   // Exibe os nomes dos campos/colunas na primeira linha
 					   echo implode("\t", array_keys($row)) . "\n";
 					   $heading = true;
 				    }
 				    echo implode("\t", ($row)) . "\n";
 			    }
-	}
+	}//End Function
 
 	/**
 	 * get_xls_eventos_utilizacao_de_salas
@@ -291,11 +239,19 @@ class Export extends MY_Controller
 	 */
 	function get_pdf_eventos_utilizacao_de_salas()
 	{
+		/***
+		 * Carregando a view
+		 */
+		$html = $this->load->view('print/eventos/utilizacao_salas_lista_pdf', [], true);
 
-		$html = $this->load->view('print/main_a4', [], true);
+		/***
+		 * Definir o nome do arquivo
+		 */
+		$filename = "utilizacao_salas_lista-" . time();
 
-		$filename = 'report_';
-		
+		/***
+		 * Metodo responsavel por renderizar um pagina html ou php em PDF
+		 */
 		$this->pdfgenerator->generate($html, $filename, true, 'A4', 'portrait');
 
 	 } //End Function
