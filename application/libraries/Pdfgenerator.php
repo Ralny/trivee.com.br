@@ -91,7 +91,7 @@ class Pdfgenerator
 
         if ($stream)
         {
-            $dompdf->stream($filename . ".pdf", array("Attachment" => false));
+            $dompdf->stream($filename . ".pdf", array("Attachment" => true)); // Attachment" => true vai baixar o arquivo direto
         }
         else
         {
