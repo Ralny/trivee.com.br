@@ -136,9 +136,44 @@ class Export extends MY_Controller
 	}//End Function
 
 	/**
+	 * get_xml_eventos_utilizacao_de_salas
+	 * 
+	 * Faz a exportacao de utilização de salas em .XML
+	 */
+	function get_xml_eventos_utilizacao_de_salas()
+	{
+		/**
+		 * Nome do Arquivo
+		 */
+		$file_name = 'ZATA_EVENTOS_utilizacao_de_sala_'.time().'.xml';
+		
+		/**
+		 * Dados que vão ser exportados
+		 */
+		$query = $this->export_model->eventos_utilizacao_de_salas_csv();
+
+		
+			$config = array ($config = array (         
+								'root'     => 'root',  
+								'element'  => 'element',
+								'newline'  => "\n", 
+								'tab'           => "\t" )
+							); 
+					
+
+			$data = $this->dbutil->xml_from_result($query,$config);
+
+			$data = mb_convert_encoding($data , "UTF-8", "UTF-8, ISO-8859-1, ISO-8859-15");			
+
+			write_file($file_name, $data); 
+
+			force_download($file_name,$data);
+	   
+	}//End Function
+
+	/**
 	 * exportExcelData
 	 * Função auxiliar para exportação em xls
-	 * 
 	 */
 	public function exportExcelData($records)
 	{
