@@ -33,7 +33,7 @@
 			
 			<p class="text-center">
 				Se preferir,<a href="<?=base_url ()?>download_tpl_importacao/tpl_imp_Eventos_utilizacao_salas.csv">
-						 faça o download da nossa planilha modelo clicando aqui</a>, preencha os dados e importe-a.
+						 faça o download do nosso template modelo clicando aqui</a>, preencha os dados e importe-a.
 			</p>
 			
 			<br><br>
