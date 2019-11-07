@@ -60,6 +60,8 @@
  * @license   MIT <https://opensource.org/licenses/MIT>
  * @link      http://www.trivee.com.br
  * @since     Versão 1.0.0 
+ * 
+ * Ralny
  */
 
 defined('BASEPATH') OR exit('No direct script access allowed');
