@@ -1,18 +1,18 @@
 <?php
 /**
  * ZATA
- * 
+ *
  * Uma estrutura baseada na framework codeiginiter para o desenvolvimento
  * de aplicativos que proporciona a criação de soluções de forma rápida
  * e inovadora, reduzindo o tempo de desenvolcimento em 80%.
- * 
+ *
  * Este conteudo é publicado sob a Lincença MIT
  *
  * Copyright(c) 2015-2017, TRIVEE SERVICES IT
- * 
- * É concedida permissão a qualquer pessoa que obtenha uma cópia deste 
+ *
+ * É concedida permissão a qualquer pessoa que obtenha uma cópia deste
  * software e arquivos de documentação associados, sem restrições e limitação,
- * incluindo os direitos de copiar, modificar, fundir, publicar, 
+ * incluindo os direitos de copiar, modificar, fundir, publicar,
  * distribuir, sublicenciar e/ou vender.
  *
  * O aviso de copyright acima a este aviso de permissão devem ser incluidos
@@ -59,26 +59,26 @@
  * @copyright TRIVEE SERVICES IT MEI | Copyright (c) 2015 - 2016
  * @license   MIT <https://opensource.org/licenses/MIT>
  * @link      http://www.trivee.com.br
- * @since     Versão 1.0.0 
+ * @since     Versão 1.0.0
  */
 
-defined('BASEPATH') OR exit('Não é permitido acesso direto ao script');
+defined('BASEPATH') or exit('Não é permitido acesso direto ao script');
 
 /**
- * Class Eventos_salas 
+ * Class Eventos_salas
  *
  * Camada responsável por controlar o fluxo do software, contem a logica e as
- * regras do negocio. 
+ * regras do negocio.
  * Layer responsible for controlling the software flow, contains the logic and
  * business rules.
  *
  * @category  Controllers
  * @author    Ralny Andrade | <ra@trivee.com.br> | https://github.com/ralny
  */
-class Eventos_salas extends MY_Controller 
+class Eventos_salas extends MY_Controller
 {
     /**
-     * Definir variaveis auxiliares 
+     * Definir variaveis auxiliares
      * Define auxiliary variables
      */
     public $modulo  = 'eventos_salas';
@@ -91,19 +91,21 @@ class Eventos_salas extends MY_Controller
      * @author    Ralny Andrade | <ra@trivee.com.br> | https://github.com/ralny
      * @return    void
      */
-    function __construct() 
-    {       
+    public function __construct()
+    {
         parent::__construct();
 
         /**
          * Verificando se existe usuario logado
          * Checking if a user is logged in
          */
-        if(!$this->session->userdata('is_logged_in')) redirect('login'); 
+        if (!$this->session->userdata('is_logged_in')) {
+            redirect('login');
+        }
         
-        /**    
+        /**
          * Carregando Model
-         * Loading Model 
+         * Loading Model
          */
         $this->load->model('eventos/Eventos_formato_de_salas_model');
         $this->load->model('eventos/Eventos_salas_model');
@@ -131,37 +133,35 @@ class Eventos_salas extends MY_Controller
      * @author    Ralny Andrade | <ra@trivee.com.br> | https://github.com/ralny
      */
     public function index()
-    { 
+    {
         /**
          * Carregando o metodo listar() como default do controller
          * Loading the method listar() as controller default
          */
         $this->listar();
-        
     }// Fim da Funcao - End of function
 
     /**
      * Listar - List
      *
      * Metodo responsavel por carregar a view de listagem e seus registros
-     * Method responsible for loading the listing view and its records 
+     * Method responsible for loading the listing view and its records
      *
      * @author    Ralny Andrade | <ra@trivee.com.br> | https://github.com/ralny
-     */    
+     */
     public function listar()
     {
 
         /**
-         * Verifica se o usuario tem permissao de acesso 
+         * Verifica se o usuario tem permissao de acesso
          * Checks whether the user has access permission
-         */ 
-        if($this->access['is_list'] == 0)
-        { 
-             show_error("Você não tem permissão de acesso para executar essa tarefa. Entre em contato com o administrador do sistema!","301","Sem permissão de acesso :[");
+         */
+        if ($this->access['is_list'] == 0) {
+            show_error("Você não tem permissão de acesso para executar essa tarefa. Entre em contato com o administrador do sistema!", "301", "Sem permissão de acesso :[");
         }
 
-        /** 
-         * Responsável por registrar o acesso do usuario no metodo do controller 
+        /**
+         * Responsável por registrar o acesso do usuario no metodo do controller
          * Responsible for registering user access in controller method
          */
         $this->log_zata->log_step_by_step();
@@ -191,13 +191,13 @@ class Eventos_salas extends MY_Controller
         $page_data['tableGrid']     = $this->info['config']['grid'];
 
         /**
-         * Resgatando a lista de registros 
+         * Resgatando a lista de registros
          * Redeeming the list of records
          */
-        $page_data['lista']         = $this->model->getAll($this->info['config']['sql_select']); 
+        $page_data['lista']         = $this->model->getAll($this->info['config']['sql_select']);
 
         /**
-         * View 
+         * View
          */
         $page_data['page']          = 'eventos/salas/main-list';
 
@@ -206,32 +206,30 @@ class Eventos_salas extends MY_Controller
          * Loading everything on the view
          */
         $this->load->view('tpl/main', $page_data);
-
     } // Fim da Funcao - End of function
     
 
-   /**
-    * Cadastrar - Add
-    *
-    * Metodo reponsavel por carregar a view de cadastro junto com suas dependencias
-    * Method responsible for uploading the register view along with its dependencies
-    *
-    * @author    Ralny Andrade | <ra@trivee.com.br> | https://github.com/ralny
-    */    
+    /**
+     * Cadastrar - Add
+     *
+     * Metodo reponsavel por carregar a view de cadastro junto com suas dependencias
+     * Method responsible for uploading the register view along with its dependencies
+     *
+     * @author    Ralny Andrade | <ra@trivee.com.br> | https://github.com/ralny
+     */
     public function cadastrar()
     {
 
         /**
-         * Verifica se o usuario tem permissao de acesso 
+         * Verifica se o usuario tem permissao de acesso
          * Checks whether the user has access permission
-         */ 
-        if($this->access['is_add'] == 0)
-        { 
-            show_error("Você não tem permissão para acessar esse conteúdo. Entre em contato com o administrador do sistema!","500","Sem permissão de acesso :(");
+         */
+        if ($this->access['is_add'] == 0) {
+            show_error("Você não tem permissão para acessar esse conteúdo. Entre em contato com o administrador do sistema!", "500", "Sem permissão de acesso :(");
         }
 
         /**
-         * Responsável por registrar o acesso do usuario no metodo do controller 
+         * Responsável por registrar o acesso do usuario no metodo do controller
          * Responsible for registering user access in controller method
          */
         $this->log_zata->log_step_by_step();
@@ -263,11 +261,11 @@ class Eventos_salas extends MY_Controller
         /**
          * Configuracao do Formulario
          * Form Settings
-         */ 
-        $page_data['tableForm']     = $this->info['config']['form']; 
+         */
+        $page_data['tableForm']     = $this->info['config']['form'];
         
         /**
-         * View 
+         * View
          */
         $page_data['page']          = 'eventos/salas/form';
         
@@ -276,33 +274,31 @@ class Eventos_salas extends MY_Controller
          * Loading data for the view
          */
         $this->load->view('tpl/main', $page_data);
-
     } // Fim da Funcao - End of function
     
 
-   /**
-    * Editar - To Edit
-    *
-    * Metodo reponsavel por carregar a view de edicao junto com suas dependencias
-    * Method responsible for loading the edit view along with its dependencies
-    * 
-    * @author    Ralny Andrade | <ra@trivee.com.br> | https://github.com/ralny
-    * @internal  int $id - ID do registro que vai ser editado - ID of the record to be edited
-    */    
+    /**
+     * Editar - To Edit
+     *
+     * Metodo reponsavel por carregar a view de edicao junto com suas dependencias
+     * Method responsible for loading the edit view along with its dependencies
+     *
+     * @author    Ralny Andrade | <ra@trivee.com.br> | https://github.com/ralny
+     * @internal  int $id - ID do registro que vai ser editado - ID of the record to be edited
+     */
     public function editar()
     {
 
         /**
-         * Verifica se o usuario tem permissao de acesso 
+         * Verifica se o usuario tem permissao de acesso
          * Checks whether the user has access permission
-         */ 
-        if($this->access['is_edit'] == 0)
-        { 
-            show_error("Você não tem permissão de acesso para executar essa tarefa. Entre em contato com o administrador do sistema!","301","Sem permissão de acesso :[");
+         */
+        if ($this->access['is_edit'] == 0) {
+            show_error("Você não tem permissão de acesso para executar essa tarefa. Entre em contato com o administrador do sistema!", "301", "Sem permissão de acesso :[");
         }
 
         /**
-         * Responsável por registrar o acesso do usuario no metodo do controller 
+         * Responsável por registrar o acesso do usuario no metodo do controller
          * Responsible for registering user access in controller method
          */
         $this->log_zata->log_step_by_step();
@@ -310,61 +306,55 @@ class Eventos_salas extends MY_Controller
         /**
          * Pega o identificador do registro que vai ser editado diretamente da URL
          * Get the identified from the record that will be edited directly from the URL
-         */   
-        $id = $this->uri->segment(5); 
+         */
+        $id = $this->uri->segment(5);
 
         /**
-         * Verfica se exite e se a variavel capturada diretamente da URL é um numero, 
+         * Verfica se exite e se a variavel capturada diretamente da URL é um numero,
          * Se o paremetro nao estiver correto, ira redirecionar para a pagina de erro.
-         * Check if it exists and if the variable captured directly from the URL is a number, 
+         * Check if it exists and if the variable captured directly from the URL is a number,
          * If the parameter is not correct, it will redirect to the error page.
-         */ 
-        if(!$id)
-        {
+         */
+        if (!$id) {
             /**
              * Regitrando o log do erro no banco de dados
              * Logging the error log to the database
-             */ 
-            $this->log_zata->log_error('Danger','Acesso indevido: Eventos_salas->editar() --> Parâmetro ID nao numerico');
+             */
+            $this->log_zata->log_error('Danger', 'Acesso indevido: Eventos_salas->editar() --> Parâmetro ID nao numerico');
 
             /**
              * Redirecionando para pagina de erro padrao
              * Redirecting to standard error page
              */
-            show_error("Parâmetro que foi informado esta incorreto!","404","Acesso indevido :[");
-        }
-        else // Se o parametro esta CORRETO - If the parameter is CORRECT
-        {
+            show_error("Parâmetro que foi informado esta incorreto!", "404", "Acesso indevido :[");
+        } else { // Se o parametro esta CORRETO - If the parameter is CORRECT
             /**
              * Verificamos se ele existe no banco de dados
              * Checked whether it exists in the database
              */
-            if (!$this->model->getRow($id))
-            {
+            if (!$this->model->getRow($id)) {
                 /**
                  * Gravando o Log do erro no banco de dados
                  * Writing the Error Log to the Database
                  */
-                $this->log_zata->log_error('Error','Acesso invalido: Eventos_salas->editar() --> O registro nao foi encontrado no banco de dados. ');
+                $this->log_zata->log_error('Error', 'Acesso invalido: Eventos_salas->editar() --> O registro nao foi encontrado no banco de dados. ');
 
                 /**
                  * Redirecionando para pagina de erro padrao
                  * Redirecting to standard error page
-                 */ 
-                show_error("O registro solicitado nao foi encontrado!","404","Acesso invalido :[");
-            }
-            else
-            {
+                 */
+                show_error("O registro solicitado nao foi encontrado!", "404", "Acesso invalido :[");
+            } else {
                 /**
                  * se existir vai carregar as infomações do registro na variavel show
                  * If it exists it will load the registry information in the variable show
                  */
                 $page_data['show']          = $this->model->getRow($id);
 
-                 /**
-                 * Titulo Portlet
-                 * Portlet Title
-                 */
+                /**
+                * Titulo Portlet
+                * Portlet Title
+                */
                 $page_data['title_portlet'] = $this->info['config']['titulo_modulo'];
                
                 /**
@@ -376,23 +366,23 @@ class Eventos_salas extends MY_Controller
                 /**
                  * Configuracao do Formulario
                  * Form Settings
-                 */ 
+                 */
                 $page_data['tableForm']     = $this->info['config']['form'];
                 
                 /**
                  * Listar formatos de sala
-                 */ 
-                $page_data['lista_formato_de_sala'] = $this->Eventos_formato_de_salas_model->listar_formato_de_salas(); 
+                 */
+                $page_data['lista_formato_de_sala'] = $this->Eventos_formato_de_salas_model->listar_formato_de_salas();
 
                 /**
-                 * Lista arrumações da Sala 
+                 * Lista arrumações da Sala
                  */
-                $page_data['lista_arrumacao']  = $this->model->Eventos_salas_model->lista_arrumacao_sala( $page_data['show']->id_sala);              
+                $page_data['lista_arrumacao']  = $this->model->Eventos_salas_model->lista_arrumacao_sala($page_data['show']->id_sala);
 
                 /**
                  * Variavel Auxiliar para validar que o formulario esta no modo de Edição
                  * Help variable to validate that the form is in Edit mode
-                 */ 
+                 */
                 $page_data['form_editar']  = true;
 
                 /**
@@ -402,7 +392,7 @@ class Eventos_salas extends MY_Controller
                 $page_data['btExcluir']     = $this->url.'/excluir/'.$id;
 
                 /**
-                 * View 
+                 * View
                  */
                 $page_data['page']          = 'eventos/salas/form';
 
@@ -412,29 +402,29 @@ class Eventos_salas extends MY_Controller
                  */
                 $this->load->view('tpl/main', $page_data);
             }
-        }             
+        }
     } // Fim da Funcao - End of function
     
 
-   /**
-    * Salvar - To save
-    *
-    * Registrar o cadastro ou atualiza os registros no banco de dados, esses dados vem do formulario
-    * Register the registry or update the records in the database, this data comes from the form
-    *
-    * @author    Ralny Andrade | <ra@trivee.com.br> | https://github.com/ralny
-    * @return  void
-    */
+    /**
+     * Salvar - To save
+     *
+     * Registrar o cadastro ou atualiza os registros no banco de dados, esses dados vem do formulario
+     * Register the registry or update the records in the database, this data comes from the form
+     *
+     * @author    Ralny Andrade | <ra@trivee.com.br> | https://github.com/ralny
+     * @return  void
+     */
     public function salvar()
     {
         /**
-         * Responsável por registrar o acesso do usuario no metodo do controller 
+         * Responsável por registrar o acesso do usuario no metodo do controller
          * Responsible for registering user access in controller method
          */
         $this->log_zata->log_step_by_step();
         
         /**
-         * Responsável por validar os dados vindos do formulario pelo POST 
+         * Responsável por validar os dados vindos do formulario pelo POST
          * Responsible for validating the data coming from the form by the POST
          */
         $data = array(
@@ -444,10 +434,10 @@ class Eventos_salas extends MY_Controller
             'pe_direito'                      => $this->input->post('pe_direito'),
             'valor_diaria_trf_balcao'         => moeda_ajuste_2($this->input->post('valor_diaria_trf_balcao')),
             'valor_diaria_trf_especial_iss'   => moeda_ajuste_2($this->input->post('valor_diaria_trf_especial_iss'))
-         ); 
+         );
 
         /**
-         * Verifica o status do registro - ATIVO / INATIVO 
+         * Verifica o status do registro - ATIVO / INATIVO
          * Checks the status of the record - ACTIVE / INACTIVE
          */
         $this->input->post('sit_ativo') == 'on' ? $data['sit_ativo'] = 'S' : $data['sit_ativo'] = 'N';
@@ -455,20 +445,19 @@ class Eventos_salas extends MY_Controller
         /**
          * Insert ou Update
          */
-        $id   = $this->MY_model->insertRow($data , $this->input->get_post( 'id' , true ));
+        $id   = $this->MY_model->insertRow($data, $this->input->get_post('id', true));
         
         /**
          * Pra verificar se o formalario esta em modo de cadastro ou edição,  basta validar o hidden ID
          * esta NULL. Caso o hidden ID estiver vazio o formulario vai esta em modo de cadastro
-         * To verify if the form is in register or edit mode, just validate the hidden ID is NULL. If the 
+         * To verify if the form is in register or edit mode, just validate the hidden ID is NULL. If the
          * hidden ID is empty the form will be in registration mode
-         */    
-        if( $this->input->post('id') == NULL)
-        {
+         */
+        if ($this->input->post('id') == null) {
             /**
-             * --- FORMULARIO EM MODO DE CADASTRO --- FORM IN REGISTRATION MODE--- 
+             * --- FORMULARIO EM MODO DE CADASTRO --- FORM IN REGISTRATION MODE---
              *
-             * Variavel auxiliar para criar sessao com mensagem de sucesso 
+             * Variavel auxiliar para criar sessao com mensagem de sucesso
              * Help variable to create session with message success
              */
             $msg_flasdata = 'cadastro';
@@ -478,16 +467,14 @@ class Eventos_salas extends MY_Controller
              * Setting message for LOG record
              */
             $msg_log      = 'Realizou novo cadastro. Controller: '.$this->modulo.'. ID --> '. $id;
-        }
-        else
-        {
+        } else {
             /**
-             * --- FORMULARIO EM MODO DE EDIÇÃO  --- FORM IN EDITING MODE --- 
+             * --- FORMULARIO EM MODO DE EDIÇÃO  --- FORM IN EDITING MODE ---
              *
-             * Variavel auxiliar para criar sessao com mensagem sucesso 
+             * Variavel auxiliar para criar sessao com mensagem sucesso
              * Help variable to create session with message success update
              */
-            $msg_flasdata = 'alteracao'; 
+            $msg_flasdata = 'alteracao';
             
             /**
              * Definindo mensagem para registro do LOG
@@ -504,12 +491,11 @@ class Eventos_salas extends MY_Controller
 
         /**
          * [ $url ] Definimos o redirecionamento da aplicacao apos o processamento do registro,
-         * essa informaçao vem dos botões de ação do formulario 
+         * essa informaçao vem dos botões de ação do formulario
          * [ $url ] We define the redirection of the application after the registration processing,
          * this information comes from the action buttons of the form
          */
-        switch ($this->input->post('acao'))
-        {
+        switch ($this->input->post('acao')) {
             case 'salvar':
                   $link_url = $this->url.'/editar/'.$id; break;
             
@@ -517,54 +503,52 @@ class Eventos_salas extends MY_Controller
                  $link_url = $this->url.'/cadastrar';    break;
 
             case 'salvar-e-fechar':
-                 $link_url = $this->url.'/listar';       break;        
+                 $link_url = $this->url.'/listar';       break;
         }
 
         /**
-         * Criando sessao com mensagem UPDATE SUCESSO na operacao 
+         * Criando sessao com mensagem UPDATE SUCESSO na operacao
          * Creating session with message UPDATE SUCCESS in operation
          */
-         $this->session->set_flashdata('msg', $msg_flasdata);
+        $this->session->set_flashdata('msg', $msg_flasdata);
         
         /**
-         * Redirecionando depois de finalizada o processamento   
+         * Redirecionando depois de finalizada o processamento
          * Redirecting after processing is complete
          */
         redirect(base_url($link_url));
     } // Fim da Funcao - End of function
 
 
-   /**
-    * Excluir
-    *
-    * Excluir um registro
-    * Delete a record
-    *
-    * @author    Ralny Andrade | <ra@trivee.com.br> | https://github.com/ralny
-    */
-    function excluir($id) 
+    /**
+     * Excluir
+     *
+     * Excluir um registro
+     * Delete a record
+     *
+     * @author    Ralny Andrade | <ra@trivee.com.br> | https://github.com/ralny
+     */
+    public function excluir($id)
     {
         /**
-         * Verifica se o usuario tem permissao de acesso 
+         * Verifica se o usuario tem permissao de acesso
          * Checks whether the user has access permission
-         */ 
-        if($this->access['is_remove'] == 0)
-        { 
-            show_error("Você não tem permissão de acesso para executar essa tarefa. Entre em contato com o administrador do sistema!","301","Sem permissão de acesso :[");
+         */
+        if ($this->access['is_remove'] == 0) {
+            show_error("Você não tem permissão de acesso para executar essa tarefa. Entre em contato com o administrador do sistema!", "301", "Sem permissão de acesso :[");
         }
 
         /**
-         * Responsável por registrar o acesso do usuario no metodo do controller 
+         * Responsável por registrar o acesso do usuario no metodo do controller
          * Responsible for registering user access in controller method
-         */ 
+         */
         $this->log_zata->log_step_by_step();
         
         /**
          * Alterando status no registro
          * Changing status in the registry
          */
-        if ($this->model->destroy($id) == TRUE)
-        {
+        if ($this->model->destroy($id) == true) {
             /**
              * Gravando o Log de Atividade
              * Recording the Activity Log
@@ -572,7 +556,7 @@ class Eventos_salas extends MY_Controller
             $this->log_zata->log_activity('Realizou exclusão de Registro. Controller: '.$this->modulo.'. ID --> '. $id, 'Exclusao');
             
             /**
-             * Mensagem - Exclusao realizada com sucesso 
+             * Mensagem - Exclusao realizada com sucesso
              * Message - Deletion succeeded
              */
             $this->session->set_flashdata('msg', 'registro-excluido');
@@ -582,16 +566,14 @@ class Eventos_salas extends MY_Controller
              * Redirects to listing page
              */
             redirect(base_url($this->url.'/listar'));
-        }
-        else
-        {
+        } else {
             /**
              * Gravando o log do erro no banco de dados
              * Saving the error log to the database
              */
             $this->log_zata->log_error('Error', 'Falha ao excluir: Eventos_salas->excluir() --> Nao foi possivel excluir o registro '. $id);
 
-            /** 
+            /**
              * Mensagem - Erro ao excluir o registro
              * Message - Error deleting log
              */
@@ -600,7 +582,7 @@ class Eventos_salas extends MY_Controller
             /**
              * Redireciona
              * Redirects
-             */ 
+             */
             redirect(base_url($this->url.'/listar'));
         }
     }// Fim da Funcao - End of function
@@ -609,11 +591,11 @@ class Eventos_salas extends MY_Controller
      * Adcionar Arrumação
      *
      * Adicionar formato de sala
-     * 
+     *
      * @author    Ralny Andrade | <ra@trivee.com.br> | https://github.com/ralny
      */
-    public function adicionarArrumacao(){
-
+    public function adicionarArrumacao()
+    {
         $data = array(
             'id_sala'                => $this->input->post('id_sala'),
             'id_formato_de_sala'     => $this->input->post('id_formato_de_sala'),
@@ -624,101 +606,89 @@ class Eventos_salas extends MY_Controller
             'id_usuario_criacao'     => $this->session->userdata('id_usuario'),
             'dth_atualizacao'        => date('Y-m-d H:i:s'),
             'id_usuario_atualizacao' => $this->session->userdata('id_usuario')
-            ); 
+            );
 
-        if( $this->db->insert('eve_arrumacao_sala', $data) == true)
-        {
-
+        if ($this->db->insert('eve_arrumacao_sala', $data) == true) {
             echo json_encode(array('result'=> true));
-        }
-        else
-        {
+        } else {
             echo json_encode(array('result'=> false));
         }
-
     }
 
-     /**
-     * Excluir Arrumação
-     *
-     * Exclui uma arrumação de sala 
-     * Essa funcao somente eh usando com AJAX
-     * 
-     * @author    Ralny Andrade | <ra@trivee.com.br> | https://github.com/ralny
-     */
-    function excluirArrumacao(){
+    /**
+    * Excluir Arrumação
+    *
+    * Exclui uma arrumação de sala
+    * Essa funcao somente eh usando com AJAX
+    *
+    * @author    Ralny Andrade | <ra@trivee.com.br> | https://github.com/ralny
+    */
+    public function excluirArrumacao()
+    {
 
         /**
          * Id do formato de sala que sera excluido
          */
         $id = $this->input->post('id_arrumacao');
         
-        $this->db->where('id_arrumacao',$id);
+        $this->db->where('id_arrumacao', $id);
 
         /**
-         * Excluido 
+         * Excluido
          */
-        if($this->db->delete('eve_arrumacao_sala') == true){
-
+        if ($this->db->delete('eve_arrumacao_sala') == true) {
             echo json_encode(array('result'=> true));
-        }
-        else{
+        } else {
             echo json_encode(array('result'=> false));
         }
     }
 
    
     /**
-    * AJAX get Sala 
+    * AJAX get Sala
     *
     * Retorna os dados de um sala
-    * 
+    *
     *
     * @author    Ralny Andrade | <ra@trivee.com.br> | https://github.com/ralny
-    */ 
-    public function ajax_get_sala($id_sala){
- 
+    */
+    public function ajax_get_sala($id_sala)
+    {
         $sala = $this->Eventos_salas_model->get_sala($id_sala);
         //Verifica se existe algum registro no banco de dados
-            if ( empty ( $sala ) )
-                //Deve retornar um array multidimencional pelo JSON, para que ele simule o mesmo tipo de retorno, quando existe registro, assim no formulario poderemos varrer o array e preencher com os registros ou a mensagem
-                $sala =  array (
+        if (empty($sala)) {
+            //Deve retornar um array multidimencional pelo JSON, para que ele simule o mesmo tipo de retorno, quando existe registro, assim no formulario poderemos varrer o array e preencher com os registros ou a mensagem
+            $sala =  array(
                 array("nome_sala"=>"Nenhuma sala encontrada")
             );
+        }
 
         echo json_encode($sala);
 
         return;
     }
 
-      /**
-    * AJAX get Sala 
+    /**
+    * AJAX get Sala
     *
     * Retorna os dados de um sala
-    * 
+    *
     *
     * @author    Ralny Andrade | <ra@trivee.com.br> | https://github.com/ralny
-    */ 
-    public function ajax_get_arrumacao($id_formato_de_sala, $id_sala){
-        
+    */
+    public function ajax_get_arrumacao($id_formato_de_sala, $id_sala)
+    {
         $arrumacao = $this->Eventos_salas_model->get_arrumacao($id_formato_de_sala, $id_sala);
         //Verifica se existe algum registro no banco de dados
-            if ( empty ( $arrumacao ) )
-                //Deve retornar um array multidimencional pelo JSON, para que ele simule o mesmo tipo de retorno, quando existe registro, assim no formulario poderemos varrer o array e preencher com os registros ou a mensagem
-                $arrumacao =  array (
+        if (empty($arrumacao)) {
+            //Deve retornar um array multidimencional pelo JSON, para que ele simule o mesmo tipo de retorno, quando existe registro, assim no formulario poderemos varrer o array e preencher com os registros ou a mensagem
+            $arrumacao =  array(
                 array("nome_sala"=>"Nenhuma sala encontrada")
             );
+        }
 
         echo json_encode($arrumacao);
 
         return;
     }
-
-
-
-
-
-
-
-
 }//FIM DA CLASSE - END OF CLASS
