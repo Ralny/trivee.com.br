@@ -69,23 +69,29 @@
                          <tbody>
                               <tr>
                                    <th>Utilização de Sala</th>
-                                   <th width=16%>Alteração</th>
-                                   <th width=16%>Usuário</th>
+                                   <th width=20%>Alteração</th>
+                                   <th width=20%>Usuário</th>
                               </tr>
-
-                              <tr class="even_row">
-                                   <td>Formatura</td>
-                                   <td>04/11/2019 17h33</td>
-                                   <td>Ralny Andrade</td>
+                              <?php 
+                                   /**
+                                    * Listando registros da tabela
+                                    * Listing table records
+                                    */
+                                   $row_zebrada = 1;
+                                   foreach ($lista as $linha):
+                                        /**
+                                         * Tinhas zebradas
+                                         */	
+                                        $row_zebrada++;
+                                        $cor = ($row_zebrada % 2) ? 'even_row' : 'odd_row';           
+					        ?>
+                              <tr class="<?= $cor ?>">
+                                   <td><?= $linha->desc_utilizacao_sala ?></td>
+                                   <td><?= data_hora($linha->dth_atualizacao) ?></td>
+                                   <td><?= $linha->id_usuario_atualizacao ?></td>
                               </tr>
-
-                              <tr class="odd_row">
-                                   <td>Congresso</td>
-                                   <td>04/11/2019 17h33</td>
-                                   <td>Ralny Andrade</td>
-                              </tr>
+                              <?php endforeach ?>	
                          </tbody>
-
                     </table>
 
                </div>

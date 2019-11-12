@@ -97,20 +97,32 @@ class Export_model extends MY_Model
      * @param $tipo_exportacao
      */
     
-    public function eventos_utilizacao_de_salas($tipo_exportacao)
+    public function eventos_utilizacao_de_salas($tipo_exportacao = '')
     {
-        $sql = "
-                    SELECT
-                         desc_utilizacao_sala, desc_definicao
-                    FROM
-                         eve_utilizacao_sala 
-                    WHERE 
-                         token_company = '$this->company' 
-               ";
+        if ($tipo_exportacao == '') {
+               $sql =    "
+                         SELECT
+                              *
+                         FROM
+                              eve_utilizacao_sala 
+                         WHERE 
+                              token_company = '$this->company' 
+                         ";
+        } else {
+               $sql =   "
+                         SELECT
+                              desc_utilizacao_sala, desc_definicao
+                         FROM
+                              eve_utilizacao_sala 
+                         WHERE 
+                              token_company = '$this->company' 
+                         ";
+        }
                
         $query = $this->db->query($sql);
 
         switch ($tipo_exportacao) {
+               
                case 'csv':
                     return $query;
                     break;
@@ -121,7 +133,11 @@ class Export_model extends MY_Model
 
                case 'xml':
                     return $query;
-                    break;     
+                    break;
+               
+               default:
+                    return $query->result();
+                    break;
           }
     }
 }//End Class

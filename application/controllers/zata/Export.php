@@ -235,11 +235,17 @@ class Export extends MY_Controller
      */
     public function get_pdf_eventos_utilizacao_de_salas()
     {
+        /**
+         * Model dos dados que irão ser exportados
+         */
+        $page_data['lista'] = $this->export_model->eventos_utilizacao_de_salas(); 
+        //var_dump($page_data);die;
+
         /***
          * Carregando a view
          */
-		//$html = $this->load->view('print/eventos/utilizacao_salas_lista_pdf', [], true);
-		$this->load->view('print/eventos/utilizacao_salas_lista_pdf');
+		$html = $this->load->view('print/eventos/utilizacao_salas_lista_pdf', $page_data, true);
+		//$this->load->view('print/eventos/utilizacao_salas_lista_pdf', $page_data);
 
         /***
          * Definir o nome do arquivo
@@ -249,6 +255,6 @@ class Export extends MY_Controller
         /***
          * Metodo responsavel por renderizar um pagina html ou php em PDF
          */
-        //$this->pdfgenerator->generate($html, $filename, true, 'A4', 'portrait');
+        $this->pdfgenerator->generate($html, $filename, true, 'A4', 'portrait');
     } //End Function
 }//End Class
