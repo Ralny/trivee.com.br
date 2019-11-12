@@ -1,19 +1,19 @@
 <?php
 
-/** 
+/**
  * ZATA
- * 
+ *
  * Uma estrutura baseada na framework codeiginiter para o desenvolvimento
  * de aplicativos que proporciona a criação de soluções de forma rápida
  * e inovadora, reduzindo o tempo de desenvolcimento em 80%.
- * 
+ *
  * Este conteudo é publicado sob a Lincença MIT
  *
  * Copyright(c) 2015-2017, TRIVEE SERVICES IT
- * 
- * É concedida permissão a qualquer pessoa que obtenha uma cópia deste 
+ *
+ * É concedida permissão a qualquer pessoa que obtenha uma cópia deste
  * software e arquivos de documentação associados, sem restrições e limitação,
- * incluindo os direitos de copiar, modificar, fundir, publicar, 
+ * incluindo os direitos de copiar, modificar, fundir, publicar,
  * distribuir, sublicenciar e/ou vender.
  *
  * O aviso de copyright acima a este aviso de permissão devem ser incluidos
@@ -60,205 +60,194 @@
  * @copyright TRIVEE SERVICES IT MEI | Copyright (c) 2015 - 2016
  * @license   MIT <https://opensource.org/licenses/MIT>
  * @link      http://www.trivee.com.br
- * @since     Versão 1.0.0 
+ * @since     Versão 1.0.0
  */
 
-header("Content-Type: text/html; charset=utf-8",true);
+header("Content-Type: text/html; charset=utf-8", true);
 
 defined('BASEPATH') or exit('Não é permitido acesso direto ao script');
 
 /**
- * Class Export 
+ * Class Export
  *
- * Camada responsável por controlar a exportação de dados 
+ * Camada responsável por controlar a exportação de dados
  *
  * @category  Controllers
  * @author    Ralny Andrade | <ra@trivee.com.br> | https://github.com/ralny
  */
 class Export extends MY_Controller
 {
-	/**
-	 * Método construtor
-	 *
-	 * @access  public
-	 * @return  void
-	 */
-	function __construct()
-	{
-		parent::__construct();
+    /**
+     * Método construtor
+     *
+     * @access  public
+     * @return  void
+     */
+    public function __construct()
+    {
+        parent::__construct();
 
-		/**
-		 * Identificador da empresa de origem do registro
-		 * Company identifier of record source
-		 */
-		$this->company = $this->session->userdata('token_company');
+        /**
+         * Identificador da empresa de origem do registro
+         * Company identifier of record source
+         */
+        $this->company = $this->session->userdata('token_company');
 
-		/**
-		 * Carregando model
-		 *
-		 */
-		$this->load->model('zata/export_model');
-	}
+        /**
+         * Carregando model
+         *
+         */
+        $this->load->model('zata/export_model');
+    }
 
-	/**
-	 * get_csv_eventos_utilizacao_de_salas
-	 * 
-	 * Faz a exportacao de utilização de salas em .CSV
-	 */
-	function get_csv_eventos_utilizacao_de_salas()
-	{
-		/**
-		 * Nome do Arquivo
-		 */
-		$file_name = 'ZATA_EVENTOS_utilizacao_de_sala_'.date("Y-m-d h:i:s").'.csv';
-		
-		/**
-		 * Definiçaõ do header
-		 */
-		header('Content-Type: text/csv');
-		header('Content-Disposition: attachment; filename="'.$file_name.'"');
+    /**
+     * exportExcelData
+     * Função auxiliar para exportação em xls
+     */
+    public function exportExcelData($records)
+    {
+        $heading = false;
+        if (!empty($records)) {
+            foreach ($records as $row) {
+                if (!$heading) {
+                    // Exibe os nomes dos campos/colunas na primeira linha
+                    echo implode("\t", array_keys($row)) . "\n";
+                    $heading = true;
+                }
+                echo implode("\t", ($row)) . "\n";
+            }
+        }
+    }//End Function
 
-		/**
-		 * Dados que vão ser exportados
-		 */
-		$query = $this->export_model->eventos_utilizacao_de_salas_csv();
+    /**
+     * get_csv_eventos_utilizacao_de_salas
+     *
+     * Faz a exportacao de utilização de salas em .CSV
+     */
+    public function get_csv_eventos_utilizacao_de_salas()
+    {
+        /**
+         * Nome do Arquivo
+         */
+        $file_name = 'ZATA_EVENTOS_utilizacao_de_sala_'.date("Y-m-d h:i:s").'.csv';
+        
+        /**
+         * Definiçaõ do header
+         */
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="'.$file_name.'"');
 
-		/**
-		 * Configurações
-		 */
-		$delimiter = ",";
-		$newline = "\r\n";
-		$data = $this->dbutil->csv_from_result($query, $delimiter, $newline);
-		$data = mb_convert_encoding($data , "UTF-8", "UTF-8, ISO-8859-1, ISO-8859-15");
+        /**
+         * Dados que vão ser exportados
+         */
+        $query = $this->export_model->eventos_utilizacao_de_salas_csv();
+
+        /**
+         * Configurações
+         */
+        $delimiter = ",";
+        $newline = "\r\n";
+        $data = $this->dbutil->csv_from_result($query, $delimiter, $newline);
+        $data = mb_convert_encoding($data, "UTF-8", "UTF-8, ISO-8859-1, ISO-8859-15");
    
-	    force_download($file_name, $data);
-	   
-	}//End Function
+        force_download($file_name, $data);
+    }//End Function
 
-	/**
-	 * get_xml_eventos_utilizacao_de_salas
-	 * 
-	 * Faz a exportacao de utilização de salas em .XML
-	 */
-	function get_xml_eventos_utilizacao_de_salas()
-	{
-		/**
-		 * Nome do Arquivo
-		 */
-		$file_name = 'ZATA_EVENTOS_utilizacao_de_sala_'.time().'.xml';
-		
-		/**
-		 * Dados que vão ser exportados
-		 */
-		$query = $this->export_model->eventos_utilizacao_de_salas_csv();
+    /**
+     * get_xml_eventos_utilizacao_de_salas
+     *
+     * Faz a exportacao de utilização de salas em .XML
+     */
+    public function get_xml_eventos_utilizacao_de_salas()
+    {
+        /**
+         * Nome do Arquivo
+         */
+        $file_name = 'ZATA_EVENTOS_utilizacao_de_sala_'.time().'.xml';
+        
+        /**
+         * Dados que vão ser exportados
+         */
+        $query = $this->export_model->eventos_utilizacao_de_salas_csv();
 
-		
-			$config = array ($config = array (         
-								'root'     => 'root',  
-								'element'  => 'element',
-								'newline'  => "\n", 
-								'tab'           => "\t" )
-							); 
-					
+        
+        $config = array($config = array(
+                                'root'     => 'root',
+                                'element'  => 'element',
+                                'newline'  => "\n",
+                                'tab'           => "\t" )
+                            );
+                    
 
-			$data = $this->dbutil->xml_from_result($query,$config);
+        $data = $this->dbutil->xml_from_result($query, $config);
 
-			$data = mb_convert_encoding($data , "UTF-8", "UTF-8, ISO-8859-1, ISO-8859-15");			
+        $data = mb_convert_encoding($data, "UTF-8", "UTF-8, ISO-8859-1, ISO-8859-15");
 
-			write_file($file_name, $data); 
+        write_file($file_name, $data);
 
-			force_download($file_name,$data);
-	   
-	}//End Function
+        force_download($file_name, $data);
+    }//End Function
 
-	/**
-	 * exportExcelData
-	 * Função auxiliar para exportação em xls
-	 */
-	public function exportExcelData($records)
-	{
-	 	$heading = false;
-			if (!empty($records))
-			{
-			
-				foreach ($records as $row)
-				{
-					if (!$heading)
-					{
-					   // Exibe os nomes dos campos/colunas na primeira linha
-					   echo implode("\t", array_keys($row)) . "\n";
-					   $heading = true;
-				    }
-				    echo implode("\t", ($row)) . "\n";
-				}
-			}	
-	}//End Function
+    /**
+     * get_xls_eventos_utilizacao_de_salas
+     *
+     * Faz a exportacao de utilização de salas em .XLS
+     */
+    public function get_xls_eventos_utilizacao_de_salas()
+    {
 
-	/**
-	 * get_xls_eventos_utilizacao_de_salas
-	 * 
-	 * Faz a exportacao de utilização de salas em .XLS
-	 */
-	public function get_xls_eventos_utilizacao_de_salas(){
+        /**
+         * Model dos dados que irão ser exportados
+         */
+        $data = $this->export_model->eventos_utilizacao_de_salas_xls();
 
-		/** 
-		 * Model dos dados que irão ser exportados
-		 */
-		$data = $this->export_model->eventos_utilizacao_de_salas_xls();
+        $dataToExports = [];
 
-	 	$dataToExports = [];
+        foreach ($data as $row) {
+            $arrangeData['Utilizacao de Sala'] = mb_convert_encoding($row['desc_utilizacao_sala'], 'utf-16', 'utf-8');
+            $arrangeData['Definicao'] 		   = mb_convert_encoding($row['desc_definicao'], 'utf-16', 'utf-8');
+            $dataToExports[]	 			   = $arrangeData;
+        }
+        
+        /***
+         * Definir o nome do arquivo
+         */
+        $filename = "tpl_exp_Eventos_utilizacao_salas.xls";
+        
+        /**
+         * Definiçaõ do header
+         */
+        header("Content-Type: application/vnd.ms-excel;charset = UTF-8");
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+         
+        /**
+         * exportExcelData
+         * Função auxiliar para exportação em xls
+         *
+         */
+        $this->exportExcelData($dataToExports);
+    }
 
-		foreach ($data as $row)
-		{
-	        $arrangeData['Utilizacao de Sala'] = mb_convert_encoding($row['desc_utilizacao_sala'],'utf-16','utf-8');
-			$arrangeData['Definicao'] 		   = mb_convert_encoding($row['desc_definicao'],'utf-16','utf-8');
-	  		$dataToExports[]	 			   = $arrangeData;
-		}
-		
-		/***
-		 * Definir o nome do arquivo
-		 */
-		$filename = "tpl_exp_Eventos_utilizacao_salas.xls";
-		
-		/**
-		 * Definiçaõ do header
-		 */
-		header("Content-Type: application/vnd.ms-excel;charset = UTF-8");
-		header("Content-Disposition: attachment; filename=\"$filename\"");
-		header("Pragma: no-cache");
-		header("Expires: 0");
-		 
-		/**
-		 * exportExcelData
-		 * Função auxiliar para exportação em xls
-		 * 
-		 */
-		$this->exportExcelData($dataToExports);
-	}
+    /**
+     * Faz a exportação PDF da listagem de utilização de salas
+     */
+    public function get_pdf_eventos_utilizacao_de_salas()
+    {
+        /***
+         * Carregando a view
+         */
+        $html = $this->load->view('print/eventos/utilizacao_salas_lista_pdf', [], true);
 
-	/**
-	 * Faz a exportação PDF da listagem de utilização de salas
-	 */
-	function get_pdf_eventos_utilizacao_de_salas()
-	{
-		/***
-		 * Carregando a view
-		 */
-		$html = $this->load->view('print/eventos/utilizacao_salas_lista_pdf', [], true);
+        /***
+         * Definir o nome do arquivo
+         */
+        $filename = "utilizacao_salas_lista-" . time();
 
-		/***
-		 * Definir o nome do arquivo
-		 */
-		$filename = "utilizacao_salas_lista-" . time();
-
-		/***
-		 * Metodo responsavel por renderizar um pagina html ou php em PDF
-		 */
-		$this->pdfgenerator->generate($html, $filename, true, 'A4', 'portrait');
-
-	 } //End Function
-
-
-
-
+        /***
+         * Metodo responsavel por renderizar um pagina html ou php em PDF
+         */
+        //$this->pdfgenerator->generate($html, $filename, true, 'A4', 'portrait');
+    } //End Function
 }//End Class
