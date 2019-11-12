@@ -1,18 +1,18 @@
 <?php
-/** 
+/**
  * ZATA
- * 
+ *
  * Uma estrutura baseada na framework codeiginiter para o desenvolvimento
  * de aplicativos que proporciona a criação de soluções de forma rápida
  * e inovadora, reduzindo o tempo de desenvolcimento em 80%.
- * 
+ *
  * Este conteudo é publicado sob a Lincença MIT
  *
  * Copyright(c) 2015-2017, TRIVEE SERVICES IT
- * 
- * É concedida permissão a qualquer pessoa que obtenha uma cópia deste 
+ *
+ * É concedida permissão a qualquer pessoa que obtenha uma cópia deste
  * software e arquivos de documentação associados, sem restrições e limitação,
- * incluindo os direitos de copiar, modificar, fundir, publicar, 
+ * incluindo os direitos de copiar, modificar, fundir, publicar,
  * distribuir, sublicenciar e/ou vender.
  *
  * O aviso de copyright acima a este aviso de permissão devem ser incluidos
@@ -59,108 +59,65 @@
  * @copyright TRIVEE SERVICES IT MEI | Copyright (c) 2015 - 2016
  * @license   MIT <https://opensource.org/licenses/MIT>
  * @link      http://www.trivee.com.br
- * @since     Versão 1.0.0 
+ * @since     Versão 1.0.0
  */
 
-defined('BASEPATH') OR exit('Não é permitido acesso direto ao script');
+defined('BASEPATH') or exit('Não é permitido acesso direto ao script');
 
 /**
- * Class Model Import 
- * 
+ * Class Model Import
+ *
  *
  * @category  Models
  * @author    Ralny Andrade | <ra@trivee.com.br> | https://github.com/ralny
  */
 
-class Export_model extends MY_Model {
+class Export_model extends MY_Model
+{
 
    /**
     * Método construtor
     *
     * @return  void
     */
-   function __construct() {
+    public function __construct()
+    {
+        parent::__construct();
 
-          parent::__construct();
+        $this->load->helper('file');
+        $this->load->helper('download');
+        $this->load->dbutil();
+    }
 
-          $this->load->helper('file');
-          $this->load->helper('download');
-          $this->load->dbutil();
-
-     }
-
-     public function produtos_excel()
-     {
-
-
-          $this->db->select('*');
-          $query = $this->db->get('pro_produtos');
-          return $query->result_array();
-     
-     /*
-          
-          $query = "
-               SELECT
-               nome, codigo
-               FROM
-               pro_produtos 
-               WHERE token_company = '$this->company' 
-               ";
-          
-          $query = $this->db->query($query);
-          
-          return $query->result_array(); */
-     
-     }
-
-     /**
-      * Eventos_utilizacao_de_salas_csv
-      * @description Faz a exportacao de utilização de salas em CSV
-      *
-      * @access  public
-      * @return  void
-      */
-     public function eventos_utilizacao_de_salas_csv()
-     {
-          
-          $sql = "
+    /**
+     * Eventos_utilizacao_de_salas_csv
+     * @description Faz a exportacao de utilização de salas em CSV
+     *
+     * @access  public
+     * @param $tipo_exportacao
+     */
+    
+    public function eventos_utilizacao_de_salas($tipo_exportacao)
+    {
+        $sql = "
                     SELECT
                          desc_utilizacao_sala, desc_definicao
                     FROM
                          eve_utilizacao_sala 
                     WHERE 
-                    token_company = '$this->company' 
+                         token_company = '$this->company' 
                ";
                
-          $query = $this->db->query($sql);	
-          
-          return $query;
-     }
+        $query = $this->db->query($sql);
 
-     /**
-      * Eventos_utilizacao_de_salas_csv
-      * @description Faz a exportacao de utilização de salas em CSV
-      *
-      * @access  public
-      * @return  void
-      */
-      public function eventos_utilizacao_de_salas_xls()
-      {
-           
-           $sql = "
-                     SELECT
-                         id_utilizacao_sala, desc_utilizacao_sala, desc_definicao
-                     FROM
-                          eve_utilizacao_sala 
-                     WHERE 
-                     token_company = '$this->company' 
-                ";
-                
-           $query = $this->db->query($sql);	
-           
-           return $query->result_array();
-      }
+        switch ($tipo_exportacao) {
+               case 'csv':
+                    return $query;
+                    break;
 
-
-
+               case 'xls':
+                    return $query->result_array();
+                    break;
+          }
+    }
 }//End Class
