@@ -140,7 +140,7 @@ class Export extends MY_Controller
         /**
          * Dados que vão ser exportados
          */
-        $query = $this->export_model->eventos_utilizacao_de_salas_csv();
+        $query = $this->export_model->eventos_utilizacao_de_salas('csv');
 
         /**
          * Configurações
@@ -168,7 +168,7 @@ class Export extends MY_Controller
         /**
          * Dados que vão ser exportados
          */
-        $query = $this->export_model->eventos_utilizacao_de_salas_csv();
+        $query = $this->export_model->eventos_utilizacao_de_salas();
 
         
         $config = array($config = array(
@@ -199,7 +199,7 @@ class Export extends MY_Controller
         /**
          * Model dos dados que irão ser exportados
          */
-        $data = $this->export_model->eventos_utilizacao_de_salas_xls();
+        $data = $this->export_model->eventos_utilizacao_de_salas('xls');
 
         $dataToExports = [];
 
@@ -238,7 +238,8 @@ class Export extends MY_Controller
         /***
          * Carregando a view
          */
-        $html = $this->load->view('print/eventos/utilizacao_salas_lista_pdf', [], true);
+		//$html = $this->load->view('print/eventos/utilizacao_salas_lista_pdf', [], true);
+		$this->load->view('print/eventos/utilizacao_salas_lista_pdf');
 
         /***
          * Definir o nome do arquivo
