@@ -118,6 +118,10 @@ class Export_model extends MY_Model
                case 'xls':
                     return $query->result_array();
                     break;
+
+               case 'xml':
+                    return $query;
+                    break;     
           }
     }
 }//End Class

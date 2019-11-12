@@ -168,7 +168,7 @@ class Export extends MY_Controller
         /**
          * Dados que vão ser exportados
          */
-        $query = $this->export_model->eventos_utilizacao_de_salas();
+        $query = $this->export_model->eventos_utilizacao_de_salas('xml');
 
         
         $config = array($config = array(
