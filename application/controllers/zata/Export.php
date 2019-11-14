@@ -97,7 +97,9 @@ class Export extends MY_Controller
          * Carregando model
          *
          */
-        $this->load->model('zata/export_model');
+        $this->load->model('zata/export_model'); 
+        $this->load->model('zata/Empresas_model');
+        $this->load->model('zata/Useraccount_model');
     }
 
     /**
@@ -232,29 +234,76 @@ class Export extends MY_Controller
 
     /**
      * Faz a exportação PDF da listagem de utilização de salas
+     *
+     * $preview_type - [html] utilizar em desenvolvimento para auxiliar a criação do arquivo que vai ser exportado em pdf
+     *                  [pdf] utilizar esse quando o desenvolvimento for concluido e liberar para produção
      */
     public function get_pdf_eventos_utilizacao_de_salas()
     {
+       /*
+        * $preview_type
+        * [html] utilizar em desenvolvimento para auxiliar a criação do arquivo que vai ser exportado em pdf
+        * [pdf] utilizar esse quando o desenvolvimento for concluido e liberar para produção
+        */
+        $preview_type = 'pdf';
+
         /**
-         * Model dos dados que irão ser exportados
+         * Dados da Empresa que o usuario esta logado 
          */
-        $page_data['lista'] = $this->export_model->eventos_utilizacao_de_salas(); 
-        //var_dump($page_data);die;
+        $company_data = $this->Empresas_model->company_data($this->session->userdata('token_company'));
+        
+        /**
+         * Dados do usuario que esta gerando relatorio 
+         */
+        $user_data = $this->Useraccount_model->user_data($this->session->userdata('id_usuario'));
 
-        /***
-         * Carregando a view
-         */
-		$html = $this->load->view('print/eventos/utilizacao_salas_lista_pdf', $page_data, true);
-		//$this->load->view('print/eventos/utilizacao_salas_lista_pdf', $page_data);
 
-        /***
-         * Definir o nome do arquivo
+        /**
+         * Configurações Basicas
          */
-        $filename = "utilizacao_salas_lista-" . time();
 
-        /***
-         * Metodo responsavel por renderizar um pagina html ou php em PDF
+        $page_data = array(
+            "desc_modulo"           => 'EVENTOS',
+            "desc_configuracoes"    => 'UTILIZAÇÃO DE SALA',
+            "tipo_exportacao"       => 'PDF',
+            "total_registros"       => count($this->export_model->eventos_utilizacao_de_salas()),
+            "lista"                 => $this->export_model->eventos_utilizacao_de_salas(),
+            "num_registro_pagina"   => 22,
+            "descricao_principal"   => 'LISTAGEM DE UTILIZAÇÃO DE SALAS',
+            "nome_usuario"          => strtoupper($user_data->nome.' '.$user_data->sobrenome),
+            "dth_criacao_relatorio" => strtoupper(data_extenso(date("Y-md h:i:s"))),
+            "nome_empresa_cnpj"     => strtoupper($company_data->razao_social.' - '.$company_data->numCNPJ),
+            "endereco_empresa"      => strtoupper($company_data->razao_social.','. $company_data->numero .'/'. $company_data->complemento.','.
+                                                  $company_data->bairro .'-'. $company_data->cep .' '.  $company_data->cidade.'/'. $company_data->uf),
+            
+         ); 
+
+        
+        /**
+         * Em produção, passar o parametro [pdf], em desenvolvimento  utilizar o parametro [html]
          */
-        $this->pdfgenerator->generate($html, $filename, true, 'A4', 'portrait');
+        if ($preview_type == 'pdf') {
+            
+            /***
+             * Carregando a view
+             */
+            $html = $this->load->view('print/eventos/utilizacao_salas_lista_pdf', $page_data, true);
+
+            /***
+             * Definir o nome do arquivo
+             */
+            $filename = "utilizacao_salas_lista-" . time();
+
+            /***
+             * Metodo responsavel por renderizar um pagina html ou php em PDF
+             */
+            $this->pdfgenerator->generate($html, $filename, true, 'A4', 'portrait');
+        } else {
+            /***
+             * Metodo responsavel por renderizar um pagina html ou php em PDF
+             */
+            $this->load->view('print/eventos/utilizacao_salas_lista_pdf', $page_data);
+        }
     } //End Function
+
 }//End Class
