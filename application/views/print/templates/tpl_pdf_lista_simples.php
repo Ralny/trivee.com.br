@@ -3,97 +3,165 @@
 
 <head>
      <link rel="stylesheet" href="./assets/print/css/print_static.css" type="text/css" />
-     <!--<link rel="STYLESHEET" href="../../../assets/print/css/print_static.css?123" type="text/css" />-->
+     <link rel="stylesheet" href="../../assets/print/css/print_static.css?123" type="text/css" />
 </head>
 
 <body>
 
-     <div id="body">
+          <table style="width: 100%; border-bottom: 1px solid black; font-size:9pt;">
+               <tr>
+                    <td>
+                         <h1 style="text-align: left">ZATA</h1>
+                    </td>
+                    <td style="text-align: right">
+                         Versão: 0.0.1
+                    </td>
+               </tr>
+          </table>
 
-          <div id="section_header"></div>
+          <table style="width: 100%; font-size:9pt;">
+               <tr>
+                    <td>TERESINA EMPREENDIMENTOS HOTELEIROS LTDA - 13.492.328/0001-14</td>
+                    <td style="text-align: right;">USUÁRIO: <strong>RALNY ANDRADE</strong></td>
+               </tr>
 
-          <div id="content">
+               <tr>
+                    <td>AV MARECHAL CASTELO BRANCO, 555 / SALA 15, ILHOTAS - 64.014-058 TERESINA/PI</td>
+                    <td style="text-align: right;">CRIAÇÃO:<strong>04/11/2019 9:28 AM</strong></td>
+               </tr>
 
-               <div class="page">
+          </table>
 
-                    <table style="width: 100%;" class="header">
-                         <tr>
-                              <td>
-                                   <h1 style="text-align: left">ZATA - IMPLANTED BY TRIVEE</h1>
-                              </td>
-                              <td style="text-align: right">
-                                  Versão: 0.0.1
-                              </td>
-                         </tr>
-                    </table>
+          <table style="width: 100%; border-top: 1px solid black; border-bottom: 1px solid black; font-size:9pt;">
+               <tr>
+                    <td>Modulo: <strong>Eventos</strong></td>
+                    <td>Configurações: <strong>Utilização de Sala</strong></td>
+                    <td>Tipo de Exportação: <strong>PDF</strong></td>
+                    <td>Registros: <strong>20</strong></td>
+               </tr>
+          </table>
 
-                    <table style="width: 100%;">
-                         <tr>
-                              <td>TERESINA EMPREENDIMENTOS HOTELEIROS LTDA</td>
-                              <td style="text-align: right;">USUÁRIO: <strong>RALNY ANDRADE</strong></td>
-                         </tr>
+          <h3 style="font-size:9pt">LISTAGEM DE UTILIZAÇÃO DE SALAS</h3>
 
-                         <tr>
-                              <td>13.492.328/0001-14</td>
-                              <td style="text-align: right;">CRIAÇÃO:<strong>04/11/2019 9:28 AM</strong></td>
-                         </tr>
+          <table class="change_order_items">
 
-                         <tr>
-                              <td>AV MARECHAL CASTELO BRANCO, 555 / SALA 15, ILHOTAS</td>
-                              <td> </td>
-                         </tr>
+               <tbody>
+                    <tr>
+                         <th>Utilização de Sala</th>
+                         <th width=16%>Alteração</th>
+                         <th width=16%>Usuário</th>
+                    </tr>
 
-                         <tr>
-                              <td>64.014-058 TERESINA/PI</td>
-                              <td></td>
-                         </tr>
-                    </table>
+                    <tr class="even_row">
+                         <td>Formatura</td>
+                         <td>04/11/2019 17h33</td>
+                         <td>Ralny Andrade</td>
+                    </tr>
 
-                    <table style="width: 100%; border-top: 1px solid black; border-bottom: 1px solid black;">
+                    <tr class="odd_row">
+                         <td>Congresso</td>
+                         <td>04/11/2019 17h33</td>
+                         <td>Ralny Andrade</td>
+                    </tr>
 
-                         <tr>
-                              <td>Modulo: <strong>Eventos</strong></td>
-                              <td>Configurações: <strong>Utilização de Sala</strong></td>
-                              <td>Tipo de Exportação: <strong>PDF</strong></td>
-                              <td>Registros: <strong>20</strong></td>
-                         </tr>
+                    <tr class="even_row">
+                         <td>Formatura</td>
+                         <td>04/11/2019 17h33</td>
+                         <td>Ralny Andrade</td>
+                    </tr>
 
+                    <tr class="odd_row">
+                         <td>Congresso</td>
+                         <td>04/11/2019 17h33</td>
+                         <td>Ralny Andrade</td>
+                    </tr>
 
+                    <tr class="even_row">
+                         <td>Formatura</td>
+                         <td>04/11/2019 17h33</td>
+                         <td>Ralny Andrade</td>
+                    </tr>
 
-                    </table>
+                    <tr class="odd_row">
+                         <td>Congresso</td>
+                         <td>04/11/2019 17h33</td>
+                         <td>Ralny Andrade</td>
+                    </tr>
 
-                    <h3>LISTAGEM DE UTILIZAÇÃO DE SALAS</h3>
+                    <tr class="even_row">
+                         <td>Formatura</td>
+                         <td>04/11/2019 17h33</td>
+                         <td>Ralny Andrade</td>
+                    </tr>
 
-                    <table class="change_order_items">
+                    <tr class="odd_row">
+                         <td>Congresso</td>
+                         <td>04/11/2019 17h33</td>
+                         <td>Ralny Andrade</td>
+                    </tr>
 
-                         <tbody>
-                              <tr>
-                                   <th>Utilização de Sala</th>
-                                   <th width=16%>Alteração</th>
-                                   <th width=16%>Usuário</th>
-                              </tr>
+                    <tr class="even_row">
+                         <td>Formatura</td>
+                         <td>04/11/2019 17h33</td>
+                         <td>Ralny Andrade</td>
+                    </tr>
 
-                              <tr class="even_row">
-                                   <td>Formatura</td>
-                                   <td>04/11/2019 17h33</td>
-                                   <td>Ralny Andrade</td>
-                              </tr>
+                    <tr class="odd_row">
+                         <td>Congresso</td>
+                         <td>04/11/2019 17h33</td>
+                         <td>Ralny Andrade</td>
+                    </tr>
 
-                              <tr class="odd_row">
-                                   <td>Congresso</td>
-                                   <td>04/11/2019 17h33</td>
-                                   <td>Ralny Andrade</td>
-                              </tr>
-                         </tbody>
+                    <tr class="even_row">
+                         <td>Formatura</td>
+                         <td>04/11/2019 17h33</td>
+                         <td>Ralny Andrade</td>
+                    </tr>
 
-                    </table>
+                    <tr class="odd_row">
+                         <td>Congresso</td>
+                         <td>04/11/2019 17h33</td>
+                         <td>Ralny Andrade</td>
+                    </tr>
 
-               </div>
-          </div>
-     </div>
+                    <tr class="even_row">
+                         <td>Formatura</td>
+                         <td>04/11/2019 17h33</td>
+                         <td>Ralny Andrade</td>
+                    </tr>
 
-     <div class="absolute" style="bottom: 10px; right: 10px;">
-          Pagina 1/1
+                    <tr class="odd_row">
+                         <td>Congresso</td>
+                         <td>04/11/2019 17h33</td>
+                         <td>Ralny Andrade</td>
+                    </tr>
+
+                    <tr class="even_row">
+                         <td>Formatura</td>
+                         <td>04/11/2019 17h33</td>
+                         <td>Ralny Andrade</td>
+                    </tr>
+
+                    <tr class="odd_row">
+                         <td>Congresso</td>
+                         <td>04/11/2019 17h33</td>
+                         <td>Ralny Andrade</td>
+                    </tr>
+                    
+                    
+               </tbody>
+
+          </table>
+
+     <div class="absolute" style="width: 100%; border-top: 1px solid black; text-align: right; bottom: 0px; right: 0px;">
+         
+          <table style="width: 100%; border-top: 1px solid black; text-align: right">
+               <tr>
+                    <td>Pagina:2/4</strong></td>
+               </tr>
+          </table>
+
+           <?= $rodape ?>
      </div>
 
 

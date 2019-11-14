@@ -1,12 +1,6 @@
 @page { margin: 0 }
 body { margin: 0 }
-.sheet {
-  margin: 0;
-  overflow: hidden;
-  position: relative;
-  box-sizing: border-box;
-  page-break-after: always;
-}
+
 
 /** Paper sizes **/
 body.A3               .sheet { width: 297mm; height: 419mm }

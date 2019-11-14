@@ -3,7 +3,7 @@
 
 <head>
      <!--<link rel="stylesheet" href="./assets/print/css/print_static.css" type="text/css" />-->
-     <link rel="STYLESHEET" href="../../../assets/print/css/print_static.css" type="text/css" />
+     <link rel="STYLESHEET" href="../../assets/print/css/print_static.css" type="text/css" />
 </head>
 
 <body>
