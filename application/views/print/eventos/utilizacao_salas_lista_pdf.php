@@ -1,107 +1,168 @@
+<?php
+/**
+ * Configurações auxiliares para a impressão PDF do Relatorio
+ */
+include('./application/views/print/templates/tpl_header.php');
+include('./application/views/print/templates/tpl_info_companny_user.php');
+include('./application/views/print/templates/tpl_rodape.php');
+
+/**
+ * Paginação - Utilizado pra indicar a paginção. Por exemplo: Pagina: 1/3
+ */
+$total_paginas = ceil($total_registros / $num_registro_pagina);
+
+/**
+ * Difinindo o tabela de configurações
+ */
+$info_table_exportacao = '
+                         <table style="width: 100%; border-top: 1px solid black; border-bottom: 1px solid black; font-size:9pt;">
+                              <tr>
+                                   <td>Modulo: <strong>'. $desc_modulo .'</strong></td>
+                                   <td>Configurações: <strong>'. $desc_configuracoes .'</strong></td>
+                                   <td>Tipo de Exportação: <strong>'. $tipo_exportacao. '</strong></td>
+                                   <td>Registros: <strong>'. $total_registros. '</strong></td>
+                              </tr>
+                         </table>
+                         ';
+
+/**
+ * Titulo do Relatorio
+ */
+$desc_relatorio = ' <h3 style="font-size:10pt">'.$descricao_principal.'</h3>';
+
+/**
+ * Define as colunas do grid
+ */
+$table_itens = '
+               <table class="change_order_items">
+                    <tbody>
+                         <tr>
+                              <th>Utilização de Sala</th>
+                              <th width=20%>Alteração</th>
+                              <th width=20%>Usuário</th>
+                         </tr>
+               ';
+
+?>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
-     <link rel="stylesheet" href="./assets/print/css/print_static.css" type="text/css" />
-     <!--<link rel="STYLESHEET" href="../../../assets/print/css/print_static.css?123" type="text/css" />-->
+    <link rel="stylesheet" href="./assets/print/css/print_static.css" type="text/css" />
+    <link rel="STYLESHEET" href="../../assets/print/css/print_static.css?12345" type="text/css" />
 </head>
 
 <body>
+     <!-- Informações do ZATA-->                    
+     <?= $header ?>
+          <!-- Informações da empresa que o usuario esta logado--> 
+          <?= $tpl_info_companny_user ?>
+          <!-- Informações secundarias da exportação--> 
+          <?= $info_table_exportacao ?>
+          <!-- Titulo do relatorio--> 
+          <?= $desc_relatorio ?>
+          <!-- Cabeçalho do grid --> 
+          <?= $table_itens ?>
 
-     <div id="body">
+                    <?php
+                         
+                         /**
+                          * Auxiliar para definir a quantidade de registros por pagina
+                          */
+                         $contador = 1;
 
-          <div id="section_header"></div>
+                         /**
+                          * Auxiliar para Iniciar a contagem de paginas
+                          */
+                         $pagina   = 1;
 
-          <div id="content">
+                         /**
+                          * Auxiliar para linha zebrada do grid
+                          */
+                         $row_zebrada = 1;
 
-               <div class="page">
+                         /**
+                          * Listando registros da tabela
+                          * Listing table records
+                          */
+                         foreach ($lista as $linha):
+                              /**
+                               * Incrementa Linhas zebradas
+                               */
+                              $row_zebrada++;
+                              
+                              /**
+                               * Defini linha clara e linha escura
+                               */
+                              $cor = ($row_zebrada % 2) ? 'even_row' : 'odd_row';
+                              
+                              /**
+                               * Faz a quebra de pagina ?
+                               */
+                              if ($contador == $num_registro_pagina) {
+                                  /**
+                                   * Se quebrar a pagina a contagem de registros inicia novamente
+                                   */
+                                  $contador = 1;
+                                   
+                                  /**
+                                   * Faz o fechamento da tabela e insere no rodapé a paginação
+                                   */
+                                  echo
+                                   '
+                                        </tbody>
+                                   </table>
 
-                    <table style="width: 100%;" class="header">
-                         <tr>
-                              <td>
-                                   <h1 style="text-align: left">ZATA - IMPLANTED BY TRIVEE</h1>
-                              </td>
-                              <td style="text-align: right">
-                                  Versão: 0.0.1
-                              </td>
-                         </tr>
-                    </table>
+                                   <div class="absolute" style="width: 100%; border-top: 1px solid black; text-align: right; bottom: 0px; right: 0px;">
+         
+                                        <table style="width: 100%; border-top: 1px solid black; text-align: right">
+                                             <tr>
+                                                  <td>Pagina: <strong>'.$pagina.'/'.$total_paginas.'</strong></td>
+                                             </tr>
+                                        </table>
 
-                    <table style="width: 100%;">
-                         <tr>
-                              <td>TERESINA EMPREENDIMENTOS HOTELEIROS LTDA</td>
-                              <td style="text-align: right;">USUÁRIO: <strong>RALNY ANDRADE</strong></td>
-                         </tr>
+                                   </div>  
 
-                         <tr>
-                              <td>13.492.328/0001-14</td>
-                              <td style="text-align: right;">CRIAÇÃO:<strong>04/11/2019 9:28 AM</strong></td>
-                         </tr>
+                                   
+                                   '. $rodape .'
 
-                         <tr>
-                              <td>AV MARECHAL CASTELO BRANCO, 555 / SALA 15, ILHOTAS</td>
-                              <td> </td>
-                         </tr>
+                                   '. $header .'
 
-                         <tr>
-                              <td>64.014-058 TERESINA/PI</td>
-                              <td></td>
-                         </tr>
-                    </table>
+                                   '. $tpl_info_companny_user .'
 
-                    <table style="width: 100%; border-top: 1px solid black; border-bottom: 1px solid black;">
+                                   '. $info_table_exportacao .'
 
-                         <tr>
-                              <td>Modulo: <strong>Eventos</strong></td>
-                              <td>Configurações: <strong>Utilização de Sala</strong></td>
-                              <td>Tipo de Exportação: <strong>PDF</strong></td>
-                              <td>Registros: <strong>20</strong></td>
-                         </tr>
+                                   '. $desc_relatorio .'
 
+                                   '. $table_itens .'
 
+                                   ';
 
-                    </table>
+                                  $pagina++;
+                              }
 
-                    <h3>LISTAGEM DE UTILIZAÇÃO DE SALAS</h3>
+                    ?>
+                    <!--Exibir as linhas do grid-->
+                    <tr class="<?= $cor ?>">
+                         <td><?= $linha->desc_utilizacao_sala ?></td>
+                         <td><?= data_hora($linha->dth_atualizacao) ?></td>
+                         <td><?= $linha->nome.' '.$linha->sobrenome ?></td>
+                    </tr>
+                    <?php $contador++; endforeach ?>	
+               </tbody>
+          </table>
+          <!-- Rodapé final -->
+          <div class="absolute" style="width: 100%; border-top: 1px solid black; text-align: right; bottom: 0px; right: 0px;">
+         
+               <table style="width: 100%; border-top: 1px solid black; text-align: right">
+                    <tr>
+                         <td>Pagina: <strong><?= $pagina ?>/<?= $total_paginas ?></strong></td>
+                    </tr>
+               </table>
 
-                    <table class="change_order_items">
-
-                         <tbody>
-                              <tr>
-                                   <th>Utilização de Sala</th>
-                                   <th width=20%>Alteração</th>
-                                   <th width=20%>Usuário</th>
-                              </tr>
-                              <?php 
-                                   /**
-                                    * Listando registros da tabela
-                                    * Listing table records
-                                    */
-                                   $row_zebrada = 1;
-                                   foreach ($lista as $linha):
-                                        /**
-                                         * Tinhas zebradas
-                                         */	
-                                        $row_zebrada++;
-                                        $cor = ($row_zebrada % 2) ? 'even_row' : 'odd_row';           
-					        ?>
-                              <tr class="<?= $cor ?>">
-                                   <td><?= $linha->desc_utilizacao_sala ?></td>
-                                   <td><?= data_hora($linha->dth_atualizacao) ?></td>
-                                   <td><?= $linha->id_usuario_atualizacao ?></td>
-                              </tr>
-                              <?php endforeach ?>	
-                         </tbody>
-                    </table>
-
-               </div>
-          </div>
-     </div>
-
-     <div class="absolute" style="bottom: 10px; right: 10px;">
-          Pagina 1/1
-     </div>
-
+               <?= $rodape ?>
+          </div>                   
 
 </body>
 
