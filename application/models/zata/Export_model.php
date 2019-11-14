@@ -101,12 +101,16 @@ class Export_model extends MY_Model
     {
         if ($tipo_exportacao == '') {
                $sql =    "
-                         SELECT
-                              *
-                         FROM
-                              eve_utilizacao_sala 
-                         WHERE 
-                              token_company = '$this->company' 
+                         Select
+                              eve.*,
+                              eve.token_company,
+                              usu.nome,
+                              usu.sobrenome
+                         From
+                              eve_utilizacao_sala eve Inner Join
+                              usu_usuario usu On usu.id_usuario = eve.id_usuario_atualizacao
+                         Where
+                              eve.token_company = '$this->company'
                          ";
         } else {
                $sql =   "
