@@ -15,7 +15,19 @@ include ('application/views/tpl/config_container.php');
 				</div>
 				<div class="actions btn-set">
 					<div class="form-actions top">
-						<a class="btn btn-success" href="<?= base_url() . $url ?>/cadastrar "><i class="fa fa-check"></i> Novo</a>
+						<a class="btn btn-success" href="<?= base_url() . $url ?>/cadastrar "><i class="fa fa-check"></i> Novo formato de sala</a>
+						<div class="btn-group">
+							<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Importar / Exportar
+							</button>
+							<ul class="dropdown-menu pull-right">
+								<li> <a data-toggle="modal" href="#basic"> Importar arquivo CSV</a> </li>
+								<li class="divider"></li>
+								<li> <a href="<?= base_url()?>zata/export/get_pdf_eventos_formatos_de_salas"> Salvar em PDF</a></li>
+								<li> <a href="<?= base_url()?>zata/export/get_xls_eventos_formatos_de_salas"> Exportar lista em Excel</a></li>
+								<li> <a href="<?= base_url()?>zata/export/get_csv_eventos_formatos_de_salas"> Exportar um arquivo CSV</a></li>
+								<li> <a href="<?= base_url()?>zata/export/get_xml_eventos_formatos_de_salas"> Exportar um arquivo XML</a></li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
