@@ -205,6 +205,10 @@ class Eventos_utilizacao_de_sala extends MY_Controller
 
         if (empty($page_data['lista'])) {
             /**
+             * Link para download do template csv 
+             */
+            $page_data['link_download_tpl'] = base_url().'/download_tpl_importacao/tpl_imp_Eventos_utilizacao_salas.csv';
+            /**
             * View Empty
             */
             $page_data['page'] = 'eventos/utilizacao_de_sala/index';
