@@ -74,3 +74,5 @@ include ('application/views/tpl/config_container.php');
 
 <!-- END PAGE CONTENT INNER -->
 
+<?php  $this->load->view('tpl/modal-import') ?>
+
