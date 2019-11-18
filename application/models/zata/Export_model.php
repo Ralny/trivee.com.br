@@ -90,16 +90,15 @@ class Export_model extends MY_Model
     }
 
     /**
-     * Eventos_utilizacao_de_salas_csv
+     * eventos_utilizacao_de_salas
      * @description Faz a exportacao de utilização de salas em CSV
      *
      * @access  public
      * @param $tipo_exportacao
      */
-    
     public function eventos_utilizacao_de_salas($tipo_exportacao = '')
     {
-        if ($tipo_exportacao == '') {
+          if ($tipo_exportacao == '') {
                $sql =    "
                          Select
                               eve.*,
@@ -112,7 +111,7 @@ class Export_model extends MY_Model
                          Where
                               eve.token_company = '$this->company'
                          ";
-        } else {
+          } else {
                $sql =   "
                          SELECT
                               desc_utilizacao_sala, desc_definicao
@@ -122,6 +121,63 @@ class Export_model extends MY_Model
                               token_company = '$this->company' 
                          ";
         }
+               
+        $query = $this->db->query($sql);
+
+        switch ($tipo_exportacao) {
+               
+               case 'csv':
+                    return $query;
+                    break;
+
+               case 'xls':
+                    return $query->result_array();
+                    break;
+
+               case 'xml':
+                    return $query;
+                    break;
+               
+               default:
+                    return $query->result();
+                    break;
+          }
+    }
+
+    /**
+     * eventos_formatos_de_salas
+     * @description Faz a exportacao de formato de salas em CSV
+     *
+     * @access  public
+     * @param $tipo_exportacao
+     */
+    public function eventos_formatos_de_salas($tipo_exportacao = '')
+    {
+          if ($tipo_exportacao == '') {
+               $sql =    "
+                         Select
+                              f.*,
+                              f.token_company,
+                              usu.nome,
+                              usu.sobrenome
+                         From
+                              eve_formato_de_sala f Inner Join
+                              usu_usuario usu On usu.id_usuario = f.id_usuario_atualizacao
+                         Where
+                              f.token_company = '$this->company'
+                         "; 
+          } else {
+               $sql =   "
+                         SELECT
+                              desc_formato_de_sala
+                         FROM
+                              eve_formato_de_sala 
+                         WHERE 
+                              token_company = '$this->company' 
+                         ";
+                        
+                        
+          }
                
         $query = $this->db->query($sql);
 
