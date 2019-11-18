@@ -188,7 +188,7 @@ class Eventos_formato_de_salas extends MY_Controller
          * URL para metodo de importacao de dados
          *
          */
-        $page_data['importar'] = base_url().'zata/Import/importar_csv_utilizacao_sala';
+        $page_data['importar'] = base_url().'zata/Import/importar_csv_formatos_de_sala';
         
         /**
          * Aux para definir em qual tabela vai inserir os dados importados
@@ -213,7 +213,7 @@ class Eventos_formato_de_salas extends MY_Controller
             /**
              * Link para download do template csv 
              */
-            $page_data['link_download_tpl'] = base_url().'/download_tpl_importacao/tpl_imp_Eventos_formato_de_sala.csv';
+            $page_data['link_download_tpl'] = base_url().'/download_tpl_importacao/tpl_imp_Eventos_formato_de_salas.csv';
             
             /**
             * View Empty
