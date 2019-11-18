@@ -142,7 +142,7 @@ class Export extends MY_Controller
         /**
          * Dados que vão ser exportados
          */
-        $query = $this->export_model->eventos_utilizacao_de_salas('csv');
+        $query = $this->Export_model->eventos_utilizacao_de_salas('csv');
 
         /**
          * Configurações
@@ -170,7 +170,7 @@ class Export extends MY_Controller
         /**
          * Dados que vão ser exportados
          */
-        $query = $this->export_model->eventos_utilizacao_de_salas('xml');
+        $query = $this->Export_model->eventos_utilizacao_de_salas('xml');
 
         
         $config = array($config = array(
@@ -199,7 +199,7 @@ class Export extends MY_Controller
         /**
          * Model dos dados que irão ser exportados
          */
-        $data = $this->export_model->eventos_utilizacao_de_salas('xls');
+        $data = $this->Export_model->eventos_utilizacao_de_salas('xls');
 
         $dataToExports = [];
 
@@ -264,8 +264,8 @@ class Export extends MY_Controller
             "desc_modulo"           => 'EVENTOS',
             "desc_configuracoes"    => 'UTILIZAÇÃO DE SALA',
             "tipo_exportacao"       => 'PDF',
-            "total_registros"       => count($this->export_model->eventos_utilizacao_de_salas()),
-            "lista"                 => $this->export_model->eventos_utilizacao_de_salas(),
+            "total_registros"       => count($this->Export_model->eventos_utilizacao_de_salas()),
+            "lista"                 => $this->Export_model->eventos_utilizacao_de_salas(),
             "num_registro_pagina"   => 22,
             "descricao_principal"   => 'LISTAGEM DE UTILIZAÇÃO DE SALAS',
             "nome_usuario"          => strtoupper($user_data->nome.' '.$user_data->sobrenome),
