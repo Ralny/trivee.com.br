@@ -25,16 +25,7 @@
 
 			<br>
 
-			<h4 class="text-center" style="font-weight: 600"> Assistente de importação de dados</h4>
-
-			<p class="text-center">
-			         Selecione o arquivo .CSV de até 200 linhas e importe para o ZATA.
-			</p>
-			
-			<p class="text-center">
-				Se preferir,<a href="<?=base_url ()?>download_tpl_importacao/tpl_imp_Eventos_utilizacao_salas.csv">
-						 faça o download do nosso template modelo clicando aqui</a>, preencha os dados e importe-a.
-			</p>
+			<?php $this->load->view('tpl/txt-importacao-dados') ?>
 			
 			<br><br>
 	
