@@ -14,7 +14,7 @@ composer.lock
 /database/
 /docs/
 /templates/
-
+]
 ## Sublime Text cache files
 *.tmlanguage.cache
 *.tmPreferences.cache
