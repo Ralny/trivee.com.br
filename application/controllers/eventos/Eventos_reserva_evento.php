@@ -112,6 +112,7 @@ class Eventos_reserva_evento extends MY_Controller
         $this->load->model('eventos/Eventos_utilizacao_de_sala_model');
         $this->load->model('eventos/Eventos_reserva_evento_model');
         $this->model = $this->Eventos_reserva_evento_model;
+
        
         /**
          * Carregando Informacoes do Modulos
@@ -422,6 +423,8 @@ class Eventos_reserva_evento extends MY_Controller
                 $data_user = $this->model->UserAccount_model->user_data($page_data['show']->id_usuario_atualizacao);
                     $page_data['usuario_atualizacao'] = $data_user->nome.' '.$data_user->sobrenome; 
                 
+                
+                   
 
                 /**
                  * Listar de salas "COMBOBOX"

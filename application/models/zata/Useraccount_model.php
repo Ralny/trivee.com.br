@@ -2,18 +2,18 @@
 
 /**
  * ZATA
- * 
+ *
  * Uma estrutura baseada na framework codeiginiter para o desenvolvimento
  * de aplicativos que proporciona a criação de soluções de forma rápida
  * e inovadora, reduzindo o tempo de desenvolcimento em 80%.
- * 
+ *
  * Este conteudo é publicado sob a Lincença MIT
  *
  * Copyright(c) 2015-2017, TRIVEE SERVICES IT
- * 
- * É concedida permissão a qualquer pessoa que obtenha uma cópia deste 
+ *
+ * É concedida permissão a qualquer pessoa que obtenha uma cópia deste
  * software e arquivos de documentação associados, sem restrições e limitação,
- * incluindo os direitos de copiar, modificar, fundir, publicar, 
+ * incluindo os direitos de copiar, modificar, fundir, publicar,
  * distribuir, sublicenciar e/ou vender.
  *
  * O aviso de copyright acima a este aviso de permissão devem ser incluidos
@@ -60,10 +60,11 @@
  * @copyright TRIVEE SERVICES IT MEI | Copyright (c) 2015 - 2016
  * @license   MIT <https://opensource.org/licenses/MIT>
  * @link      http://www.trivee.com.br
- * @since     Versão 1.0.0 
+ * @since     Versão 1.0.0
  */
 
-class UserAccount_model extends MY_Model {
+class UserAccount_model extends MY_Model
+{
 
     //Nome da tabela
     protected $_table = "usu_usuario";
@@ -73,13 +74,14 @@ class UserAccount_model extends MY_Model {
     /**
     * Verificando se existe usuario correspondente ao email e senha passados pelo formulario de login
     * @author Ralny Andrade de Oliveira
-    * @version 1.0 
+    * @version 1.0
     * @since 30/09/2015
     */
-    public function login($login, $senha) {
+    public function login($login, $senha)
+    {
 
-        //       Observação da consula: 
-        //       Se sitExclusao = N (Usuario não foi excluido) se sitExclusao = S (Usuario foi "excluido" do sistema. Imporssibilitado de realizar o login) 
+        //       Observação da consula:
+        //       Se sitExclusao = N (Usuario não foi excluido) se sitExclusao = S (Usuario foi "excluido" do sistema. Imporssibilitado de realizar o login)
         $sql = "
                 Select
                       *
@@ -88,31 +90,31 @@ class UserAccount_model extends MY_Model {
                     Where
                       email = '".$login."' And
                       senha = '".$senha."'             
-                ";   
+                ";
 
 
         //execultando a consulta
         $query = $this->db->query($sql);
         //Verifica se existe HUM resultado valido para realização do login
-        if(count($query) == 1)
-        {
+        if (count($query->result()) == 1) {
             //retornando dados da consulta para o controller UserAccount (Vai armazenar dados do usuario na sessao autenticada)
             return $query->row();
-        }    
-        //se não existir nenhum resultado na consulta o login falhou 
-        return false;  
+        }
+        //se não existir nenhum resultado na consulta o login falhou
+        return false;
     }
 
     /**
     * Verificando se existe ja existe usuario cadastrado - Utiliza o numero de CPF
     * @author Ralny Andrade de Oliveira
-    * @version 1.0 
+    * @version 1.0
     * @since 23/02/2016
     */
-    public function request_register($cpf) {
+    public function request_register($cpf)
+    {
 
-        //       Observação da consula: 
-        //       sitRequestRegister = P (Solicitação de Aprovação) se sitRequestRegister = P (Solicitação pendente) se sitRequestRegister = A (Solicitação Aprovada)  
+        //       Observação da consula:
+        //       sitRequestRegister = P (Solicitação de Aprovação) se sitRequestRegister = P (Solicitação pendente) se sitRequestRegister = A (Solicitação Aprovada)
         $sql = "
                 Select
                       *
@@ -120,34 +122,35 @@ class UserAccount_model extends MY_Model {
                       ".$this->_table."
                     Where
                       numCPF = '".$cpf."'                 
-                ";     
+                ";
 
         //execultando a consulta
         $query = $this->db->query($sql);
         //Verifica se existe HUM resultado valido para realização do login
-        if(count($query) == 1)
-        {
+        if (count($query) == 1) {
             //retornando dados da consulta para o controller UserAccount
             return $query->row();
-        }    
-        //se não existir nenhum resultado na consulta não existe usuario cadastrado nem solicitação de registro 
-        return false;  
+        }
+        //se não existir nenhum resultado na consulta não existe usuario cadastrado nem solicitação de registro
+        return false;
     }
 
     /**
     * Registrando Logs no Login do Usuario
     */
-    public function insertLogLoginUsuario($dados) {
+    public function insertLogLoginUsuario($dados)
+    {
         return $this->db->insert('_log_login_usuario', $dados);
     }
 
     /**
     * Retornando Informações de Usuario
     */
-    public function user_data($id) {
+    public function user_data($id)
+    {
       
-        //       Observação da consula: 
-        //       Se sitExclusao = N (Usuario não foi excluido) se sitExclusao = S (Usuario foi "excluido" do sistema.) 
+        //       Observação da consula:
+        //       Se sitExclusao = N (Usuario não foi excluido) se sitExclusao = S (Usuario foi "excluido" do sistema.)
         $sql = "
                 Select
                       *
@@ -157,7 +160,7 @@ class UserAccount_model extends MY_Model {
                       id_usuario = '".$id."'
                     And
                       sit_ativo = 'S'                 
-                ";   
+                ";
 
 
         //execultando a consulta
@@ -169,16 +172,18 @@ class UserAccount_model extends MY_Model {
     /**
     * Insert
     */
-    public function insert($dados) {
+    public function insert($dados)
+    {
         return $this->db->insert($this->_table, $dados);
     }
 
     /**
-     * Listar Usuarios 
+     * Listar Usuarios
      *
      * Retorna lista de locais e instalacoes
      */
-    public function listar_usuarios(){
+    public function listar_usuarios()
+    {
 
         /**
          * Montando select
@@ -197,12 +202,5 @@ class UserAccount_model extends MY_Model {
         $query = $this->db->query($sql);
 
         return $query->result();
-        
     }
- 
-
-
-    
-
-    
 }//Fim da classe

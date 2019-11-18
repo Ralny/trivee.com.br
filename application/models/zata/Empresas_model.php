@@ -2,18 +2,18 @@
 
 /**
  * ZATA
- * 
+ *
  * Uma estrutura baseada na framework codeiginiter para o desenvolvimento
  * de aplicativos que proporciona a criação de soluções de forma rápida
  * e inovadora, reduzindo o tempo de desenvolcimento em 80%.
- * 
+ *
  * Este conteudo é publicado sob a Lincença MIT
  *
  * Copyright(c) 2015-2017, TRIVEE SERVICES IT
- * 
- * É concedida permissão a qualquer pessoa que obtenha uma cópia deste 
+ *
+ * É concedida permissão a qualquer pessoa que obtenha uma cópia deste
  * software e arquivos de documentação associados, sem restrições e limitação,
- * incluindo os direitos de copiar, modificar, fundir, publicar, 
+ * incluindo os direitos de copiar, modificar, fundir, publicar,
  * distribuir, sublicenciar e/ou vender.
  *
  * O aviso de copyright acima a este aviso de permissão devem ser incluidos
@@ -60,10 +60,11 @@
  * @copyright TRIVEE SERVICES IT MEI | Copyright (c) 2015 - 2016
  * @license   MIT <https://opensource.org/licenses/MIT>
  * @link      http://www.trivee.com.br
- * @since     Versão 1.0.0 
+ * @since     Versão 1.0.0
  */
 
-class Empresas_model extends MY_Model {
+class Empresas_model extends MY_Model
+{
 
     //Nome da tabela
     protected $_table = "emp_empresas";
@@ -73,10 +74,8 @@ class Empresas_model extends MY_Model {
     /**
     * Retornando Informações da empresa
     */
-    public function company_data($id_empresa) {
-      
-        //       Observação da consula: 
-        //       Se sitExclusao = N (Usuario não foi excluido) se sitExclusao = S (Usuario foi "excluido" do sistema.) 
+    public function company_data($id_empresa)
+    {
         $sql = "
                 Select
                       *
@@ -84,21 +83,11 @@ class Empresas_model extends MY_Model {
                       ".$this->_table."
                     Where
                       token_id = '".$id_empresa."'               
-                ";   
-
+                ";
 
         //execultando a consulta
         $query = $this->db->query($sql);
         //Retorna consulta
         return $query->row();
     }
-
-    
-
-    
-
-
-    
-
-    
 }//Fim da classe

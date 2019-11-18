@@ -97,7 +97,7 @@ class Export extends MY_Controller
          * Carregando model
          *
          */
-        $this->load->model('zata/export_model'); 
+        $this->load->model('zata/Export_model');
         $this->load->model('zata/Empresas_model');
         $this->load->model('zata/Useraccount_model');
     }
@@ -185,8 +185,6 @@ class Export extends MY_Controller
 
         $data = mb_convert_encoding($data, "UTF-8", "UTF-8, ISO-8859-1, ISO-8859-15");
 
-        write_file($file_name, $data);
-
         force_download($file_name, $data);
     }//End Function
 
@@ -240,20 +238,20 @@ class Export extends MY_Controller
      */
     public function get_pdf_eventos_utilizacao_de_salas()
     {
-       /*
-        * $preview_type
-        * [html] utilizar em desenvolvimento para auxiliar a criação do arquivo que vai ser exportado em pdf
-        * [pdf] utilizar esse quando o desenvolvimento for concluido e liberar para produção
-        */
+        /*
+         * $preview_type
+         * [html] utilizar em desenvolvimento para auxiliar a criação do arquivo que vai ser exportado em pdf
+         * [pdf] utilizar esse quando o desenvolvimento for concluido e liberar para produção
+         */
         $preview_type = 'pdf';
 
         /**
-         * Dados da Empresa que o usuario esta logado 
+         * Dados da Empresa que o usuario esta logado
          */
         $company_data = $this->Empresas_model->company_data($this->session->userdata('token_company'));
         
         /**
-         * Dados do usuario que esta gerando relatorio 
+         * Dados do usuario que esta gerando relatorio
          */
         $user_data = $this->Useraccount_model->user_data($this->session->userdata('id_usuario'));
 
@@ -273,10 +271,10 @@ class Export extends MY_Controller
             "nome_usuario"          => strtoupper($user_data->nome.' '.$user_data->sobrenome),
             "dth_criacao_relatorio" => strtoupper(data_extenso(date("Y-md h:i:s"))),
             "nome_empresa_cnpj"     => strtoupper($company_data->razao_social.' - '.$company_data->numCNPJ),
-            "endereco_empresa"      => strtoupper($company_data->razao_social.','. $company_data->numero .'/'. $company_data->complemento.','.
+            "endereco_empresa"      => strtoupper($company_data->endereco.','. $company_data->numero .'/'. $company_data->complemento.','.
                                                   $company_data->bairro .'-'. $company_data->cep .' '.  $company_data->cidade.'/'. $company_data->uf),
             
-         ); 
+         );
 
         
         /**
@@ -305,5 +303,4 @@ class Export extends MY_Controller
             $this->load->view('print/eventos/utilizacao_salas_lista_pdf', $page_data);
         }
     } //End Function
-
 }//End Class
