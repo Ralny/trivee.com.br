@@ -50,20 +50,64 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 
-$route['default_controller'] = 'welcome';
+
+/**
+ * Codeigniter
+ */
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+/**
+ * Zata
+ */
+$route['default_controller'] = 'welcome';
 $route['download_tpl_importacao/(:any)']		= 'zata/Download/download_tpl_importacao/$1';
 
+/**
+ * Login / Request / Signout
+ */
 $route['login'] 			  = 'zata/UserAccount/page_login';
 $route['entrar'] 			  = 'zata/UserAccount/exec_login';
 $route['solicitar']		 	  = 'zata/UserAccount/request_account';
 $route['sair'] 				  = 'zata/UserAccount/signout';
 
-//Eventos - Utilização de sala
-$route['eventos/config/utilizacao-de-sala/listar'] 	      	    = 'eventos/Eventos_utilizacao_de_sala/listar';
-$route['eventos/config/utilizacao-de-sala/cadastrar'] 	  		= 'eventos/Eventos_utilizacao_de_sala/cadastrar';
-$route['eventos/config/utilizacao-de-sala/editar/(:any)'] 		= 'eventos/Eventos_utilizacao_de_sala/editar/$1';
-$route['eventos/config/utilizacao-de-sala/salvar']   	  		= 'eventos/Eventos_utilizacao_de_sala/salvar';
-$route['eventos/config/utilizacao-de-sala/excluir/(:any)']		= 'eventos/Eventos_utilizacao_de_sala/excluir/$1';
+/**
+ * Modulo de Eventos 
+ */
+    /**
+     * Utilização de sala
+     */
+    $route['eventos/config/utilizacao-de-sala/listar'] 	       = 'eventos/Eventos_utilizacao_de_sala/listar';
+    $route['eventos/config/utilizacao-de-sala/cadastrar'] 	   = 'eventos/Eventos_utilizacao_de_sala/cadastrar';
+    $route['eventos/config/utilizacao-de-sala/editar/(:any)']  = 'eventos/Eventos_utilizacao_de_sala/editar/$1';
+    $route['eventos/config/utilizacao-de-sala/salvar']   	   = 'eventos/Eventos_utilizacao_de_sala/salvar';
+    $route['eventos/config/utilizacao-de-sala/excluir/(:any)'] = 'eventos/Eventos_utilizacao_de_sala/excluir/$1';
+
+    /**
+     * Formato de Sala
+     */
+    $route['eventos/config/formato-de-sala/listar'] 	    = 'eventos/Eventos_formato_de_salas/listar';
+    $route['eventos/config/formato-de-sala/cadastrar'] 	  	= 'eventos/Eventos_formato_de_salas/cadastrar';
+    $route['eventos/config/formato-de-sala/editar/(:any)'] 	= 'eventos/Eventos_formato_de_salas/editar/$1';
+    $route['eventos/config/formato-de-sala/salvar']   	  	= 'eventos/Eventos_formato_de_salas/salvar';
+    $route['eventos/config/formato-de-sala/excluir/(:any)']	= 'eventos/Eventos_formato_de_salas/excluir/$1';
+    
+    /**
+     * Salas
+     */
+    $route['eventos/config/salas/listar'] 	      = 'eventos/Eventos_salas/listar';
+    $route['eventos/config/salas/cadastrar'] 	  = 'eventos/Eventos_salas/cadastrar';
+    $route['eventos/config/salas/editar/(:any)']  = 'eventos/Eventos_salas/editar/$1';
+    $route['eventos/config/salas/salvar']   	  = 'eventos/Eventos_salas/salvar';
+    $route['eventos/config/salas/excluir/(:any)'] = 'eventos/Eventos_salas/excluir/$1';
+    
+    /**
+     * Reserva de sala
+     */
+    $route['eventos/reserva-de-evento/listar'] 	      	          = 'eventos/Eventos_reserva_evento/listar';
+    $route['eventos/reserva-de-evento/cadastrar'] 	  		      = 'eventos/Eventos_reserva_evento/cadastrar';
+    $route['eventos/reserva-de-evento/editar/(:any)'] 		      = 'eventos/Eventos_reserva_evento/editar/$1';
+    $route['eventos/reserva-de-evento/salvar']   	  		      = 'eventos/Eventos_reserva_evento/salvar';
+    $route['eventos/reserva-de-evento/adicionar_reserva_de_sala'] = 'eventos/Eventos_reserva_evento/adicionar_reserva_de_sala';
+    $route['eventos/reserva-de-evento/excluir/(:any)']		      = 'eventos/Eventos_reserva_evento/excluir/$1';
+
