@@ -228,6 +228,73 @@ class Import extends MY_Controller
 		}
 	}
 
+	/**
+	 * Faz a importação do CSV de Salas de Eventos
+	 *
+	 * @access  public
+	 * @return  void
+	 */
+	function importar_csv_de_salas()
+	{
+
+		// Define as configurações para o upload do CSV
+		$config['upload_path'] = './files/import/';
+		$config['allowed_types'] = 'csv';
+		$config['max_size'] = '2000';
+
+		// Carregando library de upload
+		$this->load->library('upload', $config);
+
+		// Se o upload falhar, exibe mensagem de erro na view
+		if (!$this->upload->do_upload('csvfile'))
+		{
+			/**
+			 * Criando sessao com mensagem  
+			 */
+			$this->session->set_flashdata('msg', 'falha-importar');
+
+			redirect(base_url('eventos/config/salas/listar'));
+		}
+		else
+		{
+			$file_data = $this->upload->data();
+
+			$file_path =  './files/import/' . $file_data['file_name'];
+
+			// Chama o método 'get_array', da library csvimport, passando o path do
+			// arquivo CSV. Esse método retornará um array.
+			$csv_array = $this->csvimport->get_array($file_path);
+
+			if ($csv_array)
+			{
+				// Faz a interação no array para poder gravar os dados na tabela 'contatos'
+				foreach ($csv_array as $row)
+				{
+					$data['nome_sala']   					 = $row['nome_sala'];
+					$data['dimensoes']   					 = $row['dimensoes'];
+					$data['area']   						 = $row['area'];
+					$data['pe_direito']   					 = $row['pe_direito'];
+					$data['valor_diaria_trf_balcao']   		 = $row['valor_diaria_trf_balcao'];
+					$data['valor_diaria_trf_especial_iss']   = $row['valor_diaria_trf_especial_iss'];
+
+					// Insere os dados na tabela 'contatos'
+					$this->import_model->insert_csv($this->input->post('tabela'), $data);
+				}
+
+				$this->session->set_flashdata('msg', 'importar-sucesso');
+
+				redirect(base_url('eventos/config/salas/listar'));
+			}
+			else
+			{
+
+				$data['error'] = "Ocorreu um erro, desculpe!";
+
+				redirect(base_url('eventos/config/salas/listar'));
+			}
+		}
+	}
+
 
 
 
