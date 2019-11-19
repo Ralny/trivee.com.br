@@ -200,4 +200,64 @@ class Export_model extends MY_Model
                     break;
           }
     }
+
+    /**
+    * eventos_salas
+    * @description Faz a exportacao de salas em CSV
+    *
+    * @access  public
+    * @param $tipo_exportacao
+    */
+    public function eventos_salas($tipo_exportacao = '')
+    {
+          if ($tipo_exportacao == '') {
+               $sql =    "
+                         Select
+                              f.*,
+                              f.token_company,
+                              usu.nome,
+                              usu.sobrenome
+                         From
+                              eve_salas f Inner Join
+                              usu_usuario usu On usu.id_usuario = f.id_usuario_atualizacao
+                         Where
+                              f.token_company = '$this->company'
+                         "; 
+          } else {
+               $sql =   "
+                         SELECT
+                              nome_sala,
+                              dimensoes,
+                              area,
+                              pe_direito,
+                              valor_diaria_trf_balcao,
+                              valor_diaria_trf_especial_iss
+                         FROM
+                              eve_salas 
+                         WHERE 
+                              token_company = '$this->company' 
+                         ";  
+          }
+               
+        $query = $this->db->query($sql);
+
+        switch ($tipo_exportacao) {
+               
+               case 'csv':
+                    return $query;
+                    break;
+
+               case 'xls':
+                    return $query->result_array();
+                    break;
+
+               case 'xml':
+                    return $query;
+                    break;
+               
+               default:
+                    return $query->result();
+                    break;
+          }
+    }
 }//End Class
