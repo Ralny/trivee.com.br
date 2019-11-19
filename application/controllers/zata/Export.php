@@ -551,5 +551,54 @@ class Export extends MY_Controller
         force_download($file_name, $data);
     }//End Function
 
+     /**
+     * get_xls_eventos_salas
+     *
+     * Faz a exportacao de salas em .XLS
+     */
+    public function get_xls_eventos_salas()
+    {
+        /**
+         * Model dos dados que irão ser exportados
+         */
+        $data = $this->Export_model->eventos_salas('xls');
+
+        $dataToExports = [];
+
+        foreach ($data as $row) {
+            $arrangeData['Formatos de Sala'] = mb_convert_encoding($row['nome_sala'], 'utf-16', 'utf-8');
+            $arrangeData['Formatos de Sala'] = mb_convert_encoding($row['dimensoes'], 'utf-16', 'utf-8');
+            $arrangeData['Formatos de Sala'] = mb_convert_encoding($row['area'], 'utf-16', 'utf-8');
+            $arrangeData['Formatos de Sala'] = mb_convert_encoding($row['pe_direito'], 'utf-16', 'utf-8');
+            $arrangeData['Formatos de Sala'] = mb_convert_encoding($row['valor_diaria_trf_balcao'], 'utf-16', 'utf-8');
+            $arrangeData['Formatos de Sala'] = mb_convert_encoding($row['valor_diaria_trf_especial_iss'], 'utf-16', 'utf-8');
+            $dataToExports[]	 			 = $arrangeData;
+        }
+        
+        /***
+         * Definir o nome do arquivo
+         */
+        $filename = "tpl_exp_Eventos_salas.xls";
+        
+        /**
+         * Definiçaõ do header
+         */
+        header("Content-Type: application/vnd.ms-excel;charset = UTF-8");
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+         
+        /**
+         * exportExcelData
+         * Função auxiliar para exportação em xls
+         *
+         */
+        $this->exportExcelData($dataToExports);
+    }
+
+
+
+
+
 
 }//End Class
