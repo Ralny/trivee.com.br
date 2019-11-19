@@ -176,13 +176,28 @@ class Eventos_salas extends MY_Controller
          * Titulo do Portlet
          * Portlet Title
          */
-        $page_data['title_portlet'] = 'Salas de eventos';
+        $page_data['title_portlet'] = 'Lista de Salas';
 
         /**
          * Variavel auxiliar para rotas do controller
          * Auxiliary variable for controller routes
          */
         $page_data['url']           = $this->url;
+
+        /** INICIO DA IMPORTAÇÃO DE DADOS ------------------------------------------------------------------------------------------------------------ */
+        /**
+         * URL para metodo de importacao de dados
+         *
+         */
+        $page_data['importar'] = base_url().'zata/Import/importar_csv_utilizacao_sala';
+        
+        /**
+         * Aux para definir em qual tabela vai inserir os dados importados
+         *
+         */
+        $page_data['tabela'] = $this->info['config']['tabela_db'];
+        /** FIM DA iMPORTAÇÃO DE DADOS -------------------------------------------------------------------------------------------------------------- */
+
 
         /**
          * Configuracao do Grid
@@ -196,10 +211,21 @@ class Eventos_salas extends MY_Controller
          */
         $page_data['lista']         = $this->model->getAll($this->info['config']['sql_select']);
 
-        /**
-         * View
-         */
-        $page_data['page']          = 'eventos/salas/main-list';
+        if (empty($page_data['lista'])) {
+            /**
+             * Link para download do template csv 
+             */
+            $page_data['link_download_tpl'] = base_url().'/download_tpl_importacao/tpl_imp_Eventos_salas.csv';
+            /**
+            * View Empty
+            */
+            $page_data['page'] = 'eventos/salas/index';
+        } else {
+            /**
+            * View
+            */
+            $page_data['page'] = 'eventos/salas/main-list';
+        }
 
         /**
          * Carregando tudo na view
