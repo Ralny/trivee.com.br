@@ -23,10 +23,12 @@ include ('application/views/tpl/config_container.php');
 				
 					<table class="table table-striped table-bordered table-hover" id="sample_2">
 							<thead>
-								<th>Descrição do Evento</th>
-								<th width="15%">Número de Pax</th>
-								<th width="15%">Status</th>
-								<th width="15%">Dead Line</th>
+								<th width="10%">Status</th>
+								<th width="10%">Núm. reserva</th>
+								<th>Evento</th>
+								<th>Cliente</th>
+								<th width="10%">Valor total</th>
+								<th width="10%" style="text-align: center;">Detalhes</th>
 								<th width="10%">Ações</th>
 							</thead>
 							<tbody>
@@ -42,10 +44,31 @@ include ('application/views/tpl/config_container.php');
 									 */		            
 					        ?>	
 								<tr class="odd gradeX">									
+									<td>
+										<span class="label bg-blue"> <?= $linha->desc_status_reserva_evento ?> </span>
+									</td>
+									<td><?= $linha->numero_reserva ?></td>
 									<td><?= $linha->desc_evento ?></td>
-									<td><?= $linha->num_pax ?></td>
-									<td><?= $linha->sit_status ?></td>
-									<td><?= $linha->dth_dead_line ?></td>
+									<td><?= $linha->nome_fantasia ?></td>
+									<td><?= moeda($linha->valor_total_reserva_evento) ?></td>
+									<td style="text-align: center;">
+									<span class="btn btn-default popovers" data-container="body" data-trigger="hover" data-placement="left" 
+									data-content="
+												
+													Previsão de inicio: <strong>20/10/2019</strong>
+													<br/>
+													Numero de Pax: 209
+													<br/>
+													Qtde de Salas: 8
+													<br/>
+													Total de Salas: R$ 3.500,00
+													<br/>
+													Total de A&B: R$ 1.500,00
+													<br/>
+													Total de Outros: R$ 500,00
+									
+												" aria-describedby="popover263156"><i class="fa fa-file-text-o"></i></span>
+									</td>
 									<td>
 										<a class=" btn btn-default" href="<?= base_url() . $url ?>/editar/<?= $linha->token_id ?>"><i class="fa fa-pencil"></i></a>
 	                    				<a class=" btn btn-default" href="<?= base_url() . $url ?>/excluir/<?= $linha->token_id ?>"><i class="fa fa-trash-o"></i></a>
@@ -59,3 +82,14 @@ include ('application/views/tpl/config_container.php');
 		<!-- END EXAMPLE TABLE PORTLET-->
 </div>
 <!-- END PAGE CONTENT INNER -->
+
+<script>
+
+/**
+ * Para colocar conteúdo HTML dentro do texto ou do título ajuste a propriedade html para true
+ */
+$(document).ready(function(){
+    $('[data-trigger="hover"]').popover({html: true});   
+});
+
+</script>

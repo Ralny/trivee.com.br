@@ -102,6 +102,34 @@ class Eventos_reserva_evento_model extends MY_Model {
         $this->primaryKey = "id_reserva_evento";
         
     }
+
+    /**
+     * Lista todas as reservas de eventos
+     */
+    public function lista_reservas_de_eventos(){
+       
+        /**
+         * Montando select
+         */
+        $sql = "
+                Select
+                    r.*,
+                    s.desc_status_reserva_evento,
+                    c.razao_social,
+                    c.nome_fantasia
+                From
+                    eve_reserva_evento r Inner Join
+                    eve_status_reserva_evento s On s.id_status_reserva_evento = r.id_status_reserva_evento Inner Join
+                    cli_cliente_fornecedor c On r.id_cf = c.id_cf
+                Where
+                    r.token_company = '$this->company'
+                ";
+
+        $query = $this->db->query($sql);
+
+        return $query->result();
+
+    }
     
       /**
      * Buscar Ultimo numero de reserva 
@@ -110,7 +138,7 @@ class Eventos_reserva_evento_model extends MY_Model {
      *
      * @return void
      */
-    public function buscar_num_reserva_evento(){
+    public function buscar_num_ultima_reserva_evento(){
 
         $sql    = "SELECT MAX(numero_reserva) AS ultima_reserva_evento FROM eve_reserva_evento WHERE token_company = '$this->company'";
         
@@ -121,6 +149,8 @@ class Eventos_reserva_evento_model extends MY_Model {
         return $num_os->ultima_reserva_evento;  
     
     }
+
+
 
     /**
      * Lista todas as reservas de sala de um determinado evento
@@ -159,7 +189,7 @@ class Eventos_reserva_evento_model extends MY_Model {
 
     }
 
-      /**
+    /**
      * Lista todas as reservas de sala de um determinado evento
      */
     public function retorna_reserva_sala($id_reserva_evento_sala){
