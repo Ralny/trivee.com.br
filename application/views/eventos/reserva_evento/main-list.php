@@ -52,7 +52,7 @@ include ('application/views/tpl/config_container.php');
 									<td><?= $linha->nome_fantasia ?></td>
 									<td><?= moeda($linha->valor_total_reserva_evento) ?></td>
 									<td style="text-align: center;">
-									<span class="btn btn-default popovers" data-container="body" data-trigger="hover" data-placement="left" 
+									<span, class="btn btn-default popovers" data-container="body" data-trigger="hover" data-placement="left" 
 									data-content="
 												
 													Previsão de inicio: <strong>20/10/2019</strong>
