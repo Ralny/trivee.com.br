@@ -51,6 +51,8 @@
 <!-- DATATABLES -->
 <script type="text/javascript" src="<?= base_url() ?>assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<!-- FUNCÔES DE USO COMUM -->
+<script type="text/javascript" src="<?= base_url() ?>assets/admin/pages/scripts/common.js"></script>
 <!-- MASCARA-->
 <script type="text/javascript" src="<?= base_url() ?>assets/admin/pages/scripts/maskedinput.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>assets/admin/pages/scripts/maskedconf.js"></script>

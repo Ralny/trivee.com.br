@@ -234,8 +234,7 @@
 			$("select[name=id_arrumacao]").val('').change();
 			$("select[name=id_utilizacao_sala]").val('').change();
 			$('#observacoes_sala').val('');
-			$('input[name="iss"]').val('5,00');
-			
+
 		});
 
 	});

@@ -175,7 +175,7 @@ class Eventos_reserva_evento extends MY_Controller
          * Titulo do Portlet
          * Portlet Title
          */
-        $page_data['page_title'] = 'Eventos / Orçamento';
+        $page_data['page_title'] = 'Eventos / Orçamentos';
 
         /**
          * Titulo do Portlet
@@ -201,10 +201,18 @@ class Eventos_reserva_evento extends MY_Controller
          */
         $page_data['lista']         = $this->model->lista_reservas_de_eventos();
 
-        /**
-         * View
-         */
-        $page_data['page']          = 'eventos/reserva_evento/main-list';
+        if (empty($page_data['lista'])) {
+            /**
+            * View Empty
+            */
+            $page_data['page'] = 'eventos/reserva_evento/index';
+        } else {
+            /**
+            * View
+            */
+            $page_data['page'] = 'eventos/reserva_evento/main-list';
+        }
+
 
         /**
          * Carregando tudo na view
@@ -437,6 +445,7 @@ class Eventos_reserva_evento extends MY_Controller
                  * View
                  */
                 $page_data['page']          = 'eventos/reserva_evento/form';
+                
 
                 /**
                  * Carregando dados para a view

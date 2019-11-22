@@ -10,7 +10,7 @@ include ('application/views/tpl/config_container.php');
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-					<h2 class="modal-title">Adicionar salas</h2>
+					<h2 class="modal-title">Adicionar sala</h2>
 				</div>
 				<div class="modal-body">
 				
@@ -31,7 +31,7 @@ include ('application/views/tpl/config_container.php');
 
 						<?php 
 
-						/**
+						    /**
 							 * Verificar o status do registro e se botão ATIVO ira ficar marcado
 							 * quando o formulario estiver em modo de edição
 							 * Check the status of the record and if the ACTIVE button will be marked
@@ -78,20 +78,8 @@ include ('application/views/tpl/config_container.php');
 										$select = '';	
 										
 										foreach ($lista_salas as $row): 
+										?>
 
-											if(isset($form_editar))
-											{
-											/*	if($show->id_sala == $row->id_sala ) 
-												{
-													$select = 'selected="selected"';
-												}
-												else
-												{
-													$select = '';		
-												}
-												*/
-											}
-											?>
 											<option value="<?= $row->id_sala ?>" <?=  $select ?>><?= $row->nome_sala ?></option>
 										<?php endforeach ?>
 									</select>
@@ -195,19 +183,7 @@ include ('application/views/tpl/config_container.php');
 										
 										foreach ($lista_utilizacao_de_sala as $row): 
 
-											if(isset($form_editar))
-											{
-											/*	if($show->id_sala == $row->id_sala ) 
-												{
-													$select = 'selected="selected"';
-												}
-												else
-												{
-													$select = '';		
-												}
-												*/
-											}
-											?>
+										?>
 											<option value="<?= $row->id_utilizacao_sala ?>" <?=  $select ?>><?= $row->desc_utilizacao_sala ?></option>
 										<?php endforeach ?>
 									</select>
@@ -218,7 +194,7 @@ include ('application/views/tpl/config_container.php');
 								<div class="form-group">
 									<label class="control-label">Pax Estimadas</label>
 									<div class="input-group">
-									<input value="<?php //=  isset($show->nome_sala) ? $show->nome_sala : null ;?>" name="pax_estimadas"  id="pax_estimadas" data-required="1" type="text" class="form-control"/>
+									<input name="pax_estimadas"  id="pax_estimadas" data-required="1" type="text" class="form-control"/>
 												<span class="input-group-btn">
 													<button class="btn default" type="button"><i class="fa fa-users"></i></button>
 												</span>
@@ -230,7 +206,7 @@ include ('application/views/tpl/config_container.php');
 								<div class="form-group">
 									<label class="control-label">Pax Garantidas<span class="required" aria-required="true"> * </span></label>
 									<div class="input-group">
-									<input value="<?php //=  isset($show->nome_sala) ? $show->nome_sala : null ;?>" name="pax_garantidas" id="pax_garantidas" data-required="1" type="text" class="form-control"/>
+									<input name="pax_garantidas" id="pax_garantidas" data-required="1" type="text" class="form-control"/>
 												<span class="input-group-btn">
 													<button class="btn default" type="button"><i class="fa fa-users"></i></button>
 												</span>
@@ -278,7 +254,7 @@ include ('application/views/tpl/config_container.php');
 								<div class="form-group">
 									<label class="control-label">Desconto</label>
 									<div class="input-group">
-										<input value="<?php //=  isset($show->nome_sala) ? $show->nome_sala : null ;?>" name="desconto" data-required="1" type="text" class="form-control"/>
+										<input name="desconto" data-required="1" type="text" class="form-control"/>
 										<span class="input-group-addon">%</i></span>
 									</div>
 								</div>
@@ -288,7 +264,7 @@ include ('application/views/tpl/config_container.php');
 								<div class="form-group">
 									<label class="control-label">ISS</label>
 									<div class="input-group">
-										<input readonly value="5,00" name="iss" data-required="1" type="text" class="form-control"/>
+										<input readonly name="iss" data-required="1" type="text" class="form-control" value="5,00"/>
 										<span class="input-group-addon">%</i></span>
 									</div>
 								</div>
@@ -342,6 +318,8 @@ include ('application/views/tpl/config_container.php');
 <script>
 
 jQuery(document).ready(function() {
+
+	$("input[name=iss]").val('5,00');
 
 	<?php
 	/**
@@ -412,12 +390,12 @@ jQuery(document).ready(function() {
 		} 
 	
 	});
+
 	<?php
 	/**
 	 * Mascaras 
 	 */
 	?>
-
 	$('input[name="dth_inicio"]').mask('99/99/9999');
 	$('input[name="dth_fim"]').mask('99/99/9999');
 
@@ -499,168 +477,87 @@ jQuery(document).ready(function() {
 	 */
 	?>
 	$("#balcao").click(function() {
+		<?php
+		/**
+		 * Alterar para tarifa Balcao
+		 */
+		?>
+		if ($(this).prop("checked", true)){
+			
+			$('input[name="desconto"]').attr( {value : ''} );
+			$('input[name="acrescimo"]').attr( {value : ''} );
+			
 			<?php
 			/**
-			 * Alterar para tarifa Balcao
+			 * Setando os valores originais nos campos
 			 */
 			?>
-			if ($(this).prop("checked", true)){
-				
-				$('input[name="desconto"]').attr( {value : ''} );
-				$('input[name="acrescimo"]').attr( {value : ''} );
-
-				<?php
-				/**
-				 * Setando os valores originais nos campos
-				 */
-				?>
-				var trf_balcao = moeda2float2($('input[name="trf_balcao"]').val());
-				//console.log(trf_balcao);
-
-				trf_balcao = trf_balcao.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-				$('input[name="valor_diaria"]').attr( {value : trf_balcao} );
-				$('input[name="valor_total"]').attr( {value : trf_balcao} );
-				<?php
-				/**
-				 * VALOR TOTAL COM TAXAS = Valor da diaria + ISS
-				 */
-				?>
-				var valor_iss = ajusta_iss(trf_balcao);
-
-				var valor_total_taxas = valor_iss.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-				$('input[name="valor_total_taxas"]').attr( {value : valor_total_taxas} );
-				
-			}
+			var trf_balcao = moeda2float2($('input[name="trf_balcao"]').val());
+			
+			trf_balcao = trf_balcao.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+			$('input[name="valor_diaria"]').attr( {value : trf_balcao} );
+			$('input[name="valor_total"]').attr( {value : trf_balcao} );
+			
+			<?php
+			/**
+			 * VALOR TOTAL COM TAXAS = Valor da diaria + ISS
+			 */
+			?>
+			var valor_iss = ajusta_iss(trf_balcao);
+			var valor_total_taxas = valor_iss.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+			$('input[name="valor_total_taxas"]').attr( {value : valor_total_taxas} );
+			
+		}
 	});	
 
 	$("#especial_iss").click(function() {
-			<?php
-			/**
-			 * Alterar para tarifa Especial + ISS
-			 */
-			?>
-			if ($(this).prop("checked", true)){
-				
-				$('input[name="desconto"]').attr( {value : ''} );
-				$('input[name="acrescimo"]').attr( {value : ''} );
-
-				<?php
-				/**
-				 * Setando os valores originais nos campos
-				 */
-				?>
-				var trf_especial = moeda2float2($('input[name="trf_especial"]').val());
-				trf_especial = trf_especial.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-				$('input[name="valor_diaria"]').attr( {value : trf_especial} );
-				$('input[name="valor_total"]').attr( {value : trf_especial} );
-				<?php
-				/**
-				 * VALOR TOTAL COM TAXAS = Valor da diaria + ISS
-				 */
-				?>
-				var valor_iss = ajusta_iss(trf_especial);
-				var valor_total_taxas = valor_iss.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-				$('input[name="valor_total_taxas"]').attr( {value : valor_total_taxas} );
-
-			}
-	});
-	
-	<?php
-	/**
-	 * Limpando mascara (String) para poder usar somente numeros nos calculos
-	 */
-	?>
-	function moeda2float(ajuste_moeda){
-
-		var ajuste_moeda = ajuste_moeda.replace("R$","");
-
-		ajuste_moeda = ajuste_moeda.replace(".","");
-
-		ajuste_moeda = ajuste_moeda.replace(",",".");
-
-		return parseFloat(ajuste_moeda);
-
-	}
-
-	function moeda2float2(ajuste_moeda){
-
-		var ajuste_moeda = ajuste_moeda.replace("R$","");
-
-		//ajuste_moeda = ajuste_moeda.replace(".","");
-
-		ajuste_moeda = ajuste_moeda.replace(",",".");
-
-		return parseFloat(ajuste_moeda);
-
-		}
-
-	<?php
-	/**
-	 * Preparando para exibir
-	 * Obs. Não estou utilizando essa função, eu utilizo a função nativa [.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })]
-	 */
-	?>
-	function float2moeda(num) {
-
-		x = 0;
-
-		if(num<0) {
-			num = Math.abs(num);
-			x = 1;
-		}
-
-		if(isNaN(num)) num = "0";
-		cents = Math.floor((num*100+0.5)%100);
-
-		num = Math.floor((num*100+0.5)/100).toString();
-
-		if(cents < 10) cents = "0" + cents;
-		for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
-			num = num.substring(0,num.length-(4*i+3))+'.'
-		+num.substring(num.length-(4*i+3));
-
-		ret = num + ',' + cents;    
-
-		if (x == 1) ret = ' - ' + ret;
-
-		return ret;
-
-	}
-
-	<?php
-	/**
-	 * Resetando Combo (Toda vez que muda a filtragem, elimina a consuta anterior)
-	 */
-	?>
-	function resetaCombo( el) {
 		<?php
 		/**
-		 * Setaando o campo que ira ser limpo
+		 * Alterar para tarifa Especial + ISS
 		 */
 		?>
-		$("select[name='"+ el +"']").empty();
+		if ($(this).prop("checked", true)){
+			
+			$('input[name="desconto"]').attr( {value : ''} );
+			$('input[name="acrescimo"]').attr( {value : ''} );
 
-		var option = document.createElement('option');                                  
-		$("#s2id_" + el + " span[class='select2-chosen']").text('Selecionar...');
-		$( option ).attr( {value : ''} );
-		$( option ).append( '' );
-		$("select[name='"+el+"']").append( option );
-	}
+			<?php
+			/**
+			 * Setando os valores originais nos campos
+			 */
+			?>
+			var trf_especial = moeda2float2($('input[name="trf_especial"]').val());
+			trf_especial = trf_especial.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+			$('input[name="valor_diaria"]').attr( {value : trf_especial} );
+			$('input[name="valor_total"]').attr( {value : trf_especial} );
 
+			<?php
+			/**
+			 * VALOR TOTAL COM TAXAS = Valor da diaria + ISS
+			 */
+			?>
+			var valor_iss = ajusta_iss(trf_especial);
+			var valor_total_taxas = valor_iss.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+			$('input[name="valor_total_taxas"]').attr( {value : valor_total_taxas} );
+
+		}
+	});
+	
+	
 	<?php
 	/**
 	 * Calcula o ISS
 	 */
 	?>
 	function ajusta_iss(valor_diaria_sem_iss){
-		//Pegando valor diaria
+
 		var valor_diaria = moeda2float(valor_diaria_sem_iss);
-		//Pegandio valor do iss
 		var iss = moeda2float($("input[name=iss]").val());
 
 		var valor_diaria_com_iss = valor_diaria + ( valor_diaria * (iss / 100));
 		
 		return valor_diaria_com_iss;
+		
 	}
 
 	<?php
@@ -678,6 +575,7 @@ jQuery(document).ready(function() {
 		return valor_total_diaria;
 
 	}
+	
 	<?php
 	/**
 	 * Calcula o desconto
@@ -911,11 +809,7 @@ $("select[name=id_sala]").change(function(){
 			 */
 			?>
 			var trf_especial_formatado = parseFloat(obj.valor_diaria_trf_especial_iss);
-			//console.log(obj.valor_diaria_trf_especial_iss);
-			//console.log(trf_especial_formatado);
 			trf_especial_formatado = trf_especial_formatado.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-			//console.log(trf_especial_formatado);
-
 
 			<?php
 			/**
@@ -927,10 +821,10 @@ $("select[name=id_sala]").change(function(){
 			$('input[name="valor_diaria"]').attr( {value : trf_especial_formatado} );
 			$('input[name="valor_total"]').attr( {value : trf_especial_formatado} );
 
-			var valor_total_taxas = ajusta_iss(parseFloat(obj.valor_diaria_trf_especial_iss));
-			console.log(valor_total_taxas);
-			//valor_total_taxas = valor_total_taxas.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-			//$('input[name="valor_total_taxas"]').attr( {value : valor_total_taxas} );
+			var valor_total_taxas = ajusta_iss($("input[name=valor_diaria]").val());
+			valor_total_taxas = valor_total_taxas.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+			$('input[name="valor_total_taxas"]').attr( {value : valor_total_taxas} );
+
 		});
 	
 	});
