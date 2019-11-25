@@ -32,15 +32,16 @@ include ('application/views/tpl/config_container.php');
 					</thead>
 					<tbody>
 					<?php 
+
 						/**
 						 * Listando registros da tabela
 						 * Listing table records
 						 */
 						foreach ($lista as $linha):
 							/**
-							 * Listar registros da tabela
-							 * Change Active Label
-							 */		            
+							 * Somando valor total de cada serviço
+							 */		
+							$valor_evento = $linha->valor_total_sala;
 					?>	
 						<tr class="odd gradeX">									
 							<td>
@@ -49,7 +50,7 @@ include ('application/views/tpl/config_container.php');
 							<td><?= $linha->numero_reserva ?></td>
 							<td><?= $linha->desc_evento ?></td>
 							<td><?= $linha->nome_fantasia ?></td>
-							<td><?= moeda($linha->valor_total_reserva_evento) ?></td>
+							<td><?= moeda($valor_evento) ?></td>
 							<td style="text-align: center;">
 							<span class="btn btn-default popovers" data-container="body" data-trigger="hover" data-placement="left" data-content=
 							"
@@ -92,7 +93,7 @@ include ('application/views/tpl/config_container.php');
 											<a href='javascript:;' class='primary-link'>Salas</a>
 										</td>
 										<td>
-											<span class='bold theme-font'>R$ 3.500,00</span>
+											<span class='bold theme-font'><?= moeda($linha->valor_total_sala) ?></span>
 										</td>
 									</tr>
 									<tr>
