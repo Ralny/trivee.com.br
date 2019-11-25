@@ -869,10 +869,10 @@ $("select[name=id_sala]").change(function(){
 
 	});
 
+	
 
 
-
-
+	
 });
 </script>
 
