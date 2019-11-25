@@ -116,13 +116,24 @@ class Eventos_reserva_evento_model extends MY_Model {
                     r.*,
                     s.desc_status_reserva_evento,
                     c.razao_social,
-                    c.nome_fantasia
+                    c.nome_fantasia,
+                    Sum(tb_valor_total_sala.valor_total_taxas) As valor_total_sala
                 From
-                    eve_reserva_evento r Inner Join
+                    (Select
+                        s.valor_total_taxas,
+                        s.id_reserva_evento
+                    From
+                        eve_reserva_salas s) As tb_valor_total_sala Inner Join
+                    eve_reserva_evento r On r.id_reserva_evento = tb_valor_total_sala.id_reserva_evento Inner Join
                     eve_status_reserva_evento s On s.id_status_reserva_evento = r.id_status_reserva_evento Inner Join
                     cli_cliente_fornecedor c On r.id_cf = c.id_cf
                 Where
                     r.token_company = '$this->company'
+                Group By
+                    s.desc_status_reserva_evento,
+                    c.razao_social,
+                    c.nome_fantasia,
+                    r.id_reserva_evento
                 ";
 
         $query = $this->db->query($sql);
