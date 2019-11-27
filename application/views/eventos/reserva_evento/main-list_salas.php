@@ -189,9 +189,7 @@
 
 				$.getJSON( path + 'eventos/Eventos_reserva_evento/ajax_retorna_reserva_sala/' + id_reserva_evento_sala, function (data){
 
-					$.each(data, function(i, obj){
-
-						console.log(data);						
+					$.each(data, function(i, obj){				
 						
 						$('input[name="id_reserva_evento"]').attr( {value : obj.id_reserva_evento} );
 						$('select[name=id_sala]').val(obj.id_sala).change();
@@ -235,6 +233,21 @@
 			$("select[name=id_utilizacao_sala]").val('').change();
 			$('#observacoes_sala').val('');
 			$('input[name="iss"]').val('5,00');
+			$('input[name="qtd_diarias"]').val('1');
+			
+			/**
+			 * Iniciando a data de inicio da reserva com a data atual 
+			 */
+			var data = new Date;
+			var dia = data.getDate();
+			var mes = data.getMonth();
+			var ano = data.getFullYear();
+
+			var data_inicio = dia + '/' + (mes + 1) + '/' + ano;
+			$('input[name="dth_inicio"]').val(data_inicio);
+
+			var data_fim = (data.getDate() + 1) + '/' + (mes + 1) + '/' + ano;
+			$('input[name="dth_fim"]').val(data_fim);
 			
 		});
 

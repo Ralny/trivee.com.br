@@ -178,7 +178,8 @@ include ('application/views/tpl/config_container.php');
  * Para colocar conteúdo HTML dentro do texto ou do título ajuste a propriedade html para true
  */
 $(document).ready(function(){
-    $('[data-trigger="hover"]').popover({html: true});   
+	$('[data-trigger="hover"]').popover({html: true});   
 });
+
 
 </script>

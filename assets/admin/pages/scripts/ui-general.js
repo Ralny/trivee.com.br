@@ -34,6 +34,7 @@ var UIGeneral = function () {
     }
 
     var handleDynamicPagination = function() {
+        /*
         $('#dynamic_pager_demo1').bootpag({
             paginationClass: 'pagination',
             next: '<i class="fa fa-angle-right"></i>',
@@ -43,6 +44,7 @@ var UIGeneral = function () {
         }).on("page", function(event, num){
             $("#dynamic_pager_content1").html("Page " + num + " content here"); // or some ajax content loading...
         });
+        */
 
         $('#dynamic_pager_demo2').bootpag({
             paginationClass: 'pagination pagination-sm',
@@ -60,7 +62,7 @@ var UIGeneral = function () {
         //main function to initiate the module
         init: function () {
             handlePulsate();
-            handleDynamicPagination();
+            //handleDynamicPagination();
         }
 
     };

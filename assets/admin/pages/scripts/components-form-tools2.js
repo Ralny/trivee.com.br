@@ -1,6 +1,7 @@
 var ComponentsFormTools2 = function() {
 
     var selectSplitter = function() {
+        /*
         $('#select_selectsplitter1').selectsplitter({
             selectSize: 4
         });
@@ -10,6 +11,7 @@ var ComponentsFormTools2 = function() {
         $('#select_selectsplitter3').selectsplitter({
             selectSize: 5
         });
+        */
     }
 
     var miniColors = function() {
@@ -46,7 +48,7 @@ var ComponentsFormTools2 = function() {
     return {
         //main function to initiate the module
         init: function() {
-            selectSplitter();
+            //selectSplitter();
             miniColors();
         }
     };

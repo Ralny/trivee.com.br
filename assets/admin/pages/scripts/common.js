@@ -71,3 +71,45 @@
 		$( option ).append( '' );
 		$("select[name='"+el+"']").append( option );
 	}
+
+	/**
+	 * Formatando datas 
+	 */
+	function formatDate(data, formato)
+	{
+		if (formato == 'pt-br')
+		{
+		  	return (data.substr(0, 10).split('-').reverse().join('/'));
+		}
+		else
+		{
+		  return (data.substr(0, 10).split('/').reverse().join('-'));
+		}
+		//console.log(formatDate('23/04/2018'));
+		//console.log(formatDate('2018-04-01', 'pt-br'));
+	}
+
+	/**
+	 * Diferença de dias entre tuas datas
+	 */
+	function diferenca_entre_datas(data_inicial, data_final){
+		
+		var data_inicial = formatDate(data_inicial);
+		var data_final   = formatDate(data_final);
+		
+		const now = new Date(data_final); 
+		const past = new Date(data_inicial);
+		const diff = Math.abs(now.getTime() - past.getTime()); // Subtrai uma data pela outra
+		const days = Math.ceil(diff / (1000 * 60 * 60 * 24)); // Divide o total pelo total de milisegundos correspondentes a 1 dia. (1000 milisegundos = 1 segundo).
+
+		return days;
+		//console.log('Entre 07/07/2014 até agora já se passaram ' + days + ' dias');
+	}
+
+	function multiplica_diaria_valor_de_sala(qtd_diarias, $valor_sala){
+
+		var total = qtd_diarias * $valor_sala;
+
+		return total;
+
+	}

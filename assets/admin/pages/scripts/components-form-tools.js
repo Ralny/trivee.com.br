@@ -72,6 +72,7 @@ var ComponentsFormTools = function () {
           source: custom.ttAdapter(),
           hint: (Metronic.isRTL() ? false : true),
           templates: {
+            /*
             suggestion: Handlebars.compile([
               '<div class="media">',
                     '<div class="pull-left">',
@@ -85,6 +86,7 @@ var ComponentsFormTools = function () {
                     '</div>',
               '</div>',
             ].join(''))
+            */
           }
         });
 
@@ -202,8 +204,9 @@ var ComponentsFormTools = function () {
           displayKey: 'value',
           hint: (Metronic.isRTL() ? false : true),
           source: custom.ttAdapter(),
-          templates: {
+          /*templates: {
             suggestion: Handlebars.compile([
+              
               '<div class="media">',
                     '<div class="pull-left">',
                         '<div class="media-object">',
@@ -216,7 +219,7 @@ var ComponentsFormTools = function () {
                     '</div>',
               '</div>',
             ].join(''))
-          }
+          }*/
         });
 
         // Example #4
@@ -580,9 +583,8 @@ var ComponentsFormTools = function () {
     return {
         //main function to initiate the module
         init: function () {
-            handleTwitterTypeahead();
+            /*handleTwitterTypeahead();*/
             handleTwitterTypeaheadModal();
-
             handleBootstrapSwitch();
             handleBootstrapTouchSpin();
             handleBootstrapMaxlength();

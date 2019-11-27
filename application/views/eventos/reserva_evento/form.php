@@ -236,8 +236,6 @@ if(isset($form_editar)){
 	    	?>
 			var acao = this.value;
 
-			console.log(acao);
-
 			<?php
 	    	/**
 			 * Altera o value do hidden que vai no POST do formulario

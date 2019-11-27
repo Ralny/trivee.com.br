@@ -52,7 +52,7 @@ var ComponentsPickers = function () {
                 opens: (Metronic.isRTL() ? 'left' : 'right'),
                 format: 'DD/MM/YYYY',
                 separator: ' to ',
-                startDate: moment().subtract('days', 29),
+                /*startDate: moment().subtract('days', 29),*/
                 endDate: moment(),
                 minDate: '01/01/2012',
                 maxDate: '12/31/2022',
@@ -214,7 +214,7 @@ var ComponentsPickers = function () {
             handleDatePickers();
             handleTimePickers();
             handleDatetimePicker();
-            handleDateRangePickers();
+            /*handleDateRangePickers();*/
             handleClockfaceTimePickers();
             handleColorPicker();
         }

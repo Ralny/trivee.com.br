@@ -615,6 +615,7 @@ jQuery(document).ready(function() {
 			 * VALOR TOTAL = valor da diaria
 			 */
 			?>
+			valor_diaria = valor_diaria.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 			$('input[name="valor_total"]').attr( {value : valor_diaria} );
 			
 			<?php
@@ -675,6 +676,7 @@ jQuery(document).ready(function() {
 			 * VALOR TOTAL = valor da diaria
 			 */
 			?>
+			valor_diaria = valor_diaria.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 			$('input[name="valor_total"]').attr( {value : valor_diaria} );
 
 			<?php
@@ -736,6 +738,8 @@ jQuery(document).ready(function() {
 		 */
 		?>
 		var total_diaria = multiplica_diaria_valor_de_sala(qtd_diarias, tarifa);
+
+
 		
 
 		console.log(total_diaria);

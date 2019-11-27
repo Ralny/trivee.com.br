@@ -33,7 +33,7 @@
 <script type="text/javascript" src="<?= base_url() ?>assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
 <!-- DATEPICKER -->
 <script type="text/javascript" src="<?= base_url() ?>assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<!--<script type="text/javascript" src="<?= base_url() ?>assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>-->
 <!-- FORMS TOOLS -->
 <script type="text/javascript" src="<?= base_url() ?>assets/global/plugins/fuelux/js/spinner.min.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js"></script>
@@ -44,7 +44,9 @@
 <script type="text/javascript" src="<?= base_url() ?>assets/global/plugins/jquery-tags-input/jquery.tagsinput.min.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>assets/global/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js"></script>
-<!--<script type="text/javascript" src="<?= base_url() ?>assets/global/plugins/typeahead/handlebars.min.js"></script>-->
+
+
+<script type="text/javascript" src="<?= base_url() ?>assets/global/plugins/typeahead/handlebars.min.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>assets/global/plugins/typeahead/typeahead.bundle.min.js"></script>
 <!-- TEXT AREA -->
 <script type="text/javascript" src="<?= base_url() ?>assets/global/plugins/autosize/autosize.min.js"></script>
@@ -71,7 +73,7 @@
 <script type="text/javascript" src="<?= base_url() ?>assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>assets/global/plugins/clockface/js/clockface.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>assets/global/plugins/bootstrap-daterangepicker/moment.min.js"></script>
+<!--<script type="text/javascript" src="<?= base_url() ?>assets/global/plugins/bootstrap-daterangepicker/moment.min.js"></script>-->
 <script type="text/javascript" src="<?= base_url() ?>assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>assets/global/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
 
@@ -126,14 +128,14 @@
 -->
 <script type="text/javascript" src="<?= base_url() ?>assets/admin/pages/scripts/ui-confirmations.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>assets/admin/pages/scripts/components-form-tools.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>assets/admin/pages/scripts/components-form-tools2.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>assets/admin/pages/scripts/components-form-tools2.js?123"></script>
 <script type="text/javascript" src="<?= base_url() ?>assets/admin/pages/scripts/table-managed.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>assets/admin/pages/scripts/todo.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>assets/admin/pages/scripts/portfolio.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>assets/admin/pages/scripts/components-dropdowns.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>assets/admin/pages/scripts/components-pickers.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>assets/admin/pages/scripts/timeline.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>assets/admin/pages/scripts/ui-general.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>assets/admin/pages/scripts/ui-general.js?123"></script>
 <script type="text/javascript" src="<?= base_url() ?>assets/admin/pages/scripts/form-fileupload.js"></script>
 
 

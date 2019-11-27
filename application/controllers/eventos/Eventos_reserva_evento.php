@@ -718,6 +718,7 @@ class Eventos_reserva_evento extends MY_Controller
             "limite_pax_arrumacao" => $this->input->post('limite_pax_arrumacao'),
             "dth_inicio"           => gravaData($this->input->post('dth_inicio')),
             "dth_fim"              => gravaData($this->input->post('dth_fim')),
+            "qtd_diarias"          => (int)$this->input->post('qtd_diarias'),
             "id_utilizacao_sala"   => (int)$this->input->post('id_utilizacao_sala'),
             "pax_estimadas"        => (int)$this->input->post('pax_estimadas'),
             "pax_garantidas"       => (int)$this->input->post('pax_garantidas'),
