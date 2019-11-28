@@ -314,7 +314,7 @@ include ('application/views/tpl/config_container.php');
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
-	<script src="https://momentjs.com/downloads/moment.min.js"></script>
+	<!--<script src="https://momentjs.com/downloads/moment.min.js"></script>-->
 
 	<!-- VALIDAÇÃO -->
 <script>
@@ -927,6 +927,8 @@ var path = '<?php echo base_url(); ?>';
  */
 ?>	
 $("select[name=id_sala]").change(function(){
+	
+	$("input[name=limite_pax_arrumacao]").attr('value','');
 	
 	id_sala = $(this).val();
 
