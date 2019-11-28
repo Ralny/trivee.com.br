@@ -2,7 +2,7 @@
 	 * Limpando mascara (String) para poder usar somente numeros nos calculos
 	 */
 	function moeda2float(ajuste_moeda){
-
+		
 		var ajuste_moeda = ajuste_moeda.replace("R$","");
 
 		ajuste_moeda = ajuste_moeda.replace(".","");
@@ -13,13 +13,18 @@
 	}
 
 	function moeda2float2(ajuste_moeda){
+		console.log(ajuste_moeda);
+		if (ajuste_moeda == ''){
+			return 0;
+		}
+		else
+		{
+			var ajuste_moeda = ajuste_moeda.replace("R$","");
 
-		var ajuste_moeda = ajuste_moeda.replace("R$","");
+			ajuste_moeda = ajuste_moeda.replace(",",".");
 
-		ajuste_moeda = ajuste_moeda.replace(",",".");
-
-		return parseFloat(ajuste_moeda);
-
+			return parseFloat(ajuste_moeda);
+		}
 	}
 
 	/**
@@ -85,14 +90,13 @@
 		{
 		  return (data.substr(0, 10).split('/').reverse().join('-'));
 		}
-		//console.log(formatDate('23/04/2018'));
-		//console.log(formatDate('2018-04-01', 'pt-br'));
 	}
 
 	/**
 	 * Diferença de dias entre tuas datas
 	 */
-	function diferenca_entre_datas(data_inicial, data_final){
+	function diferenca_entre_datas(data_inicial, data_final)
+	{
 		
 		var data_inicial = formatDate(data_inicial);
 		var data_final   = formatDate(data_final);
@@ -103,10 +107,14 @@
 		const days = Math.ceil(diff / (1000 * 60 * 60 * 24)); // Divide o total pelo total de milisegundos correspondentes a 1 dia. (1000 milisegundos = 1 segundo).
 
 		return days;
-		//console.log('Entre 07/07/2014 até agora já se passaram ' + days + ' dias');
-	}
 
-	function multiplica_diaria_valor_de_sala(qtd_diarias, $valor_sala){
+	}
+	
+	/**
+	 * Calcula o valor da diaria pela quantidade de diarias
+	 */
+	function multiplica_diaria_valor_de_sala(qtd_diarias, $valor_sala)
+	{
 
 		var total = qtd_diarias * $valor_sala;
 

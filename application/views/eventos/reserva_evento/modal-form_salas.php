@@ -129,11 +129,11 @@ include ('application/views/tpl/config_container.php');
 								<div class="form-group">
 									<label class="control-label">Data de Início<span class="required" aria-required="true"> * </span></label>
 									<div class="input-group date date-picker"  data-date-format="dd-mm-yyyy" data-date-viewmode="years">
-									<input type="text" class="form-control" name="dth_inicio" id="dth_inicio" value="" aria-required="true" aria-invalid="false">
+									<input type="text" class="form-control" name="dth_inicio" id="dth_inicio" value="">
 										<span class="input-group-btn">
 											<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
 										</span>
-									</div>		
+									</div>	
 								</div>
 							</div>
 							
@@ -314,9 +314,21 @@ include ('application/views/tpl/config_container.php');
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
+	<script src="https://momentjs.com/downloads/moment.min.js"></script>
 
 	<!-- VALIDAÇÃO -->
 <script>
+	/*
+window.onload = function () {
+	
+    document.getElementsByName("dth_inicio")[0].addEventListener('change', doThing);
+    
+    function doThing()
+    {
+        alert('Horray! Someone wrote "' + this.value + '"!');
+    }
+}	
+*/
 
 jQuery(document).ready(function() {
 
@@ -395,8 +407,8 @@ jQuery(document).ready(function() {
 	 * Mascaras 
 	 */
 	?>
-	$('input[name="dth_inicio"]').mask('99/99/9999');	
-	$('input[name="dth_fim"]').mask('99/99/9999');
+	//$('input[name="dth_inicio"]').mask('99/99/9999');	
+	//$('input[name="dth_fim"]').mask('99/99/9999');
 
 	$('input[name="valor_diaria"]').maskMoney({prefix:'R$ ', thousands:'.',decimal:','}); 
 	$('input[name="valor_total"]').maskMoney({prefix:'R$ ', thousands:'.',decimal:','});
@@ -541,6 +553,92 @@ jQuery(document).ready(function() {
 
 		}
 	});
+
+	<?php
+	/**
+	 * Verificando o limite de PAX estimadas na arrumação 
+	 */	
+	?>
+	/* event listener 
+    
+		
+	document.getElementById("dth_inicio").addEventListener("change", function(){
+	//$("input[name=dth_inicio]").change(function() {
+
+		//document.getElementById("dth_inicio").addEventListener("click", teste);
+		//console.log(document.getElementById("dth_inicio"));
+
+		var dth_inicio = formatDate($("input[name=dth_inicio]").val());
+		var dth_fim    = formatDate($("input[name=dth_fim]").val());
+
+		var time1 = moment(dth_inicio).format('YYYY-MM-DD');
+		var time2 = moment(dth_fim).format('YYYY-MM-DD');
+
+		if(time2 > time1){
+			//console.log('Data Inicial: '+ time1);
+			//console.log('Data Final: '+ time2);
+			//console.log('Data final é maior');
+		}else if(time2 < time1){
+			$("input[name=dth_inicio]").attr('value','');
+			$("input[name=dth_inicio]").focus();
+			alert('A data inicial não pode ser maior que a data final.');
+			return false;
+		}else{
+			//console.log('Data Inicial: '+ time1);
+			//console.log('Data Final: '+ time2);
+			//console.log('Datas iguais');
+			//alert('As datas são iguais.');
+			//return false;
+		}
+		
+		// use "moment()" para a data/hora atual
+		//var dth_inicio= moment(formatDate($("input[name=dth_inicio]").val()));
+		//'console.log(dth_inicio);
+		//var dth_inicio = new Date(formatDate($("input[name=dth_inicio]").val()));
+
+		// por padrão, já usa o timezone do browser (em vez de UTC)
+		//onsole.log(d.format('YYYY-MM-DD[T]HH:mm:ss')); // 2018-11-17T14:22:29
+
+		//var dth_inicio = new Date(formatDate($("input[name=dth_inicio]").val()));
+		//var dth_fim    = new Date(formatDate($("input[name=dth_fim]").val()));
+
+		//console.log( dth_inicio.toGMTString());
+
+		//console.log(dth_inicio);
+		//console.log(dth_fim);
+
+		// Verifico se primeira data é igual, maior ou menor que a segunda
+		/*if (dth_inicio.getTime() === dth_fim.getTime()) {
+			console.log('As datas são iguais');
+		}
+		else if (dth_inicio.getTime() > dth_fim.getTime()) {
+			//console.log(dth_inicio.toString() + ' maior que ' + dth_fim.toString());
+			console.log('Data Inicil é maior');
+		}
+		else {
+			//console.log(dth_inicio.toString() + ' menor que ' + dth_fim.toString());
+			console.log('Data inicial é menor');
+		}
+		/*
+		var pax_estimadas = $("input[name=pax_estimadas]").val();
+		pax_estimadas = parseInt(pax_estimadas);
+
+		var limite_pax_arrumacao = $("input[name=limite_pax_arrumacao]").val();			
+		limite_pax_arrumacao = parseInt(limite_pax_arrumacao);
+
+		if (pax_estimadas > limite_pax_arrumacao) 
+		{
+			$("input[name=pax_estimadas]").attr('value','');
+			$("input[name=pax_estimadas]").focus();
+			alert('A quantidade de PAX Estimadas não pode ser superior ao limite Maximo de Pax da arrumação selecionada.');
+			return false;
+		} 
+		else 
+		{ 
+			return true; 
+		} */
+	//});
+	
 	
 	
 	<?php
@@ -566,10 +664,7 @@ jQuery(document).ready(function() {
 	?>
 	function ajusta_acrescimo(valor, percentual){
 
-		var valor_ajuste = moeda2float(valor);
-		var acrescimo = moeda2float(percentual);
-
-		var valor_total_diaria = valor_ajuste +  ( valor_ajuste * (acrescimo / 100));
+		var valor_total_diaria = valor +  ( valor * (percentual / 100));
 				
 		return valor_total_diaria;
 
@@ -577,54 +672,46 @@ jQuery(document).ready(function() {
 	
 	<?php
 	/**
-	 * Calcula o desconto
-	 */
-	?>
-	function ajusta_desconto(valor, percentual){
-
-		var valor_ajuste = moeda2float(valor);
-		var acrescimo = moeda2float(percentual);
-
-		var valor_total_diaria = valor_ajuste - ( valor_ajuste * (acrescimo / 100));
-				
-		return valor_total_diaria;
-
-	}
-
-	<?php
-	/**
 	 * Quando for inserido o valor do acrescimo
 	 */
 	?>
 	$("input[name=acrescimo]").change(function(){
 
+		<?php
+		/**
+		 * Reseta o campo desconto
+		 */
+		?>
 		$('input[name="desconto"]').attr( {value : ''} );
 
-		var valor_diaria = $("input[name=valor_diaria]").val();
+		var tarifa      = moeda2float($('input[name="valor_diaria"]').val());
 		var acrescimo = $("input[name=acrescimo]").val();
 
+		console.log(acrescimo);
+		var qtd_diarias = diferenca_entre_datas($("input[name=dth_inicio]").val(), $("input[name=dth_fim]").val());
+		var valor_total 	= multiplica_diaria_valor_de_sala(qtd_diarias, tarifa);
 		<?php
 		/**
 		 * Se o acrescimo for 0 ou NULO, deve retornar ao valores iniciais
 		 */
 		?>
 		if (acrescimo == '' || acrescimo == 0 ){
-		
 			<?php
 			/**
 			 * VALOR TOTAL = valor da diaria
 			 */
 			?>
-			$('input[name="valor_total"]').attr( {value : valor_diaria} );
-			
+			valor_total_exibir = valor_total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+			$('input[name="valor_total"]').attr( {value : valor_total_exibir} );
 			<?php
 			/**
 			 * VALOR TOTAL COM TAXAS = Valor da diaria + ISS
 			 */
 			?>
-			var valor_iss = ajusta_iss(valor_diaria);
-			var valor_total_taxas = valor_iss.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-			$('input[name="valor_total_taxas"]').attr( {value : valor_total_taxas} );
+			valor_total = $("input[name=valor_total]").val();	
+			var valor_iss = ajusta_iss(valor_total);
+			var valor_acrescimo_iss = valor_iss.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+			$('input[name="valor_total_taxas"]').attr( {value : valor_acrescimo_iss} );
 		}
 		else
 		{
@@ -634,7 +721,7 @@ jQuery(document).ready(function() {
 			 *  VALOR TOTAL = VALOR DIARIA + ACRESCIMO 
 			 */
 			?>	
-			var valor_acrescimo = ajusta_acrescimo(valor_diaria, acrescimo);
+			var valor_acrescimo = ajusta_acrescimo(valor_total, moeda2float(acrescimo));
 			valor_acrescimo = valor_acrescimo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 			$('input[name="valor_total"]').attr( {value : valor_acrescimo} );
 			
@@ -642,8 +729,8 @@ jQuery(document).ready(function() {
 			/**
 			 * VALOR TOTAL COM TAXAS = VALOR (DIARIA + ACRESCIMO) + ISS 
 			 */
-			?>
-			var valor_total = $("input[name=valor_total]").val();
+			?>		
+			valor_total = $("input[name=valor_total]").val();	
 			var valor_iss = ajusta_iss(valor_total);
 			valor_acrescimo_iss = valor_iss.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 			$('input[name="valor_total_taxas"]').attr( {value : valor_acrescimo_iss} );
@@ -653,38 +740,56 @@ jQuery(document).ready(function() {
 
 	<?php
 	/**
+	 * Calcula o desconto
+	 */
+	?>
+	function ajusta_desconto(valor, percentual){
+
+		var valor_total_diaria = valor - ( valor * (percentual / 100));
+				
+		return valor_total_diaria;
+
+	}
+	<?php
+	/**
 	 * Calcular Desconto
 	 */
 	?>
 	$("input[name=desconto]").change(function(){
-		
+
+		<?php
+		/**
+		 * Reseta o campo acrescimo
+		 */
+		?>
 		$('input[name="acrescimo"]').attr( {value : ''} );
 
-		var valor_diaria = $("input[name=valor_diaria]").val();
-		var desconto = $("input[name=desconto]").val();
-
+		var tarifa      = moeda2float($('input[name="valor_diaria"]').val());
+		var desconto 	= $("input[name=desconto]").val();
+		var qtd_diarias = diferenca_entre_datas($("input[name=dth_inicio]").val(), $("input[name=dth_fim]").val());
+		var valor_total 	= multiplica_diaria_valor_de_sala(qtd_diarias, tarifa);
 		<?php
 		/**
 		 * Se o desconto for 0 ou NULO, deve retornar ao valores iniciais
 		 */
 		?>
 		if (desconto == '' || desconto == 0 ){
-
 			<?php
 			/**
 			 * VALOR TOTAL = valor da diaria
 			 */
 			?>
-			$('input[name="valor_total"]').attr( {value : valor_diaria} );
-
+			valor_total_exibir = valor_total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+			$('input[name="valor_total"]').attr( {value : valor_total_exibir} );
 			<?php
 			/**
 			 * VALOR TOTAL COM TAXAS = Valor da diaria + ISS
 			 */
 			?>
-			var valor_iss = ajusta_iss(valor_diaria);
-			var valor_total_taxas = valor_iss.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-			$('input[name="valor_total_taxas"]').attr( {value : valor_total_taxas} );
+			valor_total = $("input[name=valor_total]").val();	
+			var valor_iss = ajusta_iss(valor_total);
+			valor_desconto_iss = valor_iss.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+			$('input[name="valor_total_taxas"]').attr( {value : valor_desconto_iss} );
 		}
 		else
 		{
@@ -694,7 +799,7 @@ jQuery(document).ready(function() {
 			 *  VALOR TOTAL = VALOR DIARIA + ACRESCIMO 
 			 */
 			?>	
-			var valor_desconto = ajusta_desconto(valor_diaria, desconto);
+			var valor_desconto = ajusta_desconto(valor_total, moeda2float(desconto));
 			valor_desconto = valor_desconto.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 			$('input[name="valor_total"]').attr( {value : valor_desconto} );
 			<?php
@@ -702,7 +807,7 @@ jQuery(document).ready(function() {
 			 * VALOR TOTAL COM TAXAS = VALOR (DIARIA - DESCONTO) + ISS 
 			 */
 			?>
-			var valor_total = $("input[name=valor_total]").val();	
+			valor_total = $("input[name=valor_total]").val();	
 			var valor_iss = ajusta_iss(valor_total);
 			valor_desconto_iss = valor_iss.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 			$('input[name="valor_total_taxas"]').attr( {value : valor_desconto_iss} );
@@ -712,7 +817,7 @@ jQuery(document).ready(function() {
 
 	<?php
 	/**
-	 * VALOR TOTAL COM TAXAS = VALOR (DIARIA - DESCONTO) + ISS 
+	 * QUANDO ALTERAR A DATA INICIAL - RECALCULA A QUANTIDADE DE DIARIAS 
 	 */
 	?>
 	$("input[name=dth_inicio]").change(function(){
@@ -722,8 +827,12 @@ jQuery(document).ready(function() {
 		 */
 		?>
 		var qtd_diarias = diferenca_entre_datas($("input[name=dth_inicio]").val(), $("input[name=dth_fim]").val());
+		<?php
+		/**
+		 * ALTERA A QUANTIDADE DE DIARIAS - SALVAS NO BANCO
+		 */
+		?>
 		$('input[name="qtd_diarias"]').attr( {value : qtd_diarias} );
-
 		<?php
 		/**
 		 * VALOR DA TARIFA DA SALA - INDEPENDETEMENTE SE FOR TRF BALCAO OU TRF ESPECIAL + ISS
@@ -735,14 +844,79 @@ jQuery(document).ready(function() {
 		 * MULTIPLICA A QTD DIARIAS PELO VALOR COBRADO NA DIARIA DA SALA
 		 */
 		?>
-		var total_diaria = multiplica_diaria_valor_de_sala(qtd_diarias, tarifa);
-		
+		var valor_total 		= multiplica_diaria_valor_de_sala(qtd_diarias, tarifa);
+		<?php
+		/**
+		 * calcular iss em cima do valor total
+		 */
+		?>
+		var valor_total_com_iss = ajusta_iss($("input[name=valor_total]").val());
+		<?php
+		/**
+		 * AJUSTA O PARA REAL
+		 */
+		?>
+		valor_total 		=  valor_total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+		valor_total_com_iss =  valor_total_com_iss.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+		<?php
+		/**
+		 * EXIBI NOS CAMPOS DA VIEW
+		 */
+		?>
+		$('input[name="valor_total"]').attr( {value : valor_total} );
+		$('input[name="valor_total_taxas"]').attr( {value : valor_total_com_iss} );
+	});
 
-		console.log(total_diaria);
-		
-		//$('input[name="qtd_diarias"]').attr( {value : qtd_diarias} );
-
-
+	<?php
+	/**
+	 * QUANDO ALTERAR A DATA FINAL - RECALCULA A QUANTIDADE DE DIARIAS 
+	 */
+	?>
+	$("input[name=dth_fim]").change(function(){
+		<?php
+		/**
+		 * CALCULA A QUANTIDADE DE DIARIAS= DATA_FIM - DATA_INICIO
+		 */
+		?>
+		var qtd_diarias = diferenca_entre_datas($("input[name=dth_inicio]").val(), $("input[name=dth_fim]").val());
+		<?php
+		/**
+		 * ALTERA A QUANTIDADE DE DIARIAS - SALVAS NO BANCO
+		 */
+		?>
+		$('input[name="qtd_diarias"]').attr( {value : qtd_diarias} );
+		<?php
+		/**
+		 * VALOR DA TARIFA DA SALA - INDEPENDETEMENTE SE FOR TRF BALCAO OU TRF ESPECIAL + ISS
+		 */
+		?>
+		var tarifa = moeda2float($('input[name="valor_diaria"]').val());
+		<?php
+		/**
+		 * MULTIPLICA A QTD DIARIAS PELO VALOR COBRADO NA DIARIA DA SALA
+		 */
+		?>
+		var valor_total 		= multiplica_diaria_valor_de_sala(qtd_diarias, tarifa);
+		<?php
+		/**
+		 * calcular iss em cima do valor total
+		 */
+		?>
+		var valor_total_com_iss = ajusta_iss($("input[name=valor_total]").val());
+		<?php
+		/**
+		 * AJUSTA O PARA REAL
+		 */
+		?>
+		valor_total 		=  valor_total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+		valor_total_com_iss =  valor_total_com_iss.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+		<?php
+		/**
+		 * EXIBI NOS CAMPOS DA VIEW
+		 */
+		?>
+		$('input[name="valor_total"]').attr( {value : valor_total} );
+		$('input[name="valor_total_taxas"]').attr( {value : valor_total_com_iss} );
 	});
 
 
