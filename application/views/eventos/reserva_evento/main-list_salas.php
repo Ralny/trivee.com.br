@@ -110,7 +110,8 @@
 							</td>
 							<td>
 								<button name="alterar" value="<?= isset($sala->id_reserva_evento_sala) ? $sala->id_reserva_evento_sala : null ;?>" class=" btn btn-default"><i class="fa fa-pencil"></i></button>
-								<button name="excluir" value="<?= isset($sala->id_reserva_evento_sala) ? $sala->id_reserva_evento_sala : null ;?>" class=" btn btn-default"><i class="fa fa-trash-o"></i></a>
+								<!--<button name="excluir" value="<?= isset($sala->id_reserva_evento_sala) ? $sala->id_reserva_evento_sala : null ;?>" class=" btn btn-default"><i class="fa fa-trash-o"></i></a>-->
+								<a excluir="<?= isset($sala->id_reserva_evento_sala) ? $sala->id_reserva_evento_sala : null ;?>" class=" btn btn-default"><i class="fa fa-trash-o"></i></a>
 							</td>
 
 						</tr>
@@ -150,9 +151,11 @@
 
 	jQuery(document).ready(function() {
 
-			$("button[name=excluir]").click(function() {
-					
-			var id_reserva_evento_sala = $(this).val();
+			$(document).on('click', 'a', function(event) {
+
+			var id_reserva_evento_sala = $(this).attr('excluir');
+
+			console.log(id_reserva_evento_sala);	
 						
 			if((id_reserva_evento_sala % 1) == 0){
 				
