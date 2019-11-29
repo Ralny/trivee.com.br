@@ -592,7 +592,7 @@ class Modulos extends MY_Controller {
 
                     $GA = $this->db->query("SELECT * FROM usu_usuario_access where id_modulo ='".$page_data['show']->token_id."' $usuario")->row();
 
-                    if(count($GA) >=1 ){
+                    if(is_countable($GA) >=1 ){
                         $GA = $GA;
                     }
                     
@@ -1609,7 +1609,7 @@ class Modulos extends MY_Controller {
  
         $row        = $this->db->query("SHOW KEYS FROM `{$table}` WHERE Key_name = 'PRIMARY'")->row();
         
-        if(count($row) >= 1)
+        if(empty($row))
         {
             $primaryKey = $row->Column_name;
         }
