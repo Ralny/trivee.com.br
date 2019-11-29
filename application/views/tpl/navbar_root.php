@@ -82,17 +82,10 @@
 										<h3><strong> Orçamentos </strong></h3>
 									</li>
 									<li>
-										<a href="<?= base_url(); ?>eventos/reserva-de-evento/listar" class="iconify">Reserva de Evento </a>
-									</li>
-								</ul>
-							</div>
-							<div class="col-md-4">
-								<ul class="mega-menu-submenu">
-									<li>
-										<h3><strong>Ordem de Serviço</strong></h3>
+										<a href="<?= base_url(); ?>eventos/reserva-de-evento/listar" class="iconify"> Reservas de Eventos </a>
 									</li>
 									<li>
-										<a href="<?= base_url() ?>infra/Infra_areas_instalacoes" class="iconify"> Áreas e Instalações </a>
+										<a href="<?= base_url(); ?>eventos/reserva-de-evento/listar" class="iconify">Ordem de Serviço </a>
 									</li>
 								</ul>
 							</div>
@@ -109,6 +102,25 @@
 									</li>
 									<li>
 										<a href="<?= base_url() ?>eventos/config/utilizacao-de-sala/listar" class="iconify"> Utilização de Salas</a>
+									</li>
+								</ul>
+							</div>
+							<div class="col-md-4">
+								<ul class="mega-menu-submenu">
+									<li>
+										<h3><strong>&nbsp;</strong></h3>
+									</li>
+									<li>
+										<a href="#" class="iconify">Serviços A&B</a>
+									</li>
+									<li>
+										<a href="<?= base_url() ?>eventos/config/equipamentos/listar" class="iconify"> Equipamentos</a>
+									</li>
+									<li>
+										<a href="#" class="iconify"> Internet</a>
+									</li>
+									<li>
+										<a href="#" class="iconify"> Pessoal</a>
 									</li>
 								</ul>
 							</div>
