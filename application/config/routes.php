@@ -111,3 +111,12 @@ $route['sair'] 				  = 'zata/UserAccount/signout';
     $route['eventos/reserva-de-evento/adicionar_reserva_de_sala'] = 'eventos/Eventos_reserva_evento/adicionar_reserva_de_sala';
     $route['eventos/reserva-de-evento/excluir/(:any)']		      = 'eventos/Eventos_reserva_evento/excluir/$1';
 
+    /**
+     * Equipamentos
+     */
+    $route['eventos/config/equipamentos/listar'] 	      = 'eventos/Eventos_equipamentos/listar';
+    $route['eventos/config/equipamentos/cadastrar'] 	  = 'eventos/Eventos_equipamentos/cadastrar';
+    $route['eventos/config/equipamentos/editar/(:any)']  = 'eventos/Eventos_equipamentos/editar/$1';
+    $route['eventos/config/equipamentos/salvar']   	  = 'eventos/Eventos_equipamentos/salvar';
+    $route['eventos/config/equipamentos/excluir/(:any)'] = 'eventos/Eventos_equipamentos/excluir/$1';
+
