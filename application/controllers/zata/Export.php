@@ -804,11 +804,9 @@ class Export extends MY_Controller
          */
         $user_data = $this->Useraccount_model->user_data($this->session->userdata('id_usuario'));
 
-
         /**
          * Configurações Basicas
          */
-
         $page_data = array(
             "desc_modulo"           => 'EVENTOS',
             "desc_configuracoes"    => 'EQUIPAMENTOS',
@@ -816,7 +814,7 @@ class Export extends MY_Controller
             "total_registros"       => count($this->Export_model->eventos_equipamentos()),
             "lista"                 => $this->Export_model->eventos_equipamentos(),
             "num_registro_pagina"   => 13,
-            "descricao_principal"   => 'LISTAGEM DE UTILIZAÇÃO DE SALAS',
+            "descricao_principal"   => 'LISTAGEM DE EQUIPAMENTOS',
             "nome_usuario"          => strtoupper($user_data->nome.' '.$user_data->sobrenome),
             "dth_criacao_relatorio" => strtoupper(data_extenso(date("Y-m-d h:i:s"))),
             "nome_empresa_cnpj"     => strtoupper($company_data->razao_social.' - '.$company_data->numCNPJ),
@@ -824,7 +822,6 @@ class Export extends MY_Controller
                                                   $company_data->bairro .'-'. $company_data->cep .' '.  $company_data->cidade.'/'. $company_data->uf),
             
          );
-
         
         /**
          * Em produção, passar o parametro [pdf], em desenvolvimento  utilizar o parametro [html]
