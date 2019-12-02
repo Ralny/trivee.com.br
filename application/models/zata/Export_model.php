@@ -282,6 +282,7 @@ class Export_model extends MY_Model
                               usu_usuario usu On usu.id_usuario = eve.id_usuario_atualizacao
                          Where
                               eve.token_company = '$this->company'
+                         ORDER BY desc_equipamento 
                          ";
           } else {
                $sql =   "
@@ -290,7 +291,8 @@ class Export_model extends MY_Model
                          FROM
                               eve_equipamentos 
                          WHERE 
-                              token_company = '$this->company' 
+                              token_company = '$this->company'
+                         ORDER BY desc_equipamento  
                          ";
         }
                
