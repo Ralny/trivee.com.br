@@ -99,7 +99,7 @@ class Eventos_equipamentos_model extends MY_Model {
          * Definir o nome da chave primaria
          * Define the primary key name
          */
-        $this->primaryKey = "";
+        $this->primaryKey = "id_equipamento";
         
     } 
  

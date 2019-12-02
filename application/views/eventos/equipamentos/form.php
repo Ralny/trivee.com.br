@@ -26,10 +26,48 @@ include ('application/views/tpl/config_container.php');
 							<button class="close" data-close="alert"></button>
 							<?= $erro_valid_form ?>
 						</div>
+
+						<?php 
+
+						/**
+							 * Verificar o status do registro e se botão ATIVO ira ficar marcado
+							 * quando o formulario estiver em modo de edição
+							 * Check the status of the record and if the ACTIVE button will be marked
+							 * When the form is in edit mode
+							 */
+							if (isset($form_editar)){ 
+
+								/**
+								 * Se for 'S', este registro está ativo
+								 * If 'S', this record is active
+								 */
+								if ($show->sit_ativo == 'S')
+								{
+									$checked = 'checked';
+								}
+								else
+								{
+									/**
+									 * não está ativo
+									 * Is not active
+									 */
+									$checked = '';
+								}
+							}
+							else
+							{
+								/**
+								 * Formulario em modo de Cadastro por padrao ficará ativo
+								 * Form in Registration mode by default will be active
+								 */
+								$checked 		= 'checked';
+							}		
+
+						?>		
 										 
 						
 						<div class="form-group">
-							<label class="control-label col-md-3">Descrição do Equipamento <span class="required"> * </span></label>
+							<label class="control-label col-md-2">Descrição <span class="required"> * </span></label>
 							<div class="col-md-5">
 								<input value="<?=  isset($show->desc_equipamento) ? $show->desc_equipamento : null ;?>" name="desc_equipamento" data-required="1" type="text" class="form-control" maxlength="300"/>
 							</div>
@@ -38,32 +76,34 @@ include ('application/views/tpl/config_container.php');
 						<div class="form-group">
 							<label class="control-label col-md-2">Quantidade <span class="required"> * </span></label>
 							<div class="col-md-3">
-								<input value="<?=  isset($show->qtd_equipamento) ? $show->qtd_equipamento : null ;?>" name="qtd_equipamento" data-required="1" type="text" class="form-control" maxlength="300"/>
+								<div class="input-group">
+									<input value="<?=  isset($show->qtd_equipamento) ? $show->qtd_equipamento : null ;?>" name="qtd_equipamento" data-required="1" type="text" class="form-control" maxlength="300"/>
+									<span class="input-group-addon">und</span>
+								</div>
 							</div>
 						</div>
 						
 						<div class="form-group">
 							<label class="control-label col-md-2">Valor da Diária <span class="required"> * </span></label>
 							<div class="col-md-3">
-								<input value="<?=  isset($show->valor_diaria) ? $show->valor_diaria : null ;?>" name="valor_diaria" data-required="1" type="text" class="form-control" maxlength="300"/>
+								<input value="<?=  isset($show->valor_diaria) ? moeda($show->valor_diaria) : null ;?>" name="valor_diaria" id="valor_diaria"  placeholder="R$ 300,00" data-required="1" type="text" class="form-control" maxlength="300"/>
 							</div>
 						</div>
 						
 						<div class="form-group">
 							<label class="control-label col-md-2">Observações </label>
 							<div class="col-md-5">
-								<textarea id="observacoes_sala"  name="observacoes_sala" class="form-control autosizeme" rows="6" data-autosize-on="true" style="overflow-y: hidden; resize: horizontal; height: 134px;" aria-invalid="false"><?=  isset($show->observacoes) ? $show->observacoes : null ;?></textarea>
+								<textarea id="observacoes"  name="observacoes" class="form-control autosizeme" rows="6" data-autosize-on="true" style="overflow-y: hidden; resize: horizontal; height: 134px;" aria-invalid="false"><?=  isset($show->observacoes) ? $show->observacoes : null ;?></textarea>
 							</div>
 						</div>
 						
 						<div class="form-group">
-							<label class="control-label col-md-2">Sit Ativo </label>
+							<label class="control-label col-md-2">Ativo?</label>
 							<div class="col-md-5">
-								<input value="<?=  isset($show->sit_ativo) ? $show->sit_ativo : null ;?>" name="sit_ativo"  type="text" class="form-control" maxlength="300"/>
+									<input type="checkbox" name="sit_ativo" class="make-switch" <?= $checked; ?> data-on-text="<i class='fa fa-check'></i>" data-off-text="<i class='fa fa-times'></i>"> 
 							</div>
 						</div>
 										   	
-
 					</div>
 					<br>
 					<?php  //$this->load->view('tpl/forms-info-alter-registro') ?>
@@ -97,6 +137,14 @@ include ('application/views/tpl/config_container.php');
 	    	?>
             $(location).attr('href', '<?= base_url().$url."/listar"?>');
         });
+
+		$('input[name="valor_diaria"]').maskMoney({prefix:'R$ ', thousands:'.',decimal:','}); 
+
+		$('input[name="qtd_equipamento"]').inputmask({
+    		"mask": "9",
+    		"repeat": 4,
+    		"greedy": false
+    	});
 
         <?php
     	/**
@@ -167,6 +215,24 @@ include ('application/views/tpl/config_container.php');
                 },
                 messages: {
 
+                },
+
+				errorPlacement: function (error, element) { // render error placement for each input type
+                    if (element.parent(".input-group").size() > 0) {
+                        error.insertAfter(element.parent(".input-group"));
+                    } else if (element.attr("data-error-container")) { 
+                        error.appendTo(element.attr("data-error-container"));
+                    } else if (element.parents('.radio-list').size() > 0) { 
+                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
+                    } else if (element.parents('.radio-inline').size() > 0) { 
+                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-list').size() > 0) {
+                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-inline').size() > 0) { 
+                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
+                    } else {
+                        error.insertAfter(element); // for other inputs, just perform default behavior
+                    }
                 },
 
                 invalidHandler: function (event, validator) { //display error submit              

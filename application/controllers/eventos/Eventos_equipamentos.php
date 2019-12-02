@@ -271,7 +271,7 @@ class Eventos_equipamentos extends MY_Controller
          * Titulo Portlet
          * Portlet Title
          */
-        $page_data['title_portlet'] = 'Equipamentos';
+        $page_data['title_portlet'] = 'Cadastrar equipamento';
         
         /**
          * Variavel auxiliar para rotas do controller. Usada somente no formulario em modo de edicao
@@ -336,7 +336,7 @@ class Eventos_equipamentos extends MY_Controller
          * Pega o identificador do registro que vai ser editado diretamente da URL
          * Get the identified from the record that will be edited directly from the URL
          */   
-        $id = $this->uri->segment(3); 
+        $id = $this->uri->segment(5); 
 
         /**
          * Verfica se exite e se a variavel capturada diretamente da URL é um numero, 
@@ -385,7 +385,6 @@ class Eventos_equipamentos extends MY_Controller
                  * If it exists it will load the registry information in the variable show
                  */
                 $page_data['show']          = $this->model->getRow($id);
-
                  /**
                  * Titulo Portlet
                  * Portlet Title
@@ -419,7 +418,7 @@ class Eventos_equipamentos extends MY_Controller
                 /**
                  * View 
                  */
-                $page_data['page']          = 'eventos_equipamentos/form';
+                $page_data['page']          = 'eventos/equipamentos/form';
 
                 /**
                  * Carregando dados para a view
@@ -442,6 +441,7 @@ class Eventos_equipamentos extends MY_Controller
     */
     public function salvar()
     {
+
         /**
          * Responsável por registrar o acesso do usuario no metodo do controller 
          * Responsible for registering user access in controller method
@@ -449,10 +449,15 @@ class Eventos_equipamentos extends MY_Controller
         $this->log_zata->log_step_by_step();
         
         /**
-         * Responsável por validar os dados vindos do formulario pelo POST 
+         * Responsável por validar os dados vindos do formulario pelo POST
          * Responsible for validating the data coming from the form by the POST
          */
-        $data = $this->validatePost();
+        $data = array(
+            'desc_equipamento' => $this->input->post('desc_equipamento'),
+            'qtd_equipamento'  => $this->input->post('qtd_equipamento'),
+            'valor_diaria'     => moeda_ajuste_2($this->input->post('valor_diaria')),
+            'observacoes'      => $this->input->post('observacoes')
+         );
 
         /**
          * Verifica o status do registro - ATIVO / INATIVO 
@@ -464,7 +469,7 @@ class Eventos_equipamentos extends MY_Controller
          * Insert ou Update
          */
         $id   = $this->MY_model->insertRow($data , $this->input->get_post( 'id' , true ));
-        
+
         /**
          * Pra verificar se o formalario esta em modo de cadastro ou edição,  basta validar o hidden ID
          * esta NULL. Caso o hidden ID estiver vazio o formulario vai esta em modo de cadastro
