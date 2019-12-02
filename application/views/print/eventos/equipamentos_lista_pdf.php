@@ -9,8 +9,7 @@ include('./application/views/print/templates/tpl_rodape.php');
 /**
  * Paginação - Utilizado pra indicar a paginção. Por exemplo: Pagina: 1/3
  */
-$total_paginas = ceil($total_registros / $num_registro_pagina);
-
+$total_paginas = ceil($total_registros / ($num_registro_pagina - 1));
 /**
  * Difinindo o tabela de configurações
  */
@@ -39,7 +38,8 @@ $table_itens = '
                          <tr>
                               <th width=35%>Equipamento</th>
                               <th width=10%>Quantidade</th>
-                              <th width=10%>Valor/Dia</th>
+                              <th width=10%>Diária</th>
+                              <th width=10%>Fornecedor</th>
                               <th>Observações</th>
                          </tr>
                ';
@@ -149,6 +149,7 @@ $table_itens = '
                          <td><?= $linha->desc_equipamento ?></td>
                          <td><?= $linha->qtd_equipamento ?></td>
                          <td><?= moeda($linha->valor_diaria) ?></td>
+                         <td><?= $linha->nome_fantasia ?></td>
                          <td><?= $linha->observacoes ?></td>
                     </tr>
                     <?php $contador++; endforeach ?>	
