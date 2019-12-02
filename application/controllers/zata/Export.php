@@ -735,6 +735,50 @@ class Export extends MY_Controller
         force_download($file_name, $data);
     }//End Function
 
+     /**
+     * get_xls_eventos_utilizacao_de_salas
+     *
+     * Faz a exportacao de utilização de salas em .XLS
+     */
+    public function get_xls_eventos_equipamentos()
+    {
+
+        /**
+         * Model dos dados que irão ser exportados
+         */
+        $data = $this->Export_model->eventos_equipamentos('xls');
+
+        $dataToExports = [];
+
+        foreach ($data as $row) {
+            $arrangeData['Equipamento']     = mb_convert_encoding($row['desc_equipamento'], 'utf-16', 'utf-8');
+            $arrangeData['Quantidade'] 		= mb_convert_encoding($row['qtd_equipamento'], 'utf-16', 'utf-8');
+            $arrangeData['Valor / dia'] 	= mb_convert_encoding($row['valor_diaria'], 'utf-16', 'utf-8');
+            $arrangeData['Observacoes'] 	= mb_convert_encoding($row['observacoes'], 'utf-16', 'utf-8');
+            $dataToExports[]	 			= $arrangeData;
+        }
+        
+        /***
+         * Definir o nome do arquivo
+         */
+        $filename = "tpl_exp_Eventos_equipamentos.xls";
+        
+        /**
+         * Definiçaõ do header
+         */
+        header("Content-Type: application/vnd.ms-excel;charset = UTF-8");
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+         
+        /**
+         * exportExcelData
+         * Função auxiliar para exportação em xls
+         *
+         */
+        $this->exportExcelData($dataToExports);
+    }
+
 
 
 
