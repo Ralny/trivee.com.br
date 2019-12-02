@@ -668,6 +668,40 @@ class Export extends MY_Controller
         }
     } //End Function
 
+    /**
+     * get_csv_eventos_utilizacao_de_salas
+     *
+     * Faz a exportacao de utilização de salas em .CSV
+     */
+    public function get_csv_eventos_equipamentos()
+    {
+        /**
+         * Nome do Arquivo
+         */
+        $file_name = 'ZATA_EVENTOS_equipamentos_'.date("Y-m-d h:i:s").'.csv';
+        
+        /**
+         * Definiçaõ do header
+         */
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="'.$file_name.'"');
+
+        /**
+         * Dados que vão ser exportados
+         */
+        $query = $this->Export_model->eventos_equipamentos('csv');
+
+        /**
+         * Configurações
+         */
+        $delimiter = ",";
+        $newline = "\r\n";
+        $data = $this->dbutil->csv_from_result($query, $delimiter, $newline);
+        $data = mb_convert_encoding($data, "UTF-8", "UTF-8, ISO-8859-1, ISO-8859-15");
+   
+        force_download($file_name, $data);
+    }//End Function
+
 
 
 

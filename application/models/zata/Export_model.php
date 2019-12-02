@@ -260,4 +260,60 @@ class Export_model extends MY_Model
                     break;
           }
     }
+
+    /**
+     * eventos_utilizacao_de_salas
+     * @description Faz a exportacao de utilização de salas em CSV
+     *
+     * @access  public
+     * @param $tipo_exportacao
+     */
+    public function eventos_equipamentos($tipo_exportacao = '')
+    {
+          if ($tipo_exportacao == '') {
+               $sql =    "
+                         Select
+                              eve.*,
+                              eve.token_company,
+                              usu.nome,
+                              usu.sobrenome
+                         From
+                              eve_equipamentos eve Inner Join
+                              usu_usuario usu On usu.id_usuario = eve.id_usuario_atualizacao
+                         Where
+                              eve.token_company = '$this->company'
+                         ";
+          } else {
+               $sql =   "
+                         SELECT
+                              desc_equipamento, qtd_equipamento, valor_diaria, observacoes
+                         FROM
+                              eve_equipamentos 
+                         WHERE 
+                              token_company = '$this->company' 
+                         ";
+        }
+               
+        $query = $this->db->query($sql);
+
+        switch ($tipo_exportacao) {
+               
+               case 'csv':
+                    return $query;
+                    break;
+
+               case 'xls':
+                    return $query->result_array();
+                    break;
+
+               case 'xml':
+                    return $query;
+                    break;
+               
+               default:
+                    return $query->result();
+                    break;
+          }
+    }
+
 }//End Class
