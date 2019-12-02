@@ -105,6 +105,7 @@ class Eventos_equipamentos extends MY_Controller
          * Carregando Model
          * Loading Model 
          */
+        $this->load->model('clientes_fornecedores/Clientesfornecedores_model');
         $this->load->model('eventos/Eventos_equipamentos_model');
         $this->model = $this->Eventos_equipamentos_model;
        
@@ -207,7 +208,7 @@ class Eventos_equipamentos extends MY_Controller
          * Resgatando a lista de registros 
          * Redeeming the list of records
          */
-        $page_data['lista']         = $this->model->getAll($this->info['config']['sql_select']); 
+        $page_data['lista']         = $this->model->listar_equipamentos();
 
         if (empty($page_data['lista'])) {
             /**
@@ -290,6 +291,12 @@ class Eventos_equipamentos extends MY_Controller
          * Form Settings
          */ 
         $page_data['tableForm']     = $this->info['config']['form']; 
+
+        /**
+         * Lista cliente - Combobox
+         *
+         */
+        $page_data['lista_fornecedores'] = $this->model->Clientesfornecedores_model->listar_fornecedores();
         
         /**
          * View 
@@ -410,6 +417,12 @@ class Eventos_equipamentos extends MY_Controller
                 $page_data['form_editar']  = true;
 
                 /**
+                 * Lista cliente - Combobox
+                 *
+                 */
+                $page_data['lista_fornecedores'] = $this->model->Clientesfornecedores_model->listar_fornecedores();
+
+                /**
                  * Variavel auxiliar do Botao Excluir no formulario de edição
                  * Help variable Delete in the edit form
                  */
@@ -456,7 +469,8 @@ class Eventos_equipamentos extends MY_Controller
             'desc_equipamento' => $this->input->post('desc_equipamento'),
             'qtd_equipamento'  => $this->input->post('qtd_equipamento'),
             'valor_diaria'     => moeda_ajuste_2($this->input->post('valor_diaria')),
-            'observacoes'      => $this->input->post('observacoes')
+            'observacoes'      => $this->input->post('observacoes'),
+            'id_cf'            => $this->input->post('id_cf')
          );
 
         /**

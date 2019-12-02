@@ -104,12 +104,29 @@ class Clientesfornecedores_model extends MY_Model {
     }
 
     /**
-     * Listar Fornecedores
+     * Listar Clientes
      * List Providers
      */
     public function listar_clientes() {
  
-        $sql = " SELECT * FROM cli_cliente_fornecedor WHERE token_company = '$this->company'";   
+        $sql = "
+                SELECT * FROM cli_cliente_fornecedor WHERE tipo_cadastro = 'Cliente' AND token_company = '$this->company'
+                ";   
+        //execultando a consulta
+        $query = $this->db->query($sql);
+        //retornando dados da consulta para o controller
+        return $query->result();
+    }
+
+    /**
+     * Listar Fornecedores
+     * List Providers
+     */
+    public function listar_fornecedores() {
+ 
+        $sql = " 
+                SELECT * FROM cli_cliente_fornecedor WHERE tipo_cadastro = 'Fornecedor' AND token_company = '$this->company'
+                ";   
         //execultando a consulta
         $query = $this->db->query($sql);
         //retornando dados da consulta para o controller

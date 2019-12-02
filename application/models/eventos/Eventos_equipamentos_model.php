@@ -102,6 +102,35 @@ class Eventos_equipamentos_model extends MY_Model {
         $this->primaryKey = "id_equipamento";
         
     } 
+
+     /**
+     * Lista equipamentos
+     *
+     * Retorna lista de equipamentos
+     */
+    public function listar_equipamentos(){
+
+        /**
+         * Montando select
+         */
+        $sql = "
+                Select
+                    e.*,
+                    e.token_company,
+                    c.nome_fantasia
+                From
+                    eve_equipamentos e Inner Join
+                    cli_cliente_fornecedor c On c.id_cf = e.id_cf
+                Where
+                    e.token_company = '$this->company' 
+                ";
+
+        $query = $this->db->query($sql);
+
+        return $query->result();
+        
+    } 
+
  
 
 

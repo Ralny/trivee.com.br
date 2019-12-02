@@ -65,7 +65,32 @@ include ('application/views/tpl/config_container.php');
 
 						?>		
 										 
-						
+						<div class="form-group">
+							<label class="control-label col-md-2">Fornecedor <span class="required"> * </span></label>
+							<div class="col-md-5">
+							<select name="id_cf" id="id_cf" class="form-control select2me" data-required="1" data-placeholder="Selecionar...">
+								<option></option>
+							<?php  
+								foreach ($lista_fornecedores as $row): 
+									$select = '';
+									if(isset($form_editar))
+										{
+											if($show->id_cf == $row->id_cf) 
+											{
+												$select = 'selected="selected"';
+											}
+											else
+											{
+												$select = '';		
+											}
+										}
+							?>
+								<option value="<?= $row->id_cf ?>" <?=  $select ?> ><?= $row->nome_fantasia ?></option>
+							<?php  endforeach ?>
+							</select>
+							</div>
+						</div>
+
 						<div class="form-group">
 							<label class="control-label col-md-2">Descrição <span class="required"> * </span></label>
 							<div class="col-md-5">
@@ -201,16 +226,18 @@ include ('application/views/tpl/config_container.php');
                 ignore: "",  // Validar todos os campos inclusos no form
               
                 rules: {
-
-        		<?php foreach ($tableForm as $k => $field) : ?>
-
-						<?php if($field['required'] != '0'): ?>
-
-							<?php echo SiteHelpers::fieldRequiredShow($field['field'], $field['required'])   ?>
-
-						<?php endif; ?>
-					
-					<?php endforeach; ?>					   
+						id_cf: {
+                        required: true
+                    },	
+						desc_equipamento: {
+                        required: true
+                    },	
+						qtd_equipamento: {
+                        required: true
+                    },		
+						valor_diaria: {
+                        required: true
+                    }		   
 
                 },
                 messages: {

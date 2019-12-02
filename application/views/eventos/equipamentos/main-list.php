@@ -34,9 +34,10 @@ include ('application/views/tpl/config_container.php');
 				<table class="table table-striped table-bordered table-hover" id="sample_2">
 					<thead>
 						<th>Descrição do Equipamento</th>
-						<th width="15%" style="text-align: center;">Quantidade</th>
-						<th width="15%">Valor da Diária</th>
-						<th width="15%" style="text-align: center;">Observações</th>
+						<th width="10%" style="text-align: center;">Quantidade</th>
+						<th width="10%">Diária</th>
+						<th width="10%" style="text-align: center;">Observações</th>
+						<th width="20%">Fornecedor</th>
 						<th width="10%" style="text-align: center;">Ativo?</th>
 						<th width="10%">Ações</th>
 					</thead>
@@ -63,6 +64,7 @@ include ('application/views/tpl/config_container.php');
 							<?php } else { ?>
 							<td></td>
 							<?php } ?>
+							<td><?= $linha->nome_fantasia ?></td>
 							<td style="text-align: center;"><?= $registro_ativo ?></td>
 							<td>
 								<a class=" btn btn-default" href="<?= base_url() . $url ?>/editar/<?= $linha->token_id ?>"><i class="fa fa-pencil"></i></a>
