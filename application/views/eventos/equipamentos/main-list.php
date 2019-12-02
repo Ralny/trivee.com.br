@@ -33,6 +33,7 @@ include ('application/views/tpl/config_container.php');
 			<div class="portlet-body">
 				<table class="table table-striped table-bordered table-hover" id="sample_2">
 					<thead>
+						<th width="1"></th>
 						<th>Descrição do Equipamento</th>
 						<th width="10%" style="text-align: center;">Quantidade</th>
 						<th width="10%">Diária</th>
@@ -55,7 +56,8 @@ include ('application/views/tpl/config_container.php');
 							$registro_ativo = ($linha->sit_ativo == 'S') ? $registro_ativo_true : $registro_ativo_false ;	
 									            
 						?>	
-						<tr class="odd gradeX">									
+						<tr class="odd gradeX">	
+							<td></td>									
 							<td><?= $linha->desc_equipamento ?></td>
 							<td style="text-align: center;"><span class="label label-primary"><?= $linha->qtd_equipamento ?></span></td>
 							<td><strong><?= moeda($linha->valor_diaria) ?></strong></td>
