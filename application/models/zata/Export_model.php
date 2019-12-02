@@ -273,16 +273,16 @@ class Export_model extends MY_Model
           if ($tipo_exportacao == '') {
                $sql =    "
                          Select
-                              eve.*,
-                              eve.token_company,
-                              usu.nome,
-                              usu.sobrenome
+                              e.*,
+                              e.token_company,
+                              c.nome_fantasia
                          From
-                              eve_equipamentos eve Inner Join
-                              usu_usuario usu On usu.id_usuario = eve.id_usuario_atualizacao
+                              eve_equipamentos e Inner Join
+                              cli_cliente_fornecedor c On c.id_cf = e.id_cf
                          Where
-                              eve.token_company = '$this->company'
-                         ORDER BY desc_equipamento 
+                              e.token_company = '$this->company' 
+                         Order by     
+                              e.desc_equipamento
                          ";
           } else {
                $sql =   "
