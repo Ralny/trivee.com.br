@@ -189,7 +189,7 @@ class Eventos_equipamentos extends MY_Controller
          * URL para metodo de importacao de dados
          *
          */
-        $page_data['importar'] = base_url().'zata/Import/importar_csv_equipamentos';
+        $page_data['importar'] = base_url().'zata/Import/importar_csv_eventos_equipamentos';
         
         /**
          * Aux para definir em qual tabela vai inserir os dados importados
