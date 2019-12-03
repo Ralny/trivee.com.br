@@ -110,7 +110,7 @@ class Clientesfornecedores_model extends MY_Model {
     public function listar_clientes() {
  
         $sql = "
-                SELECT * FROM cli_cliente_fornecedor WHERE tipo_cadastro = 'Cliente' AND token_company = '$this->company'
+                SELECT * FROM cli_cliente_fornecedor WHERE (tipo_cadastro = 'Cliente' OR tipo_cadastro = 'Ambos') AND token_company = '$this->company'
                 ";   
         //execultando a consulta
         $query = $this->db->query($sql);
@@ -125,7 +125,7 @@ class Clientesfornecedores_model extends MY_Model {
     public function listar_fornecedores() {
  
         $sql = " 
-                SELECT * FROM cli_cliente_fornecedor WHERE tipo_cadastro = 'Fornecedor' AND token_company = '$this->company'
+                SELECT * FROM cli_cliente_fornecedor WHERE (tipo_cadastro = 'Fornecedor' OR tipo_cadastro = 'Ambos') AND token_company = '$this->company'
                 ";   
         //execultando a consulta
         $query = $this->db->query($sql);
