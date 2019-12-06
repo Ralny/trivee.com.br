@@ -503,6 +503,9 @@ if(isset($form_editar)){
 	if (isset($form_editar)){ 
 		$this->load->view('eventos/reserva_evento/main-list_salas');
 		$this->load->view('eventos/reserva_evento/modal-form_salas');
+
+		$this->load->view('eventos/reserva_evento/main-list_equipamentos');
+		$this->load->view('eventos/reserva_evento/modal-form_equipamentos');
 	}
  ?>
 

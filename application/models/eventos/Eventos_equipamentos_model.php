@@ -131,6 +131,8 @@ class Eventos_equipamentos_model extends MY_Model {
         
     } 
 
+    
+
  
 
 

@@ -112,6 +112,7 @@ class Eventos_reserva_evento extends MY_Controller
         $this->load->model('eventos/Eventos_salas_model');
         $this->load->model('eventos/Eventos_formato_de_salas_model');
         $this->load->model('eventos/Eventos_utilizacao_de_sala_model');
+        $this->load->model('eventos/Eventos_equipamentos_model');
         $this->load->model('eventos/Eventos_reserva_evento_model');
         $this->model = $this->Eventos_reserva_evento_model;
 
@@ -420,9 +421,6 @@ class Eventos_reserva_evento extends MY_Controller
                 $page_data['usuario_criacao'] = $data_user->nome.' '.$data_user->sobrenome;
                 $data_user = $this->model->UserAccount_model->user_data($page_data['show']->id_usuario_atualizacao);
                 $page_data['usuario_atualizacao'] = $data_user->nome.' '.$data_user->sobrenome;
-                
-                
-                   
 
                 /**
                  * Listar de salas "COMBOBOX"
@@ -434,6 +432,11 @@ class Eventos_reserva_evento extends MY_Controller
                 */
                 $page_data['lista_utilizacao_de_sala'] = $this->Eventos_utilizacao_de_sala_model->listar_utilizacao_de_sala();
                 
+                /**
+                 * Listar de salas "COMBOBOX"
+                 */
+                $page_data['lista_equipamentos'] = $this->Eventos_equipamentos_model->listar_equipamentos();
+
                 /**
                  * Lista Reservas de Sala
                  *
