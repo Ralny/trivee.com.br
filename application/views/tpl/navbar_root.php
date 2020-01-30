@@ -1,3 +1,4 @@
+
 <div class="hor-menu hor-menu hor-menu-light">
 	<ul class="nav navbar-nav">
 		
@@ -68,67 +69,95 @@
 		</ul>
 	</li>
 
-		<li class="menu-dropdown mega-menu-dropdown ">
-			<a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;" class="dropdown-toggle">
-			Eventos <i class="fa fa-angle-down"></i>
-			</a>
-			<ul class="dropdown-menu" style="min-width: 710px">
-				<li>
-					<div class="mega-menu-content">
-						<div class="row">
-							<div class="col-md-4">
-								<ul class="mega-menu-submenu">
-									<li>
-										<h3><strong> Orçamentos </strong></h3>
-									</li>
-									<li>
-										<a href="<?= base_url(); ?>eventos/reserva-de-evento/listar" class="iconify"> Reservas de Eventos </a>
-									</li>
-									<li>
-										<a href="<?= base_url(); ?>eventos/reserva-de-evento/listar" class="iconify">Ordem de Serviço </a>
-									</li>
-								</ul>
-							</div>
-							<div class="col-md-4">
-								<ul class="mega-menu-submenu">
-									<li>
-										<h3><strong>Configurações</strong></h3>
-									</li>
-									<li>
-										<a href="<?= base_url() ?>eventos/config/salas/listar" class="iconify">Salas</a>
-									</li>
-									<li>
-										<a href="<?= base_url() ?>eventos/config/formato-de-sala/listar" class="iconify"> Formato de Salas</a>
-									</li>
-									<li>
-										<a href="<?= base_url() ?>eventos/config/utilizacao-de-sala/listar" class="iconify"> Utilização de Salas</a>
-									</li>
-								</ul>
-							</div>
-							<div class="col-md-4">
-								<ul class="mega-menu-submenu">
-									<li>
-										<h3><strong>&nbsp;</strong></h3>
-									</li>
-									<li>
-										<a href="#" class="iconify">Serviços A&B</a>
-									</li>
-									<li>
-										<a href="<?= base_url() ?>eventos/config/equipamentos/listar" class="iconify"> Equipamentos</a>
-									</li>
-									<li>
-										<a href="#" class="iconify"> Internet</a>
-									</li>
-									<li>
-										<a href="#" class="iconify"> Pessoal</a>
-									</li>
-								</ul>
-							</div>
+	<li class="menu-dropdown mega-menu-dropdown ">
+		<a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;" class="dropdown-toggle">
+		Patrimonio <i class="fa fa-angle-down"></i>
+		</a>
+		<ul class="dropdown-menu" style="min-width: 710px">
+			<li>
+				<div class="mega-menu-content">
+					<div class="row">
+						<div class="col-md-4">
+							<ul class="mega-menu-submenu">
+								<li>
+									<h3><strong> Cadastros </strong></h3>
+								</li>
+								<li>
+									<a href="<?= base_url(); ?>patrimonio/config/grupos-de-bens/listar" class="iconify"> Bens Patrimoniais</a>
+								</li>
+								<li>
+									<a href="<?= base_url(); ?>eventos/reserva-de-evento/listar" class="iconify">Grupos de Bens</a>
+								</li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+			</li>
+		</ul>
+	</li>
+
+	<li class="menu-dropdown mega-menu-dropdown ">
+		<a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;" class="dropdown-toggle">
+		Eventos <i class="fa fa-angle-down"></i>
+		</a>
+		<ul class="dropdown-menu" style="min-width: 710px">
+			<li>
+				<div class="mega-menu-content">
+					<div class="row">
+						<div class="col-md-4">
+							<ul class="mega-menu-submenu">
+								<li>
+									<h3><strong> Orçamentos </strong></h3>
+								</li>
+								<li>
+									<a href="<?= base_url(); ?>eventos/reserva-de-evento/listar" class="iconify"> Reservas de Eventos </a>
+								</li>
+								<li>
+									<a href="<?= base_url(); ?>eventos/reserva-de-evento/listar" class="iconify">Ordem de Serviço </a>
+								</li>
+							</ul>
+						</div>
+						<div class="col-md-4">
+							<ul class="mega-menu-submenu">
+								<li>
+									<h3><strong>Configurações</strong></h3>
+								</li>
+								<li>
+									<a href="<?= base_url() ?>eventos/config/salas/listar" class="iconify">Salas</a>
+								</li>
+								<li>
+									<a href="<?= base_url() ?>eventos/config/formato-de-sala/listar" class="iconify"> Formato de Salas</a>
+								</li>
+								<li>
+									<a href="<?= base_url() ?>eventos/config/utilizacao-de-sala/listar" class="iconify"> Utilização de Salas</a>
+								</li>
+							</ul>
+						</div>
+						<div class="col-md-4">
+							<ul class="mega-menu-submenu">
+								<li>
+									<h3><strong>&nbsp;</strong></h3>
+								</li>
+								<li>
+									<a href="#" class="iconify">Serviços A&B</a>
+								</li>
+								<li>
+									<a href="<?= base_url() ?>eventos/config/equipamentos/listar" class="iconify"> Equipamentos</a>
+								</li>
+								<li>
+									<a href="#" class="iconify"> Internet</a>
+								</li>
+								<li>
+									<a href="#" class="iconify"> Pessoal</a>
+								</li>
+							</ul>
 						</div>
 					</div>
-				</li>
-			</ul>
-		</li>
+				</div>
+			</li>
+		</ul>
+	</li>
 
 		<!--
 
