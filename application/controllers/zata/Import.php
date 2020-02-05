@@ -141,13 +141,13 @@ class Import extends MY_Controller
 
 			if ($csv_array)
 			{
-				// Faz a interação no array para poder gravar os dados na tabela 'contatos'
+				// Faz a interação no array para poder gravar os dados na tabela 
 				foreach ($csv_array as $row)
 				{
 					$data['desc_utilizacao_sala']   = $row['desc_utilizacao_sala'];
 					$data['desc_definicao'] 		= $row['desc_definicao'];	
 
-					// Insere os dados na tabela 'contatos'
+					// Insere os dados na tabela
 					$this->import_model->insert_csv($this->input->post('tabela'), $data);
 				}
 
@@ -205,12 +205,12 @@ class Import extends MY_Controller
 
 			if ($csv_array)
 			{
-				// Faz a interação no array para poder gravar os dados na tabela 'contatos'
+				// Faz a interação no array para poder gravar os dados na tabela
 				foreach ($csv_array as $row)
 				{
 					$data['desc_formato_de_sala']   = $row['desc_formato_de_sala'];
 
-					// Insere os dados na tabela 'contatos'
+					// Insere os dados na tabela
 					$this->import_model->insert_csv($this->input->post('tabela'), $data);
 				}
 
@@ -267,7 +267,7 @@ class Import extends MY_Controller
 
 			if ($csv_array)
 			{
-				// Faz a interação no array para poder gravar os dados na tabela 'contatos'
+				// Faz a interação no array para poder gravar os dados na tabela 
 				foreach ($csv_array as $row)
 				{
 					$data['nome_sala']   					 = $row['nome_sala'];
@@ -277,7 +277,7 @@ class Import extends MY_Controller
 					$data['valor_diaria_trf_balcao']   		 = $row['valor_diaria_trf_balcao'];
 					$data['valor_diaria_trf_especial_iss']   = $row['valor_diaria_trf_especial_iss'];
 
-					// Insere os dados na tabela 'contatos'
+					// Insere os dados na tabela 
 					$this->import_model->insert_csv($this->input->post('tabela'), $data);
 				}
 
@@ -335,7 +335,7 @@ class Import extends MY_Controller
 
 			if ($csv_array)
 			{
-				// Faz a interação no array para poder gravar os dados na tabela 'contatos'
+				// Faz a interação no array para poder gravar os dados na tabela
 				foreach ($csv_array as $row)
 				{
 					$data['desc_equipamento'] = $row['desc_equipamento'];
@@ -345,7 +345,7 @@ class Import extends MY_Controller
 					/**
 					 * [observação: - por default na tabela eve_equipamentos o id do fornecedor atribui valor = 1 - CADASTRO DE FORNECEDOR INDEFINIDO]
 					 */
-					// Insere os dados na tabela 'contatos'
+					// Insere os dados na tabela
 					$this->import_model->insert_csv($this->input->post('tabela'), $data);
 				}
 
@@ -359,6 +359,71 @@ class Import extends MY_Controller
 				$data['error'] = "Ocorreu um erro, desculpe!";
 
 				redirect(base_url('eventos/config/equipamentos/listar'));
+			}
+		}
+	}
+
+	/**
+	 * Faz a importação do CSV de Equipamentos
+	 * Modulo: Eventos
+	 *
+	 * @access  public
+	 * @return  void
+	 */
+	function importar_csv_patrimonio_grupo_de_bens()
+	{
+
+		// Define as configurações para o upload do CSV
+		$config['upload_path'] = './files/import/';
+		$config['allowed_types'] = 'csv';
+		$config['max_size'] = '2000';
+
+		// Carregando library de upload
+		$this->load->library('upload', $config);
+
+		// Se o upload falhar, exibe mensagem de erro na view
+		if (!$this->upload->do_upload('csvfile'))
+		{
+			/**
+			 * Criando sessao com mensagem  
+			 */
+			$this->session->set_flashdata('msg', 'falha-importar');
+
+			redirect(base_url('patrimonio/config/grupos-de-bens/listar'));
+		}
+		else
+		{
+			$file_data = $this->upload->data();
+
+			$file_path =  './files/import/' . $file_data['file_name'];
+
+			// Chama o método 'get_array', da library csvimport, passando o path do
+			// arquivo CSV. Esse método retornará um array.
+			$csv_array = $this->csvimport->get_array($file_path);
+
+			if ($csv_array)
+			{
+				// Faz a interação no array para poder gravar os dados na tabela 
+				foreach ($csv_array as $row)
+				{
+					$data['desc_grupo_bem'] 	= $row['desc_grupo_bem'];
+					$data['depreciacao_anual']  = $row['depreciacao_anual'];
+					$data['obsv_grupo_bem']     = $row['obsv_grupo_bem'];
+					
+					// Insere os dados na tabela
+					$this->import_model->insert_csv($this->input->post('tabela'), $data);
+				}
+
+				$this->session->set_flashdata('msg', 'importar-sucesso');
+
+				redirect(base_url('patrimonio/config/grupos-de-bens/listar'));
+			}
+			else
+			{
+
+				$data['error'] = "Ocorreu um erro, desculpe!";
+
+				redirect(base_url('patrimonio/config/grupos-de-bens/listar'));
 			}
 		}
 	}
