@@ -850,6 +850,191 @@ class Export extends MY_Controller
         }
     } //End Function
 
+    /**
+     * get_csv_patrimonio_grupos_de_bens
+     *
+     * Faz a exportacao de patrimonio / grupos de bens em .CSV
+     */
+    public function get_csv_patrimonio_grupos_de_bens()
+    {
+        /**
+         * Nome do Arquivo
+         */
+        $file_name = 'ZATA_PATRIMONIO_grupos_de_bens_'.date("Y-m-d h:i:s").'.csv';
+        
+        /**
+         * Definiçaõ do header
+         */
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="'.$file_name.'"');
+
+        /**
+         * Dados que vão ser exportados
+         */
+        $query = $this->Export_model->patrimonio_grupos_de_bens('csv');
+
+        /**
+         * Configurações
+         */
+        $delimiter = ",";
+        $newline = "\r\n";
+        $data = $this->dbutil->csv_from_result($query, $delimiter, $newline);
+        $data = mb_convert_encoding($data, "UTF-8", "UTF-8, ISO-8859-1, ISO-8859-15");
+   
+        force_download($file_name, $data);
+
+    }//End Function
+
+    /**
+     * get_xml_patrimonio_grupos_de_bens
+     *
+     * Faz a exportacao de patrimonio / grupos de bens em .XML
+     */
+    public function get_xml_patrimonio_grupos_de_bens()
+    {
+        /**
+         * Nome do Arquivo
+         */
+        $file_name = 'ZATA_PATRIMONIO_grupos_de_bens_'.time().'.xml';
+        
+        /**
+         * Dados que vão ser exportados
+         */
+        $query = $this->Export_model->patrimonio_grupos_de_bens('xml');
+
+        
+        $config = array($config = array(
+                                'root'     => 'root',
+                                'element'  => 'element',
+                                'newline'  => "\n",
+                                'tab'           => "\t" )
+                            );
+                    
+
+        $data = $this->dbutil->xml_from_result($query, $config);
+
+        $data = mb_convert_encoding($data, "UTF-8", "UTF-8, ISO-8859-1, ISO-8859-15");
+
+        force_download($file_name, $data);
+
+    }//End Function
+
+     /**
+     * get_xls_patrimonio_grupos_de_bens
+     *
+     * Faz a exportacao de patrimonio / grupos de bens em .XLS
+     */
+    public function get_xls_patrimonio_grupos_de_bens()
+    {
+
+        /**
+         * Model dos dados que irão ser exportados
+         */
+        $data = $this->Export_model->patrimonio_grupos_de_bens('xls');
+
+        $dataToExports = [];
+
+        foreach ($data as $row) {
+            $arrangeData['Grupo de Bem']      = mb_convert_encoding($row['desc_grupo_bem'], 'utf-16', 'utf-8');
+            $arrangeData['Depreciacao Anual'] = mb_convert_encoding($row['depreciacao_anual'], 'utf-16', 'utf-8');
+            $arrangeData['Observacoes'] 	  = mb_convert_encoding($row['obsv_grupo_bem'], 'utf-16', 'utf-8');
+            $dataToExports[]	 			  = $arrangeData;
+        }
+        
+        /***
+         * Definir o nome do arquivo
+         */
+        $filename = "tpl_exp_Patrimonio_grupos_de_bens.xls";
+        
+        /**
+         * Definiçaõ do header
+         */
+        header("Content-Type: application/vnd.ms-excel;charset = UTF-8");
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+         
+        /**
+         * exportExcelData
+         * Função auxiliar para exportação em xls
+         */
+        $this->exportExcelData($dataToExports);
+    }
+
+    /**
+     * get_pdf_patrimonio_grupos_de_bens
+     * 
+     * Faz a exportação PDF de patrimonio / grupos de bens
+     *
+     * $preview_type - [html] utilizar em desenvolvimento para auxiliar a criação do arquivo que vai ser exportado em pdf
+     *                  [pdf] utilizar esse quando o desenvolvimento for concluido e liberar para produção
+     */
+    public function get_pdf_patrimonio_grupos_de_bens()
+    {
+        /*
+         * $preview_type
+         * [html] utilizar em desenvolvimento para auxiliar a criação do arquivo que vai ser exportado em pdf
+         * [pdf] utilizar esse quando o desenvolvimento for concluido e liberar para produção
+         */
+        $preview_type = 'pdf';
+
+        /**
+         * Dados da Empresa que o usuario esta logado
+         */
+        $company_data = $this->Empresas_model->company_data($this->session->userdata('token_company'));
+        
+        /**
+         * Dados do usuario que esta gerando relatorio
+         */
+        $user_data = $this->Useraccount_model->user_data($this->session->userdata('id_usuario'));
+
+        /**
+         * Configurações Basicas
+         */
+        $page_data = array(
+            "desc_modulo"           => 'PATRIMONIO',
+            "desc_configuracoes"    => 'GRUPOS DE BENS',
+            "tipo_exportacao"       => 'PDF',
+            "total_registros"       => count($this->Export_model->patrimonio_grupos_de_bens()),
+            "lista"                 => $this->Export_model->patrimonio_grupos_de_bens(),
+            "num_registro_pagina"   => 13,
+            "descricao_principal"   => 'LISTAGEM DE GRUPOS DE BENS',
+            "nome_usuario"          => strtoupper($user_data->nome.' '.$user_data->sobrenome),
+            "dth_criacao_relatorio" => strtoupper(data_extenso(date("Y-m-d h:i:s"))),
+            "nome_empresa_cnpj"     => strtoupper($company_data->razao_social.' - '.$company_data->numCNPJ),
+            "endereco_empresa"      => strtoupper($company_data->endereco.','. $company_data->numero .'/'. $company_data->complemento.','.
+                                                  $company_data->bairro .'-'. $company_data->cep .' '.  $company_data->cidade.'/'. $company_data->uf),
+            
+         );
+        
+        /**
+         * Em produção, passar o parametro [pdf], em desenvolvimento  utilizar o parametro [html]
+         */
+        if ($preview_type == 'pdf') {
+            
+            /***
+             * Carregando a view
+             */
+            $html = $this->load->view('print/patrimonio/grupos_de_bens_pdf', $page_data, true);
+
+            /***
+             * Definir o nome do arquivo
+             */
+            $filename = "patrimonio_grupos_de_bens-" . time();
+
+            /***
+             * Metodo responsavel por renderizar um pagina html ou PDF
+             */
+            $this->pdfgenerator->generate($html, $filename, true, 'A4', 'landscape');
+        } else {
+            /***
+             * Metodo responsavel por renderizar um pagina html ou PDF
+             */
+            $this->load->view('print/patrimonio/grupos_de_bens_pdf', $page_data);
+        }
+    } //End Function
+
+
 
 
 

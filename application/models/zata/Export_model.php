@@ -318,4 +318,61 @@ class Export_model extends MY_Model
           }
     }
 
+    /**
+     * patrimonio_grupos_de_bens
+     * @description Faz a exportacao de PATRIMONIO > GRUPOS DE BENS
+     *
+     * @access  public
+     * @param $tipo_exportacao
+     */
+    public function patrimonio_grupos_de_bens($tipo_exportacao = '')
+    {
+          if ($tipo_exportacao == '') {
+               $sql =    "
+                         Select
+                              p.*,
+                              p.token_company,
+                              usu.nome,
+                              usu.sobrenome
+                         From
+                              pat_grupo_bem p Inner Join
+                              usu_usuario usu On usu.id_usuario = p.id_usuario_atualizacao
+                         Where
+                              p.token_company = '$this->company'
+                         ";
+          } else {
+               $sql =   "
+                         SELECT
+                              desc_grupo_bem, depreciacao_anual,obsv_grupo_bem
+                         FROM
+                              pat_grupo_bem 
+                         WHERE 
+                              token_company = '$this->company'
+                         ORDER BY 
+                              obsv_grupo_bem  
+                         ";
+        }
+               
+        $query = $this->db->query($sql);
+
+        switch ($tipo_exportacao) {
+               
+               case 'csv':
+                    return $query;
+                    break;
+
+               case 'xls':
+                    return $query->result_array();
+                    break;
+
+               case 'xml':
+                    return $query;
+                    break;
+               
+               default:
+                    return $query->result();
+                    break;
+          }
+    }
+
 }//End Class
