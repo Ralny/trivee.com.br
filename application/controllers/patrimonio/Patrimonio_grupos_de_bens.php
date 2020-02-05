@@ -8,7 +8,7 @@
  * 
  * Este conteudo é publicado sob a Lincença MIT
  *
- * Copyright(c) 2015-2017, TRIVEE SERVICES IT
+ * Copyright(c) 2015-2020, TRIVEE SERVICES IT
  * 
  * É concedida permissão a qualquer pessoa que obtenha uma cópia deste 
  * software e arquivos de documentação associados, sem restrições e limitação,
@@ -35,7 +35,7 @@
  *
  * This content is published under the MIT Licensing
  *
- * Copyright (c) 2015-2017, TRIVEE SERVICES IT
+ * Copyright (c) 2015-2020, TRIVEE SERVICES IT
  *
  * Permission is granted to anyone who obtains a copy of this
  * software and associated documentation files, without restrictions and limitations,
@@ -83,7 +83,7 @@ class Patrimonio_grupos_de_bens extends MY_Controller
      */
     public $modulo  = 'patrimonio_grupos_de_bens';
 
-    public $url     = 'patrimonio_grupos_de_bens';
+    public $url     = 'patrimonio/config/grupos-de-bens';
 
     /**
      * Constructor
@@ -105,7 +105,7 @@ class Patrimonio_grupos_de_bens extends MY_Controller
          * Carregando Model
          * Loading Model 
          */
-        $this->load->model('Patrimonio_grupos_de_bens_model');
+        $this->load->model('patrimonio/Patrimonio_grupos_de_bens_model');
         $this->model = $this->Patrimonio_grupos_de_bens_model;
        
         /**
@@ -169,13 +169,33 @@ class Patrimonio_grupos_de_bens extends MY_Controller
          * Titulo do Portlet
          * Portlet Title
          */
-        $page_data['title_portlet'] = $this->info['config']['titulo_modulo'];
+        $page_data['page_title'] = 'Patrimônio / Configurações';
+
+        /**
+         * Titulo do Portlet
+         * Portlet Title
+         */
+        $page_data['title_portlet'] = 'Grupos de Bens';
 
         /**
          * Variavel auxiliar para rotas do controller
          * Auxiliary variable for controller routes
          */
         $page_data['url']           = $this->url;
+
+        /** INICIO DA IMPORTAÇÃO DE DADOS ------------------------------------------------------------------------------------------------------------ */
+        /**
+         * URL para metodo de importacao de dados
+         *
+         */
+        $page_data['importar'] = base_url().'zata/Import/importar_csv_patrimonio_grupo_de_bens';
+        
+        /**
+         * Aux para definir em qual tabela vai inserir os dados importados
+         *
+         */
+        $page_data['tabela'] = $this->info['config']['tabela_db'];
+        /** FIM DA iMPORTAÇÃO DE DADOS -------------------------------------------------------------------------------------------------------------- */
 
         /**
          * Configuracao do Grid
@@ -192,7 +212,22 @@ class Patrimonio_grupos_de_bens extends MY_Controller
         /**
          * View 
          */
-        $page_data['page']          = 'patrimonio_grupos_de_bens/main-list';
+        if (empty($page_data['lista'])) {
+            /**
+             * Link para download do template csv 
+             */
+            $page_data['link_download_tpl'] = base_url().'/download_tpl_importacao/tpl_imp_Eventos_salas.csv';
+            
+            /**
+             * View Empty
+             */
+            $page_data['page'] = 'patrimonio/grupos_de_bens/index';
+        } else {
+            /**
+            * View
+            */
+            $page_data['page'] = 'patrimonio/grupos_de_bens/main-list';
+        }
 
         /**
          * Carregando tudo na view
@@ -230,10 +265,16 @@ class Patrimonio_grupos_de_bens extends MY_Controller
         $this->log_zata->log_step_by_step();
         
         /**
-         * Titulo Portlet
+         * Titulo do Portlet
          * Portlet Title
          */
-        $page_data['title_portlet'] = $this->info['config']['titulo_modulo'];
+        $page_data['page_title'] = 'Patrimônio / Configurações';
+
+        /**
+         * Titulo do Portlet
+         * Portlet Title
+         */
+        $page_data['title_portlet'] = 'Grupos de Bens';
         
         /**
          * Variavel auxiliar para rotas do controller. Usada somente no formulario em modo de edicao
@@ -256,7 +297,7 @@ class Patrimonio_grupos_de_bens extends MY_Controller
         /**
          * View 
          */
-        $page_data['page']          = 'patrimonio_grupos_de_bens/form';
+        $page_data['page']          = 'patrimonio/grupos_de_bens/form';
         
         /**
          * Carregando dados para a view
@@ -298,7 +339,7 @@ class Patrimonio_grupos_de_bens extends MY_Controller
          * Pega o identificador do registro que vai ser editado diretamente da URL
          * Get the identified from the record that will be edited directly from the URL
          */   
-        $id = $this->uri->segment(3); 
+        $id = $this->uri->segment(5); 
 
         /**
          * Verfica se exite e se a variavel capturada diretamente da URL é um numero, 
@@ -381,7 +422,7 @@ class Patrimonio_grupos_de_bens extends MY_Controller
                 /**
                  * View 
                  */
-                $page_data['page']          = 'patrimonio_grupos_de_bens/form';
+                $page_data['page']          = 'patrimonio/grupos_de_bens/form';
 
                 /**
                  * Carregando dados para a view
@@ -391,7 +432,6 @@ class Patrimonio_grupos_de_bens extends MY_Controller
             }
         }             
     } // Fim da Funcao - End of function
-    
 
    /**
     * Salvar - To save
@@ -414,7 +454,11 @@ class Patrimonio_grupos_de_bens extends MY_Controller
          * Responsável por validar os dados vindos do formulario pelo POST 
          * Responsible for validating the data coming from the form by the POST
          */
-        $data = $this->validatePost();
+        $data = array(
+            'desc_grupo_bem'        => $this->input->post('desc_grupo_bem'),
+            'depreciacao_anual'     => moeda_ajuste_2($this->input->post('depreciacao_anual')),
+            'obsv_grupo_bem'        => $this->input->post('obsv_grupo_bem')
+         );
 
         /**
          * Verifica o status do registro - ATIVO / INATIVO 
