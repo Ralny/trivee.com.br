@@ -26,27 +26,74 @@ include ('application/views/tpl/config_container.php');
 							<button class="close" data-close="alert"></button>
 							<?= $erro_valid_form ?>
 						</div>
+
+						<?php 
+
+						/**
+							 * Verificar o status do registro e se botão ATIVO ira ficar marcado
+							 * quando o formulario estiver em modo de edição
+							 * Check the status of the record and if the ACTIVE button will be marked
+							 * When the form is in edit mode
+							 */
+							if (isset($form_editar)){ 
+
+								/**
+								 * Se for 'S', este registro está ativo
+								 * If 'S', this record is active
+								 */
+								if ($show->sit_ativo == 'S')
+								{
+									$checked = 'checked';
+								}
+								else
+								{
+									/**
+									 * não está ativo
+									 * Is not active
+									 */
+									$checked = '';
+								}
+							}
+							else
+							{
+								/**
+								 * Formulario em modo de Cadastro por padrao ficará ativo
+								 * Form in Registration mode by default will be active
+								 */
+								$checked 		= 'checked';
+							}		
+
+						?>	
 										 
 						
 						<div class="form-group">
-							<label class="control-label col-md-2">Desc Grupo Bem <span class="required"> * </span></label>
+							<label class="control-label col-md-2">Nome do Grupo<span class="required"> * </span></label>
 							<div class="col-md-5">
 								<input value="<?=  isset($show->desc_grupo_bem) ? $show->desc_grupo_bem : null ;?>" name="desc_grupo_bem" data-required="1" type="text" class="form-control" maxlength="300"/>
 							</div>
 						</div>
 						
 						<div class="form-group">
-							<label class="control-label col-md-2">Depreciacao Anual <span class="required"> * </span></label>
-							<div class="col-md-5">
-								<input value="<?=  isset($show->depreciacao_anual) ? $show->depreciacao_anual : null ;?>" name="depreciacao_anual" data-required="1" type="text" class="form-control" maxlength="300"/>
-							</div>
+							<label class="control-label col-md-2">Depreciação Anual <span class="required"> * </span></label>
+								<div class="col-md-3">
+									<div class="input-group">
+										<input value="<?=  isset($show->depreciacao_anual) ? decimal_ajuste_exibir($show->depreciacao_anual) : null ;?>" name="depreciacao_anual" data-required="1" type="text" class="form-control" maxlength="5"/>
+										<span class="input-group-addon">%</span>
+									</div>	
+								</div>
 						</div>
+
+						<div class="form-group">
+							<label class="control-label col-md-2">Observações</label>
+							<div class="col-md-5">
+								<textarea name="obsv_grupo_bem" class="form-control autosizeme" rows="6"><?=  isset($show->obsv_grupo_bem) ? $show->obsv_grupo_bem : null ;?></textarea>
+							</div>
+						</div>	
 						
 						<div class="form-group">
-							<label class="control-label col-md-2">Sit Ativo </label>
-							<div class="col-md-5">
-								<input value="<?=  isset($show->sit_ativo) ? $show->sit_ativo : null ;?>" name="sit_ativo"  type="text" class="form-control" maxlength="300"/>
-							</div>
+								<label class="control-label col-md-2">Ativo?</label>
+								<div class="col-md-5">
+									<input type="checkbox" name="sit_ativo" class="make-switch" <?= $checked; ?> data-on-text="<i class='fa fa-check'></i>" data-off-text="<i class='fa fa-times'></i>"> 
 						</div>
 										   	
 
@@ -66,6 +113,8 @@ include ('application/views/tpl/config_container.php');
 <script>
 
     jQuery(document).ready(function() {
+
+		$('input[name="depreciacao_anual"]').maskMoney({thousands:'.',decimal:','});  
 
     	<?php
     	/**
@@ -139,17 +188,13 @@ include ('application/views/tpl/config_container.php');
                 ignore: "",  // Validar todos os campos inclusos no form
               
                 rules: {
-
-        		<?php foreach ($tableForm as $k => $field) : ?>
-
-						<?php if($field['required'] != '0'): ?>
-
-							<?php echo SiteHelpers::fieldRequiredShow($field['field'], $field['required'])   ?>
-
-						<?php endif; ?>
-					
-					<?php endforeach; ?>					   
-
+						desc_grupo_bem: {
+							required: true
+						},
+													
+						depreciacao_anual: {
+                        	required: true
+                    	},					   
                 },
                 messages: {
 
