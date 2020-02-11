@@ -8,7 +8,7 @@
  * 
  * Este conteudo é publicado sob a Lincença MIT
  *
- * Copyright(c) 2015-2017, TRIVEE SERVICES IT
+ * Copyright(c) 2015-2020, TRIVEE SERVICES IT
  * 
  * É concedida permissão a qualquer pessoa que obtenha uma cópia deste 
  * software e arquivos de documentação associados, sem restrições e limitação,
@@ -35,7 +35,7 @@
  *
  * This content is published under the MIT Licensing
  *
- * Copyright (c) 2015-2017, TRIVEE SERVICES IT
+ * Copyright (c) 2015-2020, TRIVEE SERVICES IT
  *
  * Permission is granted to anyone who obtains a copy of this
  * software and associated documentation files, without restrictions and limitations,
