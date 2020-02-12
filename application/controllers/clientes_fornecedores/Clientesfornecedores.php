@@ -35,7 +35,7 @@
  *
  * This content is published under the MIT Licensing
  *
- * Copyright (c) 2015-2020, TRIVEE SERVICES IT
+ * Copyright (c) 2015-2020 1, TRIVEE SERVICES IT
  *
  * Permission is granted to anyone who obtains a copy of this
  * software and associated documentation files, without restrictions and limitations,
