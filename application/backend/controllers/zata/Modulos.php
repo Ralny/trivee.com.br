@@ -780,18 +780,18 @@ class Modulos extends MY_Controller {
                 $codes['form_entry'] = SiteHelpers::toForm($config['form']);
                 $codes['grid_entry'] = SiteHelpers::toGrid($config['grid']);
 
-               	$controller = file_get_contents('application/views/zata/modulos/template/code_dinamic/controller.tpl');
-                $model      = file_get_contents('application/views/zata/modulos/template/code_dinamic/model.tpl');
+               	$controller = file_get_contents('../application/backend/views/zata/modulos/template/code_dinamic/controller.tpl');
+                $model      = file_get_contents('../application/backend/views/zata/modulos/template/code_dinamic/model.tpl');
 
                 if($this->input->get('a') =='e')
                 {
-                	$grid       = file_get_contents('application/views/zata/modulos/template/code_static/main-list.tpl');
-                	$form       = file_get_contents('application/views/zata/modulos/template/code_static/form.tpl');
+                	$grid       = file_get_contents('../application/backend/views/zata/modulos/template/code_static/main-list.tpl');
+                	$form       = file_get_contents('../application/backend/views/zata/modulos/template/code_static/form.tpl');
 
                 }else{
 
-                	$grid       = file_get_contents('application/views/zata/modulos/template/code_dinamic/main-list.tpl');
-                	$form       = file_get_contents('application/views/zata/modulos/template/code_dinamic/form.tpl');
+                	$grid       = file_get_contents('../application/backend/views/zata/modulos/template/code_dinamic/main-list.tpl');
+                	$form       = file_get_contents('../application/backend/views/zata/modulos/template/code_dinamic/form.tpl');
 
                 }
 
@@ -801,10 +801,10 @@ class Modulos extends MY_Controller {
                 $build_form       = $this->blend($form,$codes);
 
 
-                if(!is_dir("application/views/{$folder_view}"))
+                if(!is_dir("../application/backend/views/{$folder_view}"))
                 {
 
-                       mkdir( "application/views/{$folder_view}" ,0777 );            
+                       mkdir( "../application/backend/views/{$folder_view}" ,0777 );            
                 
                 }     
 
@@ -815,37 +815,37 @@ class Modulos extends MY_Controller {
                     if($this->input->get('c') =='y')
                     {
                     
-                            file_put_contents( "application/controllers/{$class}.php" , $build_controller) ;   
+                            file_put_contents( "../application/backend/controllers/{$class}.php" , $build_controller) ;   
                             
                     }
                     
                     if($this->input->get('m') =='y')
                     {
                     
-                        file_put_contents(  "application/models/{$class}_model.php" , $build_model) ;
+                        file_put_contents( "../application/backend/models/{$class}_model.php" , $build_model) ;
                             
                     }    
                         
                     if($this->input->get('g') =='y'){
                     
-                            file_put_contents(  "application/views/{$class}/main-list.php" , $build_grid) ;
+                            file_put_contents(  "../application/backend/views/{$class}/main-list.php" , $build_grid) ;
                     
                     }    
                                
                     if($this->input->get('f') =='y')
                     {
 
-                        file_put_contents(  "application/views/{$class}/form.php" , $build_form) ;
+                        file_put_contents(  "../application/backend/views/{$class}/form.php" , $build_form) ;
                     }
                     
                 }
                 else
                 {
 
-                    file_put_contents("application/controllers/{$class}.php",  $build_controller);  
-                    file_put_contents("application/models/{$class}_model.php", $build_model);
-                    file_put_contents("application/views/{$class}/main-list.php", $build_grid);
-                    file_put_contents("application/views/{$class}/form.php", $build_form);        
+                    file_put_contents("../application/backend/controllers/{$class}.php",  $build_controller);  
+                    file_put_contents("../application/backend/models/{$class}_model.php", $build_model);
+                    file_put_contents("../application/backend/views/{$class}/main-list.php", $build_grid);
+                    file_put_contents("../application/backend//views/{$class}/form.php", $build_form);        
 
                 } 
 
