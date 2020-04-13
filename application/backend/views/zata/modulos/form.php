@@ -1,6 +1,6 @@
 <?php 
 //Carregando configurações de conteiner
-include ('application/views/tpl/config_container.php');
+include ('../application/backend/views/tpl/config_container.php');
 
 // --------------------------------------------------------
 // Aux para desabilidar elementos do formulario que nao podem mais ser editados

@@ -3,28 +3,23 @@
  * Carregando configurações auxiliares
  * Loading auxiliary settings
  */
-include ('application/views/tpl/config_container.php');
+include ('../application/backend/views/tpl/config_container.php');
 
-
-
-if(isset($form_editar)){
+	if(isset($form_editar)){
+		
+		$collapse = 'expand';
+		$info     = '<h2 style="clear: both">'.$show->desc_evento.' -  '.data_extenso($show->dth_previsao_inicio).' | '.$show->num_pax.' Pax</h2>';
+		$contato  = '<h4>'.$show->contato_nome.' - '.$show->contato_telefone.'</h4>';
+		$style    = 'style="display: none;"';
+	}
+	else
+	{
+		$collapse = 'collapse';
+		$info 	  = '';
+		$contato  = '';
+		$style 	  = '';
+	}
 	
-	$collapse = 'expand';
-	$info     = '<h2 style="clear: both">'.$show->desc_evento.' -  '.data_extenso($show->dth_previsao_inicio).' | '.$show->num_pax.' Pax</h2>';
-	$contato  = '<h4>'.$show->contato_nome.' - '.$show->contato_telefone.'</h4>';
-	$style    = 'style="display: none;"';
-
-
-}else{
-	$collapse = 'collapse';
-	$info 	  = '';
-	$contato  = '';
-	$style 	  = '';
-
-}
-
-
-
 ?>
 <!-- BEGIN PAGE CONTENT INNER -->
 <div class="row">

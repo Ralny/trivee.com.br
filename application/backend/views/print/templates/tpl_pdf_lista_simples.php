@@ -2,8 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
-     <link rel="stylesheet" href="./assets/print/css/print_static.css" type="text/css" />
-     <link rel="stylesheet" href="../../assets/print/css/print_static.css?123" type="text/css" />
+     <link rel="stylesheet" href="<?= base_url() ?>assets/backend/zata/print/print_static.css" type="text/css" />
 </head>
 
 <body>

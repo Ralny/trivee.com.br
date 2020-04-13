@@ -3,7 +3,7 @@
  * Carregando configurações auxiliares
  * Loading auxiliary settings
  */
-include ('application/views/tpl/config_container.php');
+include ('../application/backend/views/tpl/config_container.php');
 ?>
 <!-- BEGIN PAGE CONTENT INNER -->
 <div class="row">
@@ -64,7 +64,7 @@ include ('application/views/tpl/config_container.php');
 							}		
 
 						?>		
-										 
+							
 						
 						<div class="form-group">
 							<label class="control-label col-md-3">Nome da Sala <span class="required"> * </span></label>
@@ -134,6 +134,7 @@ include ('application/views/tpl/config_container.php');
 		</div>
 		<!-- END VALIDATION STATES-->
 	</div>
+</div>	
 
 <!-- VALIDAÇÃO -->
 <script>

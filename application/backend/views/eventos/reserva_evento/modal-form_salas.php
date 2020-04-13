@@ -3,7 +3,7 @@
  * Carregando configurações auxiliares
  * Loading auxiliary settings
  */
-include ('application/views/tpl/config_container.php');
+include ('../application/backend/views/tpl/config_container.php');
 ?>
 <div class="modal fade" id="basic" tabindex="-1" role="basic" aria-hidden="true">
 		<div class="modal-dialog modal-lg" style="width: 1100px;">

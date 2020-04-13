@@ -2,9 +2,10 @@
 /**
  * Configurações auxiliares para a impressão PDF do Relatorio
  */
-include('./application/views/print/templates/tpl_header.php');
-include('./application/views/print/templates/tpl_info_companny_user.php');
-include('./application/views/print/templates/tpl_rodape.php');
+include ('../application/backend/views/print/templates/tpl_header.php');
+include ('../application/backend/views/print/templates/tpl_info_companny_user.php');
+include ('../application/backend/views/print/templates/tpl_rodape.php');
+include ('../application/backend/views/tpl/config_container.php');
 
 /**
  * Paginação - Utilizado pra indicar a paginção. Por exemplo: Pagina: 1/3
@@ -50,8 +51,7 @@ $table_itens = '
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
-    <link rel="stylesheet" href="./assets/print/css/print_static.css" type="text/css" />
-    <link rel="STYLESHEET" href="../../assets/print/css/print_static.css?12345" type="text/css" />
+     <link rel="stylesheet" href="<?= base_url() ?>assets/backend/zata/print/print_static.css" type="text/css" />
 </head>
 
 <body>

@@ -1,6 +1,6 @@
 <?php 
 // Carregando configurações auxiliares
-include ('application/views/tpl/config_container.php');
+include ('../application/backend/views/tpl/config_container.php');
 ?>
 <!-- BEGIN PAGE CONTENT INNER -->
 

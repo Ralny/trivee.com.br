@@ -3,7 +3,7 @@
  * Carregando configurações auxiliares
  * Loading auxiliary settings
  */
-include ('application/views/tpl/config_container.php');
+include ('../application/backend/views/tpl/config_container.php');
 ?>
 <!-- BEGIN PAGE CONTENT INNER -->
 <div class="row">
