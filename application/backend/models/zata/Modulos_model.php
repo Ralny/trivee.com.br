@@ -79,7 +79,7 @@ defined('BASEPATH') OR exit('Não é permitido acesso direto ao script');
  */
 class Modulos_model extends MY_Model {
 
-   /**
+    /**
     * Class constructor
     *
     * @return  void
@@ -89,7 +89,7 @@ class Modulos_model extends MY_Model {
         
         parent::__construct();
 
-          /**
+        /**
          * Definir o nome da tabela
          * Set the table name
          */
@@ -102,7 +102,7 @@ class Modulos_model extends MY_Model {
         $this->primaryKey = "id_modulo";
         
     } 
- 
+
 
 
         

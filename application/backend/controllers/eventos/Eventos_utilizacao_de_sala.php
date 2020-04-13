@@ -150,7 +150,6 @@ class Eventos_utilizacao_de_sala extends MY_Controller
      */
     public function listar()
     {
-
         /**
          * Verifica se o usuario tem permissao de acesso
          * Checks whether the user has access permission

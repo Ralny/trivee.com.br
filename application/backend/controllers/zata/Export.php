@@ -633,14 +633,12 @@ class Export extends MY_Controller
             "num_registro_pagina"   => 22,
             "descricao_principal"   => 'LISTAGEM DE SALAS',
             "nome_usuario"          => strtoupper($user_data->nome.' '.$user_data->sobrenome),
-            "dth_criacao_relatorio" => strtoupper(data_extenso(date("Y-md h:i:s"))),
+            "dth_criacao_relatorio" => strtoupper(data_extenso(date("Y-m-d h:i:s"))),
             "nome_empresa_cnpj"     => strtoupper($company_data->razao_social.' - '.$company_data->numCNPJ),
             "endereco_empresa"      => strtoupper($company_data->endereco.','. $company_data->numero .'/'. $company_data->complemento.','.
-                                                  $company_data->bairro .'-'. $company_data->cep .' '.  $company_data->cidade.'/'. $company_data->uf),
-            
+                                                  $company_data->bairro .'-'. $company_data->cep .' '.  $company_data->cidade.'/'. $company_data->uf)            
          );
 
-        
         /**
          * Em produção, passar o parametro [pdf], em desenvolvimento  utilizar o parametro [html]
          */
@@ -1003,8 +1001,7 @@ class Export extends MY_Controller
             "dth_criacao_relatorio" => strtoupper(data_extenso(date("Y-m-d h:i:s"))),
             "nome_empresa_cnpj"     => strtoupper($company_data->razao_social.' - '.$company_data->numCNPJ),
             "endereco_empresa"      => strtoupper($company_data->endereco.','. $company_data->numero .'/'. $company_data->complemento.','.
-                                                  $company_data->bairro .'-'. $company_data->cep .' '.  $company_data->cidade.'/'. $company_data->uf),
-            
+                                                  $company_data->bairro .'-'. $company_data->cep .' '.  $company_data->cidade.'/'. $company_data->uf)
          );
         
         /**
