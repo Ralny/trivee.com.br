@@ -619,4 +619,22 @@ class Patrimonio_grupos_de_bens extends MY_Controller
         }
     }// Fim da Funcao - End of function
 
+    /**
+    * ajax_depreciacao_anual_grupo_de_bens
+    *
+    * Retorna a Depreciação de um grupo de bens em JSON
+    * 
+    *
+    * @param id_grupo_de_bem => 
+    * @author    Ralny Andrade | <ra@trivee.com.br> | https://github.com/ralny
+    */
+    public function ajax_depreciacao_anual_grupo_de_bens($id_grupo_de_bem){
+        
+        $valor_depreciacao_anual = $this->model->valor_depreciacao_anual($id_grupo_de_bem);
+
+        echo json_encode($valor_depreciacao_anual);
+
+        return;
+    }
+
 }//FIM DA CLASSE - END OF CLASS
