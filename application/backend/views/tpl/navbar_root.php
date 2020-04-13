@@ -83,10 +83,10 @@
 									<h3><strong> Cadastros </strong></h3>
 								</li>
 								<li>
-									<a href="<?= base_url(); ?>patrimonio/config/grupos-de-bens/listar" class="iconify"> Bens Patrimoniais</a>
+									<a href="<?= base_url(); ?>patrimonio/bens/listar" class="iconify"> Bens Patrimoniais</a>
 								</li>
 								<li>
-									<a href="<?= base_url(); ?>eventos/reserva-de-evento/listar" class="iconify">Grupos de Bens</a>
+									<a href="<?= base_url(); ?>patrimonio/config/grupos-de-bens/listar" class="iconify"> Grupos de Bens</a>
 								</li>
 							</ul>
 						</div>
