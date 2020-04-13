@@ -60,7 +60,7 @@ $route['translate_uri_dashes'] = FALSE;
 /**
  * Zata
  */
-$route['default_controller'] = 'welcome';
+$route['default_controller'] = 'eventos/Eventos_utilizacao_de_sala/listar';
 $route['download_tpl_importacao/(:any)']		= 'zata/Download/download_tpl_importacao/$1';
 
 /**
@@ -74,62 +74,87 @@ $route['sair'] 		= 'zata/UserAccount/signout';
 /**
  * Modulo de Eventos 
  */
-    /**
+   /**
      * Utilização de sala
      */
-    $route['eventos/config/utilizacao-de-sala/listar'] 	      = 'eventos/Eventos_utilizacao_de_sala/listar';
-    $route['eventos/config/utilizacao-de-sala/cadastrar'] 	   = 'eventos/Eventos_utilizacao_de_sala/cadastrar';
-    $route['eventos/config/utilizacao-de-sala/editar/(:any)']  = 'eventos/Eventos_utilizacao_de_sala/editar/$1';
-    $route['eventos/config/utilizacao-de-sala/salvar']   	   = 'eventos/Eventos_utilizacao_de_sala/salvar';
-    $route['eventos/config/utilizacao-de-sala/excluir/(:any)'] = 'eventos/Eventos_utilizacao_de_sala/excluir/$1';
+   $route['eventos/config/utilizacao-de-sala/listar'] 	      = 'eventos/Eventos_utilizacao_de_sala/listar';
+   $route['eventos/config/utilizacao-de-sala/cadastrar'] 	   = 'eventos/Eventos_utilizacao_de_sala/cadastrar';
+   $route['eventos/config/utilizacao-de-sala/editar/(:any)']  = 'eventos/Eventos_utilizacao_de_sala/editar/$1';
+   $route['eventos/config/utilizacao-de-sala/salvar']   	   = 'eventos/Eventos_utilizacao_de_sala/salvar';
+   $route['eventos/config/utilizacao-de-sala/excluir/(:any)'] = 'eventos/Eventos_utilizacao_de_sala/excluir/$1';
 
-    /**
+   /**
      * Formato de Sala
      */
-    $route['eventos/config/formato-de-sala/listar'] 	      = 'eventos/Eventos_formato_de_salas/listar';
-    $route['eventos/config/formato-de-sala/cadastrar'] 	  	= 'eventos/Eventos_formato_de_salas/cadastrar';
-    $route['eventos/config/formato-de-sala/editar/(:any)'] 	= 'eventos/Eventos_formato_de_salas/editar/$1';
-    $route['eventos/config/formato-de-sala/salvar']   	  	= 'eventos/Eventos_formato_de_salas/salvar';
-    $route['eventos/config/formato-de-sala/excluir/(:any)']	= 'eventos/Eventos_formato_de_salas/excluir/$1';
-    
-    /**
+   $route['eventos/config/formato-de-sala/listar'] 	      = 'eventos/Eventos_formato_de_salas/listar';
+   $route['eventos/config/formato-de-sala/cadastrar'] 	  	= 'eventos/Eventos_formato_de_salas/cadastrar';
+   $route['eventos/config/formato-de-sala/editar/(:any)'] 	= 'eventos/Eventos_formato_de_salas/editar/$1';
+   $route['eventos/config/formato-de-sala/salvar']   	  	= 'eventos/Eventos_formato_de_salas/salvar';
+   $route['eventos/config/formato-de-sala/excluir/(:any)']	= 'eventos/Eventos_formato_de_salas/excluir/$1';
+   
+   /**
      * Salas
      */
-    $route['eventos/config/salas/listar'] 	     = 'eventos/Eventos_salas/listar';
-    $route['eventos/config/salas/cadastrar'] 	  = 'eventos/Eventos_salas/cadastrar';
-    $route['eventos/config/salas/editar/(:any)']  = 'eventos/Eventos_salas/editar/$1';
-    $route['eventos/config/salas/salvar']   	     = 'eventos/Eventos_salas/salvar';
-    $route['eventos/config/salas/excluir/(:any)'] = 'eventos/Eventos_salas/excluir/$1';
-    
-    /**
+   $route['eventos/config/salas/listar'] 	     = 'eventos/Eventos_salas/listar';
+   $route['eventos/config/salas/cadastrar'] 	  = 'eventos/Eventos_salas/cadastrar';
+   $route['eventos/config/salas/editar/(:any)']  = 'eventos/Eventos_salas/editar/$1';
+   $route['eventos/config/salas/salvar']   	     = 'eventos/Eventos_salas/salvar';
+   $route['eventos/config/salas/excluir/(:any)'] = 'eventos/Eventos_salas/excluir/$1';
+   
+   /**
      * Reserva de sala
      */
-    $route['eventos/reserva-de-evento/listar'] 	      	         = 'eventos/Eventos_reserva_evento/listar';
-    $route['eventos/reserva-de-evento/cadastrar'] 	  		         = 'eventos/Eventos_reserva_evento/cadastrar';
-    $route['eventos/reserva-de-evento/editar/(:any)'] 		      = 'eventos/Eventos_reserva_evento/editar/$1';
-    $route['eventos/reserva-de-evento/salvar']   	  		         = 'eventos/Eventos_reserva_evento/salvar';
-    $route['eventos/reserva-de-evento/adicionar_reserva_de_sala'] = 'eventos/Eventos_reserva_evento/adicionar_reserva_de_sala';
-    $route['eventos/reserva-de-evento/excluir/(:any)']		      = 'eventos/Eventos_reserva_evento/excluir/$1';
+   $route['eventos/reserva-de-evento/listar'] 	      	         = 'eventos/Eventos_reserva_evento/listar';
+   $route['eventos/reserva-de-evento/cadastrar'] 	  		         = 'eventos/Eventos_reserva_evento/cadastrar';
+   $route['eventos/reserva-de-evento/editar/(:any)'] 		      = 'eventos/Eventos_reserva_evento/editar/$1';
+   $route['eventos/reserva-de-evento/salvar']   	  		         = 'eventos/Eventos_reserva_evento/salvar';
+   $route['eventos/reserva-de-evento/adicionar_reserva_de_sala'] = 'eventos/Eventos_reserva_evento/adicionar_reserva_de_sala';
+   $route['eventos/reserva-de-evento/excluir/(:any)']		      = 'eventos/Eventos_reserva_evento/excluir/$1';
 
-    /**
+   /**
      * Equipamentos
      */
-    $route['eventos/config/equipamentos/listar'] 	      = 'eventos/Eventos_equipamentos/listar';
-    $route['eventos/config/equipamentos/cadastrar'] 	   = 'eventos/Eventos_equipamentos/cadastrar';
-    $route['eventos/config/equipamentos/editar/(:any)']  = 'eventos/Eventos_equipamentos/editar/$1';
-    $route['eventos/config/equipamentos/salvar']   	   = 'eventos/Eventos_equipamentos/salvar';
-    $route['eventos/config/equipamentos/excluir/(:any)'] = 'eventos/Eventos_equipamentos/excluir/$1';
+   $route['eventos/config/equipamentos/listar'] 	      = 'eventos/Eventos_equipamentos/listar';
+   $route['eventos/config/equipamentos/cadastrar'] 	   = 'eventos/Eventos_equipamentos/cadastrar';
+   $route['eventos/config/equipamentos/editar/(:any)']  = 'eventos/Eventos_equipamentos/editar/$1';
+   $route['eventos/config/equipamentos/salvar']   	   = 'eventos/Eventos_equipamentos/salvar';
+   $route['eventos/config/equipamentos/excluir/(:any)'] = 'eventos/Eventos_equipamentos/excluir/$1';
 
+/**
+ * Modulo de Clientes e Fornecedores
+ */
+   /**
+     * Clientes e Fornecedores
+     */
+   $route['clientes-e-fornecedores/listar'] 	      = 'clientes_fornecedores/Clientesfornecedores/listar';
+   $route['clientes-e-fornecedores/cadastrar'] 	   = 'clientes_fornecedores/Clientesfornecedores/cadastrar';
+   $route['clientes-e-fornecedores/editar/(:any)']   = 'clientes_fornecedores/Clientesfornecedores/editar/$1';
+   $route['clientes-e-fornecedores/salvar']   	      = 'clientes_fornecedores/Clientesfornecedores/salvar';
+   $route['clientes-e-fornecedores/excluir/(:any)']  = 'clientes_fornecedores/Clientesfornecedores/excluir/$1';
 
 /**
  * Modulo de Patrimonio 
  */
-    /**
+
+   /**
      * Grupo de Bens
      */
-    $route['patrimonio/config/grupos-de-bens/listar'] 	     = 'patrimonio/Patrimonio_grupos_de_bens/listar';
-    $route['patrimonio/config/grupos-de-bens/cadastrar'] 	  = 'patrimonio/Patrimonio_grupos_de_bens/cadastrar';
-    $route['patrimonio/config/grupos-de-bens/editar/(:any)']  = 'patrimonio/Patrimonio_grupos_de_bens/editar/$1';
-    $route['patrimonio/config/grupos-de-bens/salvar']   	     = 'patrimonio/Patrimonio_grupos_de_bens/salvar';
-    $route['patrimonio/config/grupos-de-bens/excluir/(:any)'] = 'patrimonio/Patrimonio_grupos_de_bens/excluir/$1';    
+   $route['patrimonio/config/grupos-de-bens/listar'] 	     = 'patrimonio/Patrimonio_grupos_de_bens/listar';
+   $route['patrimonio/config/grupos-de-bens/cadastrar'] 	  = 'patrimonio/Patrimonio_grupos_de_bens/cadastrar';
+   $route['patrimonio/config/grupos-de-bens/editar/(:any)']  = 'patrimonio/Patrimonio_grupos_de_bens/editar/$1';
+   $route['patrimonio/config/grupos-de-bens/salvar']   	     = 'patrimonio/Patrimonio_grupos_de_bens/salvar';
+   $route['patrimonio/config/grupos-de-bens/excluir/(:any)'] = 'patrimonio/Patrimonio_grupos_de_bens/excluir/$1';
+      /**
+       * Requisições Ajax
+       */
+      $route['patrimonio/ajax_depreciacao_anual_grupo_de_bens/(:any)'] = 'patrimonio/Patrimonio_grupos_de_bens/ajax_depreciacao_anual_grupo_de_bens/$1';
+   
+   /**
+     * Bens
+     */
+   $route['patrimonio/bens/listar'] 	         = 'patrimonio/Patrimonio_bens/listar';
+   $route['patrimonio/bens/cadastrar'] 	      = 'patrimonio/Patrimonio_bens/cadastrar';
+   $route['patrimonio/bens/editar/(:any)']     = 'patrimonio/Patrimonio_bens/editar/$1';
+   $route['patrimonio/bens/salvar']   	      = 'patrimonio/Patrimonio_bens/salvar';
+   $route['patrimonio/bens/excluir/(:any)']    = 'patrimonio/Patrimonio_bens/excluir/$1';   
 
