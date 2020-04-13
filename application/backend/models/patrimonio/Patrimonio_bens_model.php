@@ -35,7 +35,7 @@
  *
  * This content is published under the MIT Licensing
  *
- * Copyright (c) 2015-2017, TRIVEE SERVICES IT
+ * Copyright (c) 2015-2020, TRIVEE SERVICES IT
  *
  * Permission is granted to anyone who obtains a copy of this
  * software and associated documentation files, without restrictions and limitations,
@@ -65,7 +65,7 @@
 defined('BASEPATH') OR exit('Não é permitido acesso direto ao script');
 
 /**
- * Class Model Patrimonio_grupos_de_bens 
+ * Class Model Patrimonio_bens 
  *
  * Camada base de abstração e persistências dos dados da aplicação no banco. 
  * As interações CRUD ocorrem na CORE/MY_model.
@@ -77,7 +77,7 @@ defined('BASEPATH') OR exit('Não é permitido acesso direto ao script');
  * @category  Models
  * @author    Ralny Andrade | <ra@trivee.com.br> | https://github.com/ralny
  */
-class Patrimonio_grupos_de_bens_model extends MY_Model {
+class Patrimonio_bens_model extends MY_Model {
 
    /**
     * Class constructor
@@ -93,69 +93,90 @@ class Patrimonio_grupos_de_bens_model extends MY_Model {
          * Definir o nome da tabela
          * Set the table name
          */
-        $this->table    = "pat_grupo_bem";
+        $this->table    = "pat_itens_patrominio";
         
         /**
          * Definir o nome da chave primaria
          * Define the primary key name
          */
-        $this->primaryKey = "id_grupo_bem";
+        $this->primaryKey = "id_item_patrimonio";
         
-    } 
-
-     /**
-     * combo_list_grupo_bem 
+    }
+    
+    /**
+     *  combo_list_situacao_bem 
      *
-     * Retorna lista de grupos de bem
+     * Retorna lista de situação do bem
      */
-    public function combo_list_grupo_bem(){
+    public function combo_list_situacao_bem(){
 
         /**
          * Montando select
          */
         $sql = "
                 SELECT
-                    id_grupo_bem,
-                    desc_grupo_bem
+                    id_situacao_bem,
+                    desc_situacao_bem
                 FROM
-                    pat_grupo_bem
-                WHERE 
-                    token_company = '$this->company'    
-                ORDER BY 
-                    desc_grupo_bem
+                    pat_situacao_bem
+                    ORDER BY id_situacao_bem
                 ";
 
         $query = $this->db->query($sql);
 
         return $query->result();
+        
     }
-
+    
     /**
-     * valor_depreciacao_anual 
+     *  combo_list_tipo_incorporacao 
      *
-     * Retorna valor depreciação de um Grupo de Bem
+     * Retorna lista de tipos de incorporação
      */
-    public function valor_depreciacao_anual($id_grupo_bem) {
-
+    public function combo_list_tipo_incorporacao(){
         /**
          * Montando select
          */
         $sql = "
-                SELECT 
-                    *
-                FROM 
-                    $this->table
-                WHERE
-                    $this->primaryKey = $id_grupo_bem
+                SELECT
+                    id_tipo_incorporacao,
+                    desc_tipo_incorporacao
+                FROM
+                    pat_tipo_incorporacao
+                ORDER BY 
+                    id_tipo_incorporacao
                 ";
 
-        /* execultando a consulta */
         $query = $this->db->query($sql);
 
-        /* retornando dados da consulta para o controller */
         return $query->result();
+        
     }
 
+    //Retorna valor depreciação de um UNICO BEM - usando com JSON
+    /**
+     *  combo_list_tipo_incorporacao 
+     *
+     * Retorna valor depreciação de um Grupo de Bem
+     */
+    public function valor_depreciacao_anual($idGrupoBem) {
+        
+        //sitExclusao = 'N' => Registros que não foram excluidos pelo usuario
+        $sql = "
+                    SELECT 
+                        *
+                    FROM 
+                        $this->_table
+                    WHERE
+                        $this->_primary_key = $idGrupoBem
+                ";
+
+        //execultando a consulta
+        $query = $this->db->query($sql);
+        //retornando dados da consulta para o controller
+        return $query->result();
+
+    }
 
 
         
