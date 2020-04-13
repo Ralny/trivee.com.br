@@ -1,4 +1,4 @@
-<?php 
+s<?php 
 /**
  * Carregando configurações auxiliares
  * Loading auxiliary settings
