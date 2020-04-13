@@ -1,1 +1,0 @@
-if( sum(peso) > 999 , CONCAT( ROUND( (sum(peso)/1000) ,2) , 'Kg', CONCAT( sum(peso) , 'g')
