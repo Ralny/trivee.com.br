@@ -38,7 +38,7 @@ include ('../application/backend/views/tpl/config_container.php');
 						<th>Nome do grupo</th>
 						<th>Depreciação Anual</th>
 						<th>Ativo?</th>
-						<th width="10%">Ações</th>
+						<th width="12%">Ações</th>
 					</thead>
 					<tbody>
 						<?php 
