@@ -35,7 +35,7 @@ var ComponentsFormTools = function () {
           queryTokenizer: Bloodhound.tokenizers.whitespace,
           limit: 10,
           prefetch: {
-            url: 'demo/typeahead_countries.json',
+            url: 'http://local.trivee.com.br/assets/backend/zata/demo/typeahead_countries.json',
             filter: function(list) {
               return $.map(list, function(country) { return { name: country }; });
             }
@@ -58,7 +58,7 @@ var ComponentsFormTools = function () {
         var custom = new Bloodhound({
           datumTokenizer: function(d) { return d.tokens; },
           queryTokenizer: Bloodhound.tokenizers.whitespace,
-          remote: 'demo/typeahead_custom.php?query=%QUERY'
+          remote: 'http://local.trivee.com.br/assets/backend/zata/demo/typeahead_custom.php?query=%QUERY'
         });
          
         custom.initialize();
@@ -95,13 +95,13 @@ var ComponentsFormTools = function () {
         var nba = new Bloodhound({
           datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.team); },
           queryTokenizer: Bloodhound.tokenizers.whitespace,
-          prefetch: 'demo/typeahead_nba.json'
+          prefetch: 'http://local.trivee.com.br/assets/backend/zata/demo/typeahead_nba.json'
         });
          
         var nhl = new Bloodhound({
           datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.team); },
           queryTokenizer: Bloodhound.tokenizers.whitespace,
-          prefetch: 'demo/typeahead_nhl.json'
+          prefetch: 'http://local.trivee.com.br/assets/backend/zata/demo/typeahead_nhl.json'
         });
          
         nba.initialize();
@@ -168,7 +168,7 @@ var ComponentsFormTools = function () {
           queryTokenizer: Bloodhound.tokenizers.whitespace,
           limit: 10,
           prefetch: {
-            url: 'demo/typeahead_countries.json',
+            url: 'http://local.trivee.com.br/assets/backend/zata/demo/typeahead_countries.json',
             filter: function(list) {
               return $.map(list, function(country) { return { name: country }; });
             }
@@ -191,7 +191,7 @@ var ComponentsFormTools = function () {
         var custom = new Bloodhound({
           datumTokenizer: function(d) { return d.tokens; },
           queryTokenizer: Bloodhound.tokenizers.whitespace,
-          remote: 'demo/typeahead_custom.php?query=%QUERY'
+          remote: 'http://local.trivee.com.br/assets/backend/zata/demo/typeahead_custom.php?query=%QUERY'
         });
          
         custom.initialize();
@@ -228,14 +228,14 @@ var ComponentsFormTools = function () {
           datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.team); },
           queryTokenizer: Bloodhound.tokenizers.whitespace,
           limit: 3,
-          prefetch: 'demo/typeahead_nba.json'
+          prefetch: 'http://local.trivee.com.br/assets/backend/zata/demo/typeahead_nba.json'
         });
          
         var nhl = new Bloodhound({
           datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.team); },
           queryTokenizer: Bloodhound.tokenizers.whitespace,
           limit: 3,
-          prefetch: 'demo/typeahead_nhl.json'
+          prefetch: 'http://local.trivee.com.br/assets/backend/zata/demo/typeahead_nhl.json'
         });
          
         nba.initialize();
@@ -488,7 +488,7 @@ var ComponentsFormTools = function () {
             attr("disabled", true).
             addClass("spinner");
 
-            $.post('demo/username_checker.php', {
+            $.post('http://local.trivee.com.br/assets/backend/zata/demo/username_checker.php', {
                 username: input.val()
             }, function (res) {
                 btn.attr('disabled', false);

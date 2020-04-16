@@ -13,7 +13,7 @@
 	}
 
 	function moeda2float2(ajuste_moeda){
-		console.log(ajuste_moeda);
+		//console.log(ajuste_moeda);
 		if (ajuste_moeda == ''){
 			return 0;
 		}
@@ -121,3 +121,43 @@
 		return total;
 
 	}
+
+	/**
+	 * Calcula o intervalo entre duas datas
+	 */
+	function getDateDiff(date1, date2, interval) {
+		var second = 1000,
+		    minute = second * 60,
+		    hour = minute * 60,
+		    day = hour * 24,
+		    week = day * 7;
+			dateone = new Date(date1).getTime();
+			datetwo = (date2) ? new Date().getTime() : new Date(date2).getTime();
+		var timediff = datetwo - dateone;
+			secdate = new Date(date2);
+			firdate = new Date(date1);
+			if (isNaN(timediff)) return NaN;
+			switch (interval) {
+			case "anos":
+				return secdate.getFullYear() - firdate.getFullYear();
+			case "meses":
+		        return ((secdate.getFullYear() * 12 + secdate.getMonth()) - (firdate.getFullYear() * 12 + firdate.getMonth()));
+			case "semanas":
+				return Math.floor(timediff / week);
+			case "dias":
+				return Math.floor(timediff / day);
+			case "horas":
+				return Math.floor(timediff / hour);
+			case "minutos":
+				return Math.floor(timediff / minute);
+			case "segundos":
+				return Math.floor(timediff / second);
+			default:
+				return undefined;
+			}
+	}
+
+	//dias = getDateDiff('2012-12-25', new Date(), 'dias');
+	//total_meses = getDateDiff('2015-05-18', new Date(), 'meses');
+	 //anos = getDateDiff('2012-12-25', new Date(), 'anos');
+	 
