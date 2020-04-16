@@ -172,7 +172,7 @@ class Patrimonio_bens extends MY_Controller
          * Titulo do Portlet
          * Portlet Title
          */
-        $page_data['page_title'] = 'Patrimônio';
+        $page_data['page_title'] = 'Patrimônio - Controle de imobilizado';
 
         /**
          * Titulo do Portlet
