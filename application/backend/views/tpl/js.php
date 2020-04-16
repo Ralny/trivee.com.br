@@ -39,12 +39,12 @@
 <script type="text/javascript" src="<?= base_url() ?>assets/backend/zata/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>assets/backend/zata/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>assets/backend/zata/global/plugins/jquery.input-ip-address-control-1.0.min.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>assets/backend/zata/global/plugins/bootstrap-pwstrength/pwstrength-bootstrap.min.js"></script>
+
+<!--<script type="text/javascript" src="<?= base_url() ?>assets/backend/zata/global/plugins/bootstrap-pwstrength/pwstrength-bootstrap.min.js"></script> -->
 <script type="text/javascript" src="<?= base_url() ?>assets/backend/zata/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>assets/backend/zata/global/plugins/jquery-tags-input/jquery.tagsinput.min.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>assets/backend/zata/global/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>assets/backend/zata/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js"></script>
-
 
 <script type="text/javascript" src="<?= base_url() ?>assets/backend/zata/global/plugins/typeahead/handlebars.min.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>assets/backend/zata/global/plugins/typeahead/typeahead.bundle.min.js"></script>
