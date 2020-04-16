@@ -112,7 +112,7 @@ include ('../application/backend/views/tpl/config_container.php');
 											<label class="control-label">&nbsp;</label>
 											<br />
 											<?php // if (isset($form_editar)){ ?>
-												<input type="hidden" name="patrimonio" id="patrimonio" value="<?=  isset($show->patrimonio) ? $show->patrimonio : null ;?>">
+												<input type="hidden" name="patrimonio2" id="patrimonio2" value="<?=  isset($show->patrimonio) ? $show->patrimonio : null ;?>">
 												<a class="btn btn-default" data-toggle="modal" href="#basic"><i class="fa fa-refresh"></i> Trocar Patrimonio</a>
 											<?php // } ?>	
 										</div>
@@ -494,10 +494,72 @@ jQuery(document).ready(function() {
     
     $('input[name="dth_nota_fiscal"]').mask('99/99/9999');
 
-    $('input[name="dth_fim_garantia"]').mask('99/99/9999');
-        
-		
+	$('input[name="dth_fim_garantia"]').mask('99/99/9999');
+
 });
+
+function getDateDiff(date1, date2, interval) {
+		var second = 1000,
+		    minute = second * 60,
+		    hour = minute * 60,
+		    day = hour * 24,
+		    week = day * 7;
+			dateone = new Date(date1).getTime();
+			datetwo = (date2) ? new Date().getTime() : new Date(date2).getTime();
+		var timediff = datetwo - dateone;
+			secdate = new Date(date2);
+			firdate = new Date(date1);
+			if (isNaN(timediff)) return NaN;
+			switch (interval) {
+			case "anos":
+				return secdate.getFullYear() - firdate.getFullYear();
+			case "meses":
+		        return ((secdate.getFullYear() * 12 + secdate.getMonth()) - (firdate.getFullYear() * 12 + firdate.getMonth()));
+			case "semanas":
+				return Math.floor(timediff / week);
+			case "dias":
+				return Math.floor(timediff / day);
+			case "horas":
+				return Math.floor(timediff / hour);
+			case "minutos":
+				return Math.floor(timediff / minute);
+			case "segundos":
+				return Math.floor(timediff / second);
+			default:
+				return undefined;
+			}
+	}
+	
+	/********************** CALCULAR DEPRECIAÇÃO DO PATRIMONIO - não baudie o negocio****************/
+ 	//
+	$("input[name=valor_patrimonio]").change(function(){
+
+		//Data no formatada
+		var dataNotaFiscal = formatDate(document.getElementById('dth_nota_fiscal').value);
+
+		var er                     = /\^|~|\?|,|\*|\.|\-/g;
+		//Calcula a quantidade de meses entre a data da nota fiscal e a data atual
+		var total_meses            = getDateDiff(dataNotaFiscal, new Date(), 'meses');
+		//Valor patrimonio
+		//var valorPatrimonio        = document.getElementById('valor_patrimonio').value.replace(er,"") / 100; 
+		var valorPatrimonio = moeda2float2($('input[name="valor_patrimonio"]').val());
+		//Taxa de Depreciação Anual
+		var taxaDepreciacaoAnual   = $('input[name="depreciacao_anual"]').val();
+		//Calcula valor da depreciação anual
+		var valorDepreciacaoAnual  = (valorPatrimonio * taxaDepreciacaoAnual) / 100;
+		//Calcula valor da depreciação mensal
+		var valorDepreciacaoMensal = valorDepreciacaoAnual / 12;
+		//Multiplica a depreciação mensal pela quantidade de meses que o patrimonio foi comprado 
+		var valorDepreciacao       = valorDepreciacaoMensal * total_meses;
+		//Calcula o valor atual: Valor do patrimonio menos o valor total da depreciação
+		var valorAtualPatrimonio = (valorPatrimonio - valorDepreciacao) * 100;
+		//console.log(valorAtualPatrimonio);
+		//Valor Formatado
+		var valorAtualPatrimonioFormatado = valorAtualPatrimonio.toFixed(0).replace(er,"");
+		//Insere no imput o valor da depreciação
+		document.getElementById('valorAtualPatrimonio').value = valorAtualPatrimonioFormatado; 
+	});
+    /***************** FIM DO CALCULO DA DEPRECIAÇÃO **********************************/
 
 var FormValidation = function () {
 
